@@ -1,0 +1,1 @@
+# stapik-mobile

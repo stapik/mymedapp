@@ -3,6 +3,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {Home, Details, Modal} from './src/screens';
 import {Text, View} from 'react-native';
+// import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
 
 const AppNavigator = createStackNavigator({
@@ -82,6 +83,36 @@ const RootTabs = createBottomTabNavigator({
     Visits: VisitsScreen,
     Promotions: PromotionsScreen,
     Settings: SettingsScreen,
+}, {
+    // defaultNavigationOptions: ({navigation}) => ({
+    //     tabBarIcon: ({focused, horizontal, tintColor}) => {
+    //         let IconComponent = Ionicons;
+    //         const {routeName} = navigation.state;
+    //         let iconName;
+    //
+    //         switch (routeName) {
+    //             case 'Appointments':
+    //                 iconName = 'book';
+    //                 break;
+    //             case 'Visits':
+    //                 iconName = 'add';
+    //                 break;
+    //             case 'Promotions':
+    //                 iconName = 'information-circle';
+    //                 break;
+    //             case 'Settings':
+    //                 iconName = 'options';
+    //                 break;
+    //         }
+    //
+    //         // You can return any component that you like here!
+    //         return <IconComponent name={iconName} size={25} color={tintColor}/>;
+    //     },
+    // }),
+    tabBarOptions: {
+        activeTintColor: 'tomato',
+        inactiveTintColor: 'gray',
+    },
 });
 
 

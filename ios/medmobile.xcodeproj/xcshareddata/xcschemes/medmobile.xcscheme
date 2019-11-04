@@ -31,7 +31,7 @@
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
                BuildableName = "medmobile.app"
                BlueprintName = "medmobile"
-               ReferencedContainer = "container:medmobile.xcodeproj">
+               ReferencedContainer = "container:Renovatio Demo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -45,7 +45,7 @@
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
                BuildableName = "medmobileTests.xctest"
                BlueprintName = "medmobileTests"
-               ReferencedContainer = "container:medmobile.xcodeproj">
+               ReferencedContainer = "container:Renovatio Demo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,7 +61,7 @@
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "medmobile.app"
             BlueprintName = "medmobile"
-            ReferencedContainer = "container:medmobile.xcodeproj">
+            ReferencedContainer = "container:Renovatio Demo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -72,13 +72,13 @@
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
                BuildableName = "medmobileTests.xctest"
                BlueprintName = "medmobileTests"
-               ReferencedContainer = "container:medmobile.xcodeproj">
+               ReferencedContainer = "container:Renovatio Demo.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -97,6 +97,15 @@
             ReferencedContainer = "container:medmobile.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
+            BuildableName = "medmobile.app"
+            BlueprintName = "medmobile"
+            ReferencedContainer = "container:Renovatio Demo.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -111,7 +120,7 @@
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "medmobile.app"
             BlueprintName = "medmobile"
-            ReferencedContainer = "container:medmobile.xcodeproj">
+            ReferencedContainer = "container:Renovatio Demo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

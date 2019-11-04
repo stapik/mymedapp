@@ -1,4 +1,10 @@
 {
   "name": "medmobile",
-  "displayName": "Renovatio Demo"
+  "displayName": "medmobile",
+  "expo": {
+    "name": "My app",
+    "slug": "my-app",
+    "sdkVersion": "UNVERSIONED",
+    "privacy": "public"
+  }
 }

@@ -5,6 +5,7 @@ import {Home, Details, Modal} from './src/screens';
 import {Text, View} from 'react-native';
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
+import SplashScreen from "react-native-splash-screen";
 
 const AppNavigator = createStackNavigator({
     Home: {
@@ -119,6 +120,10 @@ const RootTabs = createBottomTabNavigator({
 const AppContainer = createAppContainer(RootTabs);
 
 export default class App extends React.Component {
+
+    componentDidMount(): void {
+        SplashScreen.hide();
+    }
 
     render() {
         return <AppContainer/>;

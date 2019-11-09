@@ -8,14 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* medmobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* medmobileTests.m */; };
-		08FE0865CB6BCE24C489F6E5 /* libPods-medmobile-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7CA65BF43BC41EE412A2255 /* libPods-medmobile-tvOSTests.a */; };
 		0AEFCC8476B847D98ED2EE73 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B03BD5F8906492E8B654E9C /* FontAwesome.ttf */; };
 		0E24D00AFB3D479EAA5A20B2 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0D9982D5DC584252B201F10C /* Zocial.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		1490281D65471F392E53A04B /* libPods-medmobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21D9605C8F2DED9D5C74EF8A /* libPods-medmobileTests.a */; };
 		2CEEADA7FE5C45A990EBA1FF /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0033EE372E7B432796CB1AAD /* Octicons.ttf */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -23,13 +21,16 @@
 		2DCD954D1E0B4F2C00145EB5 /* medmobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* medmobileTests.m */; };
 		33D2642BD0AA4BADA27E0FD2 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4AC21C2606CF4420A8971BA3 /* Fontisto.ttf */; };
 		3753F6852BD146F3BB6826A8 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EEC7CDEB3EB430A91BC28C6 /* Feather.ttf */; };
+		4281BD8CDF378366AAC7C5D3 /* libPods-Renovatio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABE2DE82BE205C001B5AE5F8 /* libPods-Renovatio.a */; };
+		46A721BE4486F60B28D843E4 /* libPods-Renovatio-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F249B5F7F089C52C82B83CA3 /* libPods-Renovatio-tvOS.a */; };
 		48A665DF79254FDF848F1E09 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64683C85E91B4A419EAD62F1 /* AntDesign.ttf */; };
 		519ECA0C51CD4F67996B6BD2 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C08EC18B0854E74B564F295 /* Entypo.ttf */; };
 		5BA25D6FBB494FAFB6CB6994 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84119AAEE643447D813F9D3B /* SimpleLineIcons.ttf */; };
-		5DB007FE39B97DA47748AD8F /* libPods-medmobile-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFDD2F0DB57A9046D2D7252 /* libPods-medmobile-tvOS.a */; };
+		5F0DACECE517E25FCBE08A4A /* libPods-RenovatioTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AE098739E7D12261E35A3ED /* libPods-RenovatioTests.a */; };
+		851960FC2377028A0036B166 /* LaunchScreenImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 851960FB2377028A0036B166 /* LaunchScreenImg.png */; };
+		8E52F16BC933102938F4E03D /* libPods-Renovatio-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72392058A5C724B0DD9313B5 /* libPods-Renovatio-tvOSTests.a */; };
 		8E74EB44D2E9486E8CD0029F /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90B5529E9C8744359C6D5207 /* FontAwesome5_Brands.ttf */; };
 		A94FD0C673BA49E2A12E4C01 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 61BF2B15D4394831B3822BA6 /* FontAwesome5_Solid.ttf */; };
-		B0ABD284C52454CC03CA1BE6 /* libPods-medmobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 726687C0AA48BDD0B7080EA3 /* libPods-medmobile.a */; };
 		BB11F8447A1942F993D3C32C /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E25573953A8460DBABC6F75 /* MaterialCommunityIcons.ttf */; };
 		BE57E5A17C924464B6C198BB /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 255F51F14317459685CE6A7D /* EvilIcons.ttf */; };
 		CB608B1DEF1C49D39E1E4D52 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 02D90FC8398648759829A0A1 /* Foundation.ttf */; };
@@ -71,32 +72,41 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = medmobile/main.m; sourceTree = "<group>"; };
 		1C603B976D15E4B6C7C0B48C /* Pods-medmobile-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-medmobile-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-medmobile-tvOSTests/Pods-medmobile-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1FFFB1B8B18FED85E74565CC /* Pods-medmobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-medmobileTests.release.xcconfig"; path = "Target Support Files/Pods-medmobileTests/Pods-medmobileTests.release.xcconfig"; sourceTree = "<group>"; };
-		21D9605C8F2DED9D5C74EF8A /* libPods-medmobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-medmobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		246CEDB2DE65D7C6972A94DE /* Pods-medmobile-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-medmobile-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-medmobile-tvOS/Pods-medmobile-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		255F51F14317459685CE6A7D /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		2AE098739E7D12261E35A3ED /* libPods-RenovatioTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RenovatioTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B03BD5F8906492E8B654E9C /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* Renovatio-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Renovatio-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Renovatio-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Renovatio-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EEC7CDEB3EB430A91BC28C6 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
-		2FFDD2F0DB57A9046D2D7252 /* libPods-medmobile-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-medmobile-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		346E045481B22E46F89F2331 /* Pods-medmobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-medmobile.release.xcconfig"; path = "Target Support Files/Pods-medmobile/Pods-medmobile.release.xcconfig"; sourceTree = "<group>"; };
+		382CA3F1B0782CCB70E947C0 /* Pods-Renovatio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Renovatio.debug.xcconfig"; path = "Target Support Files/Pods-Renovatio/Pods-Renovatio.debug.xcconfig"; sourceTree = "<group>"; };
 		4AC21C2606CF4420A8971BA3 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		4E25573953A8460DBABC6F75 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		52250E2B5DAC6F9EA16B705A /* Pods-medmobile-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-medmobile-tvOS.release.xcconfig"; path = "Target Support Files/Pods-medmobile-tvOS/Pods-medmobile-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		5348096D83A12C366083EBBE /* Pods-Renovatio-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Renovatio-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Renovatio-tvOSTests/Pods-Renovatio-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5E42CB0F2883422FD41A916F /* Pods-medmobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-medmobileTests.debug.xcconfig"; path = "Target Support Files/Pods-medmobileTests/Pods-medmobileTests.debug.xcconfig"; sourceTree = "<group>"; };
 		61BF2B15D4394831B3822BA6 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		64683C85E91B4A419EAD62F1 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
+		6695F42250F605D8B3E5A0D7 /* Pods-Renovatio-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Renovatio-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Renovatio-tvOS/Pods-Renovatio-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		6C08EC18B0854E74B564F295 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		6FA89F9848484DE68C3CEFEB /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-ionicons/fonts/Ionicons.ttf"; sourceTree = "<group>"; };
-		726687C0AA48BDD0B7080EA3 /* libPods-medmobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-medmobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		72392058A5C724B0DD9313B5 /* libPods-Renovatio-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Renovatio-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		812FEF7618170B6DDE04C127 /* Pods-RenovatioTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RenovatioTests.release.xcconfig"; path = "Target Support Files/Pods-RenovatioTests/Pods-RenovatioTests.release.xcconfig"; sourceTree = "<group>"; };
 		84119AAEE643447D813F9D3B /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		851960FB2377028A0036B166 /* LaunchScreenImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchScreenImg.png; sourceTree = "<group>"; };
 		89EE733F445744B1B820AAD3 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		90B5529E9C8744359C6D5207 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		98340A6075D293801AA3418B /* Pods-medmobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-medmobile.debug.xcconfig"; path = "Target Support Files/Pods-medmobile/Pods-medmobile.debug.xcconfig"; sourceTree = "<group>"; };
 		9A702ABB5AD898C47267E786 /* Pods-medmobile-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-medmobile-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-medmobile-tvOSTests/Pods-medmobile-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		C7CA65BF43BC41EE412A2255 /* libPods-medmobile-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-medmobile-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABE2DE82BE205C001B5AE5F8 /* libPods-Renovatio.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Renovatio.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC2E391A56CE54CF0D387AC2 /* Pods-Renovatio-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Renovatio-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Renovatio-tvOSTests/Pods-Renovatio-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		B160F6642D952BACF7CE9A16 /* Pods-Renovatio-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Renovatio-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Renovatio-tvOS/Pods-Renovatio-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		D230E0DE44C7E7EEA0FEF2D6 /* Pods-RenovatioTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RenovatioTests.debug.xcconfig"; path = "Target Support Files/Pods-RenovatioTests/Pods-RenovatioTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E56E1C2D95D1490C68CC6A4F /* Pods-Renovatio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Renovatio.release.xcconfig"; path = "Target Support Files/Pods-Renovatio/Pods-Renovatio.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		F249B5F7F089C52C82B83CA3 /* libPods-Renovatio-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Renovatio-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCE1BECD0929430EB033886E /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,7 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1490281D65471F392E53A04B /* libPods-medmobileTests.a in Frameworks */,
+				5F0DACECE517E25FCBE08A4A /* libPods-RenovatioTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,7 +123,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0ABD284C52454CC03CA1BE6 /* libPods-medmobile.a in Frameworks */,
+				4281BD8CDF378366AAC7C5D3 /* libPods-Renovatio.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,7 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5DB007FE39B97DA47748AD8F /* libPods-medmobile-tvOS.a in Frameworks */,
+				46A721BE4486F60B28D843E4 /* libPods-Renovatio-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,7 +139,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				08FE0865CB6BCE24C489F6E5 /* libPods-medmobile-tvOSTests.a in Frameworks */,
+				8E52F16BC933102938F4E03D /* libPods-Renovatio-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +166,7 @@
 		13B07FAE1A68108700A75B9A /* medmobile */ = {
 			isa = PBXGroup;
 			children = (
+				851960FB2377028A0036B166 /* LaunchScreenImg.png */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -195,10 +206,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				726687C0AA48BDD0B7080EA3 /* libPods-medmobile.a */,
-				2FFDD2F0DB57A9046D2D7252 /* libPods-medmobile-tvOS.a */,
-				C7CA65BF43BC41EE412A2255 /* libPods-medmobile-tvOSTests.a */,
-				21D9605C8F2DED9D5C74EF8A /* libPods-medmobileTests.a */,
+				ABE2DE82BE205C001B5AE5F8 /* libPods-Renovatio.a */,
+				F249B5F7F089C52C82B83CA3 /* libPods-Renovatio-tvOS.a */,
+				72392058A5C724B0DD9313B5 /* libPods-Renovatio-tvOSTests.a */,
+				2AE098739E7D12261E35A3ED /* libPods-RenovatioTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -214,6 +225,14 @@
 				9A702ABB5AD898C47267E786 /* Pods-medmobile-tvOSTests.release.xcconfig */,
 				5E42CB0F2883422FD41A916F /* Pods-medmobileTests.debug.xcconfig */,
 				1FFFB1B8B18FED85E74565CC /* Pods-medmobileTests.release.xcconfig */,
+				382CA3F1B0782CCB70E947C0 /* Pods-Renovatio.debug.xcconfig */,
+				E56E1C2D95D1490C68CC6A4F /* Pods-Renovatio.release.xcconfig */,
+				6695F42250F605D8B3E5A0D7 /* Pods-Renovatio-tvOS.debug.xcconfig */,
+				B160F6642D952BACF7CE9A16 /* Pods-Renovatio-tvOS.release.xcconfig */,
+				5348096D83A12C366083EBBE /* Pods-Renovatio-tvOSTests.debug.xcconfig */,
+				AC2E391A56CE54CF0D387AC2 /* Pods-Renovatio-tvOSTests.release.xcconfig */,
+				D230E0DE44C7E7EEA0FEF2D6 /* Pods-RenovatioTests.debug.xcconfig */,
+				812FEF7618170B6DDE04C127 /* Pods-RenovatioTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -395,6 +414,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				851960FC2377028A0036B166 /* LaunchScreenImg.png in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				48A665DF79254FDF848F1E09 /* AntDesign.ttf in Resources */,
@@ -453,7 +473,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-medmobile/Pods-medmobile-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Renovatio/Pods-Renovatio-resources.sh",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -492,7 +512,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-medmobile/Pods-medmobile-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Renovatio/Pods-Renovatio-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
@@ -524,7 +544,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-medmobileTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-RenovatioTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -546,7 +566,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-medmobile-tvOSTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Renovatio-tvOSTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -568,7 +588,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-medmobile-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Renovatio-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -590,7 +610,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-medmobile-tvOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Renovatio-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -702,7 +722,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5E42CB0F2883422FD41A916F /* Pods-medmobileTests.debug.xcconfig */;
+			baseConfigurationReference = D230E0DE44C7E7EEA0FEF2D6 /* Pods-RenovatioTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -725,7 +745,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1FFFB1B8B18FED85E74565CC /* Pods-medmobileTests.release.xcconfig */;
+			baseConfigurationReference = 812FEF7618170B6DDE04C127 /* Pods-RenovatioTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -745,7 +765,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 98340A6075D293801AA3418B /* Pods-medmobile.debug.xcconfig */;
+			baseConfigurationReference = 382CA3F1B0782CCB70E947C0 /* Pods-Renovatio.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -767,7 +787,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 346E045481B22E46F89F2331 /* Pods-medmobile.release.xcconfig */;
+			baseConfigurationReference = E56E1C2D95D1490C68CC6A4F /* Pods-Renovatio.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -788,7 +808,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 246CEDB2DE65D7C6972A94DE /* Pods-medmobile-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 6695F42250F605D8B3E5A0D7 /* Pods-Renovatio-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -816,7 +836,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 52250E2B5DAC6F9EA16B705A /* Pods-medmobile-tvOS.release.xcconfig */;
+			baseConfigurationReference = B160F6642D952BACF7CE9A16 /* Pods-Renovatio-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -844,7 +864,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1C603B976D15E4B6C7C0B48C /* Pods-medmobile-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = 5348096D83A12C366083EBBE /* Pods-Renovatio-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -871,7 +891,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9A702ABB5AD898C47267E786 /* Pods-medmobile-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = AC2E391A56CE54CF0D387AC2 /* Pods-Renovatio-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;

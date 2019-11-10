@@ -3,9 +3,9 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {Home, Details, Modal} from './src/screens';
 import {Text, View} from 'react-native';
-// import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
-import SplashScreen from "react-native-splash-screen";
+import SplashScreen from 'react-native-splash-screen';
 
 const AppNavigator = createStackNavigator({
     Home: {
@@ -80,10 +80,30 @@ const AppointmentsStack = createStackNavigator({
 });
 
 const RootTabs = createBottomTabNavigator({
-    Appointments: AppointmentsStack,
-    Visits: VisitsScreen,
-    Promotions: PromotionsScreen,
-    Settings: SettingsScreen,
+    Appointments: {
+        screen: AppointmentsStack,
+        navigationOptions: {
+            title: 'Запись к врачу',
+        },
+    },
+    Visits: {
+        screen: VisitsScreen,
+        navigationOptions: {
+            title: 'Визиты',
+        },
+    },
+    Promotions: {
+        screen: PromotionsScreen,
+        navigationOptions: {
+            title: 'Акции',
+        },
+    },
+    Settings: {
+        screen: SettingsScreen,
+        navigationOptions: {
+            title: 'Настройки',
+        },
+    },
 }, {
     // defaultNavigationOptions: ({navigation}) => ({
     //     tabBarIcon: ({focused, horizontal, tintColor}) => {

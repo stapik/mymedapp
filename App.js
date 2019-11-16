@@ -113,16 +113,16 @@ const RootTabs = createBottomTabNavigator({
 
             switch (routeName) {
                 case 'Appointments':
-                    iconName = 'book';
+                    iconName = 'ios-add-circle-outline';
                     break;
                 case 'Visits':
-                    iconName = 'add';
+                    iconName = 'ios-book';
                     break;
                 case 'Promotions':
-                    iconName = 'information-circle';
+                    iconName = 'ios-information-circle';
                     break;
                 case 'Settings':
-                    iconName = 'options';
+                    iconName = 'ios-settings';
                     break;
             }
 

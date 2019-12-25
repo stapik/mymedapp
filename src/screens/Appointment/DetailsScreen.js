@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, Button} from 'react-native';
 
-class Details extends React.Component {
+class DetailsScreen extends React.Component {
 
   static navigationOptions = {
     title: 'Подробности',
@@ -24,4 +24,4 @@ class Details extends React.Component {
   }
 }
 
-export {Details};
+export {DetailsScreen};

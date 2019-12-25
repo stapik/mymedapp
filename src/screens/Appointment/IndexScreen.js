@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, Button, TouchableOpacity} from 'react-native';
+import React from 'react';
+import {View, Text, Button} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import SplashScreen from 'react-native-splash-screen';
 
-class Home extends React.Component {
+
+class IndexScreen extends React.Component {
 
     state = {
         count: 0,
@@ -22,7 +22,10 @@ class Home extends React.Component {
     getData = () => {
         AsyncStorage.getItem('count').then((value) => {
             this.setState({count: JSON.parse(value)});
-        }).catch((e) => console.log(e.toString()));
+        }).catch((e) => {
+            this.setState({count: 0});
+            console.log(e.toString())
+        });
     };
 
     _increaseCount = () => {
@@ -50,7 +53,7 @@ class Home extends React.Component {
                 <Text>Home Screen!</Text>
                 <Text>Count: {this.state.count}</Text>
                 <Button title='Open modal' onPress={() => {
-                    this.props.navigation.navigate('MyModal');
+                    this.props.navigation.navigate('Modal');
                 }}/>
                 <Button title='test' onPress={() => {
                     this.props.navigation.navigate('Details', {id: 86});
@@ -60,4 +63,4 @@ class Home extends React.Component {
     }
 }
 
-export {Home};
+export {IndexScreen};

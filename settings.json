@@ -1,0 +1,18 @@
+{
+  "app_id": 1,
+  "app_secret": "TNgHz2zyo9bw7rHyNnFkXA1lMitpX9s7Ul2nqMaW",
+  "api_url": "http://192.168.1.220:3030/api/",
+  "api_version": "v1",
+  "defaultStackConfig": {
+    "initialRouteName": "Index",
+    "defaultNavigationOptions": {
+      "headerStyle": {
+        "backgroundColor": "#ff8122"
+      },
+      "headerTintColor": "#fff",
+      "headerTitleStyle": {
+        "fontWeight": "bold"
+      }
+    }
+  }
+}

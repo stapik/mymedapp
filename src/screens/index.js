@@ -1,3 +1,2 @@
-export * from './Home';
-export * from './Details';
-export * from './Modal';
+export * from './ModalScreen';
+export * from './DefaultScreen';

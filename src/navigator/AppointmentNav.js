@@ -6,6 +6,9 @@ import {defaultStackConfig} from '../../settings'
 const AppointmentStack = createStackNavigator({
     Index: {
         screen: IndexScreen,
+        navigationOptions:{
+            title:'Запись'
+        }
     },
     Details: {
         screen: DetailsScreen,

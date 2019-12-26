@@ -1,10 +1,13 @@
 import {createStackNavigator} from 'react-navigation-stack';
-import { DefaultScreen, ModalScreen} from '../screens';
-import {defaultStackConfig} from '../../settings'
+import {IndexScreen, SignOutModalScreen} from '../screens/Settings';
+import {defaultStackConfig} from '../../settings';
 
 const SettingsStack = createStackNavigator({
     Index: {
-        screen: DefaultScreen,
+        screen: IndexScreen,
+        navigationOptions: {
+            title: 'Настройки',
+        },
     },
 }, defaultStackConfig);
 
@@ -12,8 +15,8 @@ const SettingsNav = createStackNavigator({
     Main: {
         screen: SettingsStack,
     },
-    Modal: {
-        screen: ModalScreen,
+    SignOut: {
+        screen: SignOutModalScreen,
     },
 }, {
     mode: 'modal',

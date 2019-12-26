@@ -34,7 +34,6 @@ class IndexScreen extends React.Component {
 
     static navigationOptions = (({navigation}) => {
         return {
-            title: 'Дом',
             headerBackTitle: 'A much too long text for back button from B to A',
             headerTruncatedBackTitle: `to A`,
             headerRight: (

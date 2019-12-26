@@ -5,14 +5,14 @@ import {TabsNav} from './TabsNav';
 import {createStackNavigator} from 'react-navigation-stack';
 
 const AuthStack = createSwitchNavigator({
-    Index: {
+    Login: {
         screen: LoginScreen,
     },
     Modal: {
         screen: ErrorModalScreen,
     },
 }, {
-    initialRouteName: 'Index',
+    initialRouteName: 'Login'
 });
 
 const AuthNav = createStackNavigator({
@@ -21,9 +21,12 @@ const AuthNav = createStackNavigator({
     },
     TabsNav: {
         screen: TabsNav,
+        navigationOptions: {
+            gesturesEnabled: false,
+        },
     },
 }, {
-    headerMode: 'none',
+    headerMode: 'none'
 });
 
 export {AuthNav};

@@ -1,10 +1,14 @@
 import {createStackNavigator} from 'react-navigation-stack';
-import {DefaultScreen, ModalScreen} from '../screens';
+import {ModalScreen} from '../screens';
 import {defaultStackConfig} from '../../settings'
+import {IndexScreen} from '../screens/Promotions';
 
 const PromotionsStack = createStackNavigator({
     Index: {
-        screen: DefaultScreen,
+        screen: IndexScreen,
+        navigationOptions:{
+            title:'Акции'
+        }
     },
 }, defaultStackConfig);
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, Text, Button} from 'react-native';
 
-class DetailsScreen extends React.Component {
+class DoctorScreen extends React.Component {
 
   static navigationOptions = {
-    title: 'Подробности',
+    title: 'Врач',
   };
 
   render() {
@@ -12,8 +12,8 @@ class DetailsScreen extends React.Component {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         <Text>Details Screen</Text>
-        <Button title='Go to Details again' onPress={() => {
-          navigation.push('Details');
+        <Button title='Открыть поиск' onPress={() => {
+          navigation.navigate('Index');
         }}/>
         <Button title='Go back' onPress={() => {
           navigation.goBack();
@@ -24,4 +24,4 @@ class DetailsScreen extends React.Component {
   }
 }
 
-export {DetailsScreen};
+export {DoctorScreen};

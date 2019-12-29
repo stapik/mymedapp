@@ -1,2 +1,3 @@
 export * from './IndexScreen';
-export * from './DetailsScreen';
+export * from './DoctorScreen';
+export * from './FilterModalScreen';

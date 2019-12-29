@@ -14,5 +14,9 @@
         "fontWeight": "bold"
       }
     }
+  },
+  "defaultTabBarOptions" : {
+    "activeTintColor": "tomato",
+    "inactiveTintColor": "gray"
   }
 }

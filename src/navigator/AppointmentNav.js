@@ -1,6 +1,5 @@
 import {createStackNavigator} from 'react-navigation-stack';
-import {DetailsScreen, IndexScreen} from '../screens/Appointment';
-import {ModalScreen} from '../screens';
+import {DoctorScreen, FilterModalScreen, IndexScreen} from '../screens/Appointment';
 import {defaultStackConfig} from '../../settings'
 
 const AppointmentStack = createStackNavigator({
@@ -10,8 +9,8 @@ const AppointmentStack = createStackNavigator({
             title:'Запись'
         }
     },
-    Details: {
-        screen: DetailsScreen,
+    Doctor: {
+        screen: DoctorScreen,
     },
 }, defaultStackConfig);
 
@@ -19,8 +18,8 @@ const AppointmentNav = createStackNavigator({
     Main: {
         screen: AppointmentStack,
     },
-    Modal: {
-        screen: ModalScreen,
+    FilterModal: {
+        screen: FilterModalScreen,
     },
 }, {
     mode: 'modal',

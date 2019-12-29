@@ -9,10 +9,22 @@ class IndexScreen extends React.Component {
         count: 0,
     };
 
+    static navigationOptions = (({navigation}) => {
+        return {
+            title: 'Ваш номер телефона',
+            // headerBackTitle: 'A much too long text for back button from B to A',
+            headerTruncatedBackTitle: 'Назад',
+            headerRight: (
+                <Button color='#fff' title="Фильтр" onPress={() => {
+                    navigation.navigate('FilterModal');
+                }}/>
+            ),
+        };
+    });
+
     constructor(props) {
         super(props);
         this.getData();
-        console.log('from = ', this.state.count);
     }
 
     storeData = () => {
@@ -21,41 +33,32 @@ class IndexScreen extends React.Component {
 
     getData = () => {
         AsyncStorage.getItem('count').then((value) => {
-            this.setState({count: JSON.parse(value)});
+            let val = JSON.parse(value);
+            this.setState({count: val ?? 0});
         }).catch((e) => {
             this.setState({count: 0});
-            console.log(e.toString())
         });
     };
 
     _increaseCount = () => {
-        this.setState({count: this.state.count + 1}, () => this.storeData());
+        let new_count = this.state.count + 1;
+        //this.setState({}, () => this.storeData());
+        //this.setState();
     };
-
-    static navigationOptions = (({navigation}) => {
-        return {
-            headerBackTitle: 'A much too long text for back button from B to A',
-            headerTruncatedBackTitle: `to A`,
-            headerRight: (
-                <Button title='+1' color='#fff' onPress={navigation.getParam('increaseCount')}/>
-            ),
-        };
-    });
 
     componentDidMount(): void {
         this.props.navigation.setParams({increaseCount: this._increaseCount});
     }
 
     render() {
+        const {navigation} = this.props;
         return (
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                 <Text>Home Screen!</Text>
                 <Text>Count: {this.state.count}</Text>
-                <Button title='Open modal' onPress={() => {
-                    this.props.navigation.navigate('Modal');
-                }}/>
-                <Button title='test' onPress={() => {
-                    this.props.navigation.navigate('Details', {id: 86});
+                <Button title='+1 count' onPress={navigation.getParam('increaseCount')}/>
+                <Button title='Открыть доктора' onPress={() => {
+                    navigation.navigate('Doctor', {id: 86});
                 }}/>
             </View>
         );

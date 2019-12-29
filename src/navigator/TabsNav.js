@@ -1,6 +1,7 @@
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
+import {defaultTabBarOptions} from '../../settings';
 import {AppointmentNav, VisitsNav, PromotionsNav, SettingsNav} from './';
 
 const TabsNav = createBottomTabNavigator({
@@ -55,10 +56,7 @@ const TabsNav = createBottomTabNavigator({
                 return <IconComponent name={iconName} size={25} color={tintColor}/>;
             },
         }),
-        tabBarOptions: {
-            activeTintColor: 'tomato',
-            inactiveTintColor: 'gray',
-        },
+        tabBarOptions: defaultTabBarOptions,
     });
 
 export {TabsNav};

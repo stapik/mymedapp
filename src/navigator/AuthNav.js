@@ -1,18 +1,24 @@
-import {createSwitchNavigator} from 'react-navigation';
 import {ErrorModalScreen} from '../screens/Auth/ErrorModalScreen';
-import {LoginScreen} from '../screens/Auth';
+import {CheckSmsScreen, LoginScreen} from '../screens/Auth';
 import {TabsNav} from './TabsNav';
 import {createStackNavigator} from 'react-navigation-stack';
 
-const AuthStack = createSwitchNavigator({
+const AuthStack = createStackNavigator({
     Login: {
         screen: LoginScreen,
+        navigationOptions:{
+            title: 'Ваш номер телефона',
+            headerTruncatedBackTitle: 'Назад',
+        }
+    },
+    CheckSms: {
+        screen: CheckSmsScreen,
     },
     Modal: {
         screen: ErrorModalScreen,
     },
 }, {
-    initialRouteName: 'Login'
+    initialRouteName: 'Login',
 });
 
 const AuthNav = createStackNavigator({
@@ -26,7 +32,7 @@ const AuthNav = createStackNavigator({
         },
     },
 }, {
-    headerMode: 'none'
+    headerMode: 'none',
 });
 
 export {AuthNav};

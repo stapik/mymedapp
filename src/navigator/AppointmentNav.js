@@ -1,16 +1,20 @@
 import {createStackNavigator} from 'react-navigation-stack';
-import {DoctorScreen, FilterModalScreen, IndexScreen} from '../screens/Appointment';
-import {defaultStackConfig} from '../../settings'
+import {DoctorScreen, FilterModalScreen, IndexScreen, SpecialtyScreen} from '../screens/Appointment';
+import {defaultStackConfig} from '../../settings';
 
 const AppointmentStack = createStackNavigator({
     Index: {
         screen: IndexScreen,
-        navigationOptions:{
-            title:'Запись'
-        }
+        navigationOptions: {
+            title: 'Запись к врачу',
+            headerBackTitle: 'Назад'
+        },
     },
     Doctor: {
         screen: DoctorScreen,
+    },
+    Specialty: {
+        screen: SpecialtyScreen,
     },
 }, defaultStackConfig);
 

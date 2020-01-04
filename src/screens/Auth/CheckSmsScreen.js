@@ -1,6 +1,6 @@
 import React from 'react';
-import {Button, Text, View, TextInput} from 'react-native';
-import Api from '../../components/Api';
+import {View} from 'react-native';
+import {Button, Text, Divider, Input,} from 'react-native-elements';
 import Helper from '../../components/Helper';
 
 class CheckSmsScreen extends React.Component {
@@ -13,7 +13,7 @@ class CheckSmsScreen extends React.Component {
         return {
             title: navigation.getParam('phone_number', 'Нет номера телефона'),
             headerRight: (
-                <Button title="Далее" onPress={navigation.getParam('checkCode')}/>
+                <Button type={'clear'} title="Далее" onPress={navigation.getParam('checkCode')}/>
             ),
         };
     };
@@ -49,30 +49,24 @@ class CheckSmsScreen extends React.Component {
     render() {
         const {navigation} = this.props;
         return (
-            <View style={{flex: 1, justifyContent: 'flex-start', alignItems: 'center', paddingTop: '40%'}}>
-                <Text style={{fontSize: 18, textAlign: 'center'}}>В течении двух минут на ваш телефон</Text>
-                <Text style={{fontSize: 18, textAlign: 'center'}}>придет код подтверждения</Text>
-                <View style={{
-                    borderWidth: 1,
-                    flexDirection: 'row',
-                    borderColor: '#dadada',
-                    marginBottom: 20,
-                    marginTop: 20,
-                }}>
-                    <TextInput
-                        autoFocus={true}
-                        keyboardType={'numeric'}
-                        maxLength={5}
-                        placeholder='Код из смс'
-                        onChangeText={(code) => this._typeCodeHandler(code)}
-                        style={{
-                            flex: 0.3,
-                            fontSize: 22,
-                            padding: 10,
-                            paddingLeft: 20,
-                        }}
-                    />
-                </View>
+            <View style={{
+                flex: 1,
+                padding: 20,
+                paddingTop: '30%',
+            }}>
+                <Text h3>СМС отправлено</Text>
+                <Divider style={{height: 15, backgroundColor: 'transparent'}}/>
+                <Text>В течении двух минут на ваш телефон придет код подтверждения</Text>
+                <Divider style={{height: 30, backgroundColor: 'transparent'}}/>
+                <Input
+                    style={{width: 20}}
+                    autoFocus={true}
+                    keyboardType={'numeric'}
+                    maxLength={5}
+                    placeholder=''
+                    label={'Код из смс'}
+                    onChangeText={(code) => this._typeCodeHandler(code)}
+                />
             </View>
         );
     }

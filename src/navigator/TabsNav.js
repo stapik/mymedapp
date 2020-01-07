@@ -4,29 +4,38 @@ import React from 'react';
 import {defaultTabBarOptions} from '../../settings';
 import {AppointmentNav, VisitsNav, PromotionsNav, SettingsNav} from './';
 
+let handleTabPress = ({navigation}) => {
+    navigation.popToTop();
+    navigation.navigate(navigation.state.routeName);
+};
+
 const TabsNav = createBottomTabNavigator({
         Appointment: {
             screen: AppointmentNav,
             navigationOptions: {
                 title: 'Запись',
+                tabBarOnPress: handleTabPress,
             },
         },
         Visits: {
             screen: VisitsNav,
             navigationOptions: {
                 title: 'Визиты',
+                tabBarOnPress: handleTabPress,
             },
         },
         Promotions: {
             screen: PromotionsNav,
             navigationOptions: {
                 title: 'Акции',
+                tabBarOnPress: handleTabPress,
             },
         },
         Settings: {
             screen: SettingsNav,
             navigationOptions: {
                 title: 'Настройки',
+                tabBarOnPress: handleTabPress,
             },
         },
     },

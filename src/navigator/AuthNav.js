@@ -7,7 +7,7 @@ const AuthStack = createStackNavigator({
     Login: {
         screen: LoginScreen,
         navigationOptions:{
-            title: 'Ваш номер телефона',
+            title: '',
             headerTruncatedBackTitle: 'Назад',
         }
     },

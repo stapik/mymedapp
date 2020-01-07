@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 import {Text} from 'react-native-elements';
 
 const styles = StyleSheet.create({
-    defaultStyle: {fontSize: 12, color: '#696969'},
+    defaultStyle: {fontSize: 13, color: '#696969'},
 });
 
 class TextSmall extends Component {

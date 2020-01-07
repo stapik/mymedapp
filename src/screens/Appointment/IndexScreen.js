@@ -1,9 +1,10 @@
 import React from 'react';
+import {Platform} from '../../Constants';
+import {ListItem} from 'react-native-elements';
 import {
     View,
     Text,
     ScrollView,
-    TextInput,
     TouchableHighlight,
     StyleSheet,
     TouchableOpacity,
@@ -11,7 +12,7 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import _ from 'lodash';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import {SearchBar} from 'react-native-elements';
 
 class IndexScreen extends React.Component {
 
@@ -19,19 +20,11 @@ class IndexScreen extends React.Component {
         count: 0,
         backgroundColor: '#fff',
         active: false,
+        search: '',
     };
 
     static navigationOptions = (({navigation}) => {
         return {
-            title: 'Ваш номер телефона',
-            // headerBackTitle: 'A much too long text for back button from B to A',
-            headerTruncatedBackTitle: 'Назад',
-            headerRight: (
-                <TouchableOpacity onPress={() => navigation.navigate('FilterModal')}>
-                    <Ionicons name='ios-options' style={{color: '#fff', paddingRight: 10}} size={25}/>
-                </TouchableOpacity>
-
-            ),
         };
     });
 
@@ -78,20 +71,26 @@ class IndexScreen extends React.Component {
         });
     }
 
+    updateSearch = search => {
+        this.setState({search});
+    };
+
     render() {
         const {navigation} = this.props;
+        const {search} = this.state;
         return (
             <View style={{flex: 1}}>
                 <View style={{
                     borderWidth: 1,
                     borderColor: '#dadada',
-                    margin: 20,
                 }}>
-                    <TextInput
-                        autoFocus={true}
-                        maxLength={25}
+                    <SearchBar
                         placeholder='Специальность'
-                        onChangeText={(value) => this._typeSpecialtyHandler(value)}
+                        onChangeText={this.updateSearch}
+                        value={search}
+                        lightTheme={true}
+                        showCancel={true}
+                        platform={Platform}
                         style={{
                             fontSize: 22,
                             padding: 10,
@@ -99,30 +98,18 @@ class IndexScreen extends React.Component {
                         }}
                     />
                 </View>
-                <ScrollView style={{borderTopWidth: 1, borderColor: '#dadada', paddingTop: 15, flex: 1}}>
+                <ScrollView style={{flex: 1}}>
                     {_.times(4, i => {
                         return (
-                            <TouchableHighlight
-                                onPress={() => this._selectSpecialtyHandler(i)} key={i}>
-                                <View style={{
-                                    backgroundColor: '#fff',
-                                }}>
-                                    <View style={{
-                                        padding: 10,
-                                        paddingLeft: 0,
-                                        margin: 5,
-                                        marginTop: 0,
-                                        marginBottom: 0,
-                                        marginLeft: 20,
-                                        borderBottomWidth: 1,
-                                        borderColor: '#dadada',
-                                    }}>
-                                        <Text style={{
-                                            fontSize: 18,
-                                        }}>Терапия</Text>
-                                    </View>
-                                </View>
-                            </TouchableHighlight>);
+                            <TouchableHighlight onPress={() => this._selectSpecialtyHandler(i)} key={i}>
+                                <ListItem
+                                    style={{backgroundColor: '#fff'}}
+                                    title={'Терапия'}
+                                    bottomDivider
+                                    chevron
+                                />
+                            </TouchableHighlight>
+                        );
                     })}
                 </ScrollView>
             </View>

@@ -10,19 +10,31 @@ export class SlotCarousel extends Component {
         slots: [
             {
                 id: 1,
-                title: '16:00',
+                title: '15:00',
             },
             {
                 id: 2,
-                title: '17:00',
+                title: '16:00',
             },
             {
                 id: 3,
-                title: '18:00',
+                title: '17:00',
             },
             {
                 id: 4,
+                title: '18:00',
+            },
+            {
+                id: 5,
                 title: '19:00',
+            },
+            {
+                id: 6,
+                title: '20:00',
+            },
+            {
+                id: 7,
+                title: '21:00',
             },
         ],
         isFormVisible: false,
@@ -37,7 +49,7 @@ export class SlotCarousel extends Component {
                 {this.state.slots.map((item) =>
                     <TouchableOpacity onPress={()=>{navigation.navigate('AppointmentForm')}} key={item.id}>
                         <ListItem
-                            contentContainerStyle={{backgroundColor: '#184dff', padding: 10}}
+                            contentContainerStyle={{backgroundColor: '#009989', padding: 10, borderRadius: 5}}
                             titleStyle={{color: '#fff'}}
                             title={item.title}
                         />

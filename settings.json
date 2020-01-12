@@ -7,16 +7,17 @@
     "initialRouteName": "Index",
     "defaultNavigationOptions": {
       "headerStyle": {
-        "backgroundColor": "#ff8122"
+        "backgroundColor": "#fff"
       },
-      "headerTintColor": "#fff",
+      "headerBackTitle": " ",
       "headerTitleStyle": {
-        "fontWeight": "bold"
+        "fontWeight": "normal",
+        "fontSize" : 17
       }
     }
   },
   "defaultTabBarOptions": {
-    "activeTintColor": "tomato",
+    "activeTintColor": "#F04155",
     "inactiveTintColor": "gray"
   }
 }

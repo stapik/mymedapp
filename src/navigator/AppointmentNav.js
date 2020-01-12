@@ -14,7 +14,6 @@ const AppointmentStack = createStackNavigator({
         screen: IndexScreen,
         navigationOptions: {
             title: 'Запись к врачу',
-            headerBackTitle: 'Назад',
         },
     },
     Doctor: {

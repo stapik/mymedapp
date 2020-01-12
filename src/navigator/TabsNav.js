@@ -24,13 +24,13 @@ const TabsNav = createBottomTabNavigator({
                 tabBarOnPress: handleTabPress,
             },
         },
-        // Favorites: {
-        //     screen: FavoritesNav,
-        //     navigationOptions: {
-        //         title: 'Избранное',
-        //         tabBarOnPress: handleTabPress,
-        //     },
-        // },
+        Favorites: {
+            screen: FavoritesNav,
+            navigationOptions: {
+                title: 'Избранное',
+                tabBarOnPress: handleTabPress,
+            },
+        },
         Promotions: {
             screen: PromotionsNav,
             navigationOptions: {
@@ -54,7 +54,7 @@ const TabsNav = createBottomTabNavigator({
 
                 switch (routeName) {
                     case 'Appointment':
-                        iconName = 'plus-square';
+                        iconName = 'home';
                         break;
                     case 'Visits':
                         iconName = 'book';

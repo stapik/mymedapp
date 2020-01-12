@@ -15,6 +15,9 @@ class CheckSmsScreen extends React.Component {
             headerRight: (
                 <Button type={'clear'} title="Далее" onPress={navigation.getParam('checkCode')}/>
             ),
+            headerTitleStyle: {
+                fontWeight: 'bold',
+            },
         };
     };
 
@@ -52,7 +55,7 @@ class CheckSmsScreen extends React.Component {
             <View style={{
                 flex: 1,
                 padding: 20,
-                paddingTop: '30%',
+                paddingTop: '15%',
             }}>
                 <Text h3>СМС отправлено</Text>
                 <Divider style={{height: 15, backgroundColor: 'transparent'}}/>

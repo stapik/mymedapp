@@ -2,7 +2,6 @@ import React from 'react';
 import {View} from 'react-native';
 import {Button, Text, Divider, Input} from 'react-native-elements';
 import {TextSmall} from '../../components/base';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import Helper from '../../components/Helper';
 
 class LoginScreen extends React.Component {
@@ -64,7 +63,7 @@ class LoginScreen extends React.Component {
             <View style={{
                 flex: 1,
                 padding: 20,
-                paddingTop: '30%',
+                paddingTop: '10%',
             }}>
                 <Text h3>Добро пожаловать!</Text>
                 <Divider style={{height: 15, backgroundColor: 'transparent'}}/>

@@ -2,14 +2,14 @@ import {ErrorModalScreen} from '../screens/Auth/ErrorModalScreen';
 import {CheckSmsScreen, LoginScreen} from '../screens/Auth';
 import {TabsNav} from './TabsNav';
 import {createStackNavigator} from 'react-navigation-stack';
+import {defaultStackConfig} from '../../settings';
 
 const AuthStack = createStackNavigator({
     Login: {
         screen: LoginScreen,
-        navigationOptions:{
+        navigationOptions: {
             title: '',
-            headerTruncatedBackTitle: 'Назад',
-        }
+        },
     },
     CheckSms: {
         screen: CheckSmsScreen,
@@ -19,6 +19,7 @@ const AuthStack = createStackNavigator({
     },
 }, {
     initialRouteName: 'Login',
+    defaultNavigationOptions: defaultStackConfig.defaultNavigationOptions,
 });
 
 const AuthNav = createStackNavigator({

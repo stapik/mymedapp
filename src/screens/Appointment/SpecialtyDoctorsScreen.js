@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, ScrollView, TouchableOpacity, ActivityIndicator, TouchableHighlight} from 'react-native';
-import {Button, Card, Image, ListItem, SearchBar, Text} from 'react-native-elements';
+import {Button, Card, Divider, Image, ListItem, SearchBar, Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Platform} from '../../Constants';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -70,6 +70,7 @@ class SpecialtyDoctorsScreen extends React.Component {
                         </View>
                     </Card>,
                 )}
+                <Divider style={{height: 15, backgroundColor: '#fff'}}/>
             </ScrollView>
         );
     }

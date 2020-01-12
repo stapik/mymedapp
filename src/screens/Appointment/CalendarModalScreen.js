@@ -5,6 +5,7 @@ import {Calendar, LocaleConfig} from 'react-native-calendars';
 import {TextSmall} from '../../components/base';
 import moment from 'moment/src/moment';
 import * as _ from 'lodash';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 LocaleConfig.locales['ru'] = {
     monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
@@ -70,18 +71,21 @@ class CalendarModalScreen extends React.Component {
             temp_count_days--;
         }
 
+        const {navigation} = this.props;
 
         return (
             <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start'}}>
                 <Header
                     backgroundColor={'#fff'}
-                    centerComponent={{text: 'Выберите день приёма', style: {fontSize: 16}}}
-                    leftComponent={<Button title={'Закрыть'}
-                                           titleStyle={{fontSize: 16}}
-                                           type="clear"
-                                           onPress={() => this.props.navigation.goBack()}/>}
+                    leftContainerStyle={{flex: 0.30}}
+                    centerContainerStyle={{flex: 0.40}}
+                    rightContainerStyle={{flex: 0.3}}
+
+                    leftComponent={<Button type={'clear'} onPress={() => navigation.goBack()}
+                                           titleStyle={{fontSize: 16}} title={'Закрыть'}/>}
+                    centerComponent={<Text style={{fontSize: 16}}>Выберите день</Text>}
                 />
-                <View style={{paddingTop: 15}}>
+                <View style={{paddingTop: 15, width: '100%'}}>
                     <Calendar
                         minDate={from_date_str}
                         maxDate={last_date_format}
@@ -91,6 +95,8 @@ class CalendarModalScreen extends React.Component {
                         markedDates={marked_dates}
                     />
                     <Divider style={{height: 30, backgroundColor: '#fff'}}/>
+                </View>
+                <View style={{padding: 5}}>
                     <TextSmall>Записаться к врачу можно только на ближайшие 2 недели</TextSmall>
                 </View>
             </View>

@@ -1,5 +1,6 @@
 import {createStackNavigator} from 'react-navigation-stack';
 import {
+    AppointmentFormModalScreen,
     CalendarModalScreen,
     DoctorScreen,
     FilterModalScreen,
@@ -34,10 +35,12 @@ const AppointmentNav = createStackNavigator({
     CalendarModal: {
         screen: CalendarModalScreen,
     },
+    AppointmentForm: {
+        screen: AppointmentFormModalScreen,
+    },
 }, {
     mode: 'modal',
     headerMode: 'none',
 });
-
 
 export {AppointmentNav};

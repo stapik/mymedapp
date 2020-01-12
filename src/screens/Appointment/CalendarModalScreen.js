@@ -76,10 +76,10 @@ class CalendarModalScreen extends React.Component {
                 <Header
                     backgroundColor={'#fff'}
                     centerComponent={{text: 'Выберите день приёма', style: {fontSize: 16}}}
-                    rightComponent={<Button title={'Закрыть'}
-                                            titleStyle={{fontSize: 16}}
-                                            type="clear"
-                                            onPress={() => this.props.navigation.goBack()}/>}
+                    leftComponent={<Button title={'Закрыть'}
+                                           titleStyle={{fontSize: 16}}
+                                           type="clear"
+                                           onPress={() => this.props.navigation.goBack()}/>}
                 />
                 <View style={{paddingTop: 15}}>
                     <Calendar

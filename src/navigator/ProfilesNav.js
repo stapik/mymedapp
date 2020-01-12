@@ -1,26 +1,35 @@
 import {createStackNavigator} from 'react-navigation-stack';
-import {IndexScreen, SignOutModalScreen} from '../screens/Settings';
+import {IndexScreen, SignOutModalScreen, EditProfileModalScreen, SupportScreen} from '../screens/Profiles';
 import {defaultStackConfig} from '../../settings';
 
 const SettingsStack = createStackNavigator({
     Index: {
         screen: IndexScreen,
         navigationOptions: {
-            title: 'Настройки',
+            title: 'Профиль',
+        },
+    },
+    Support: {
+        screen: SupportScreen,
+        navigationOptions: {
+            title: 'Поддержка',
         },
     },
 }, defaultStackConfig);
 
-const SettingsNav = createStackNavigator({
+const ProfilesNav = createStackNavigator({
     Main: {
         screen: SettingsStack,
     },
     SignOut: {
         screen: SignOutModalScreen,
     },
+    EditProfile: {
+        screen: EditProfileModalScreen,
+    },
 }, {
     mode: 'modal',
     headerMode: 'none',
 });
 
-export {SettingsNav};
+export {ProfilesNav};

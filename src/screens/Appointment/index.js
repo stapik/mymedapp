@@ -3,3 +3,4 @@ export * from './DoctorScreen';
 export * from './FilterModalScreen';
 export * from './SpecialtyDoctorsScreen';
 export * from './CalendarModalScreen';
+export * from './AppointmentFormModalScreen';

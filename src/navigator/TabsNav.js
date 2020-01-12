@@ -1,8 +1,8 @@
 import {createBottomTabNavigator} from 'react-navigation-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
 import {defaultTabBarOptions} from '../../settings';
-import {AppointmentNav, VisitsNav, PromotionsNav, SettingsNav} from './';
+import {AppointmentNav, VisitsNav, PromotionsNav, ProfilesNav, FavoritesNav} from './';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 let handleTabPress = ({navigation}) => {
     navigation.popToTop();
@@ -24,6 +24,13 @@ const TabsNav = createBottomTabNavigator({
                 tabBarOnPress: handleTabPress,
             },
         },
+        // Favorites: {
+        //     screen: FavoritesNav,
+        //     navigationOptions: {
+        //         title: 'Избранное',
+        //         tabBarOnPress: handleTabPress,
+        //     },
+        // },
         Promotions: {
             screen: PromotionsNav,
             navigationOptions: {
@@ -31,10 +38,10 @@ const TabsNav = createBottomTabNavigator({
                 tabBarOnPress: handleTabPress,
             },
         },
-        Settings: {
-            screen: SettingsNav,
+        Profiles: {
+            screen: ProfilesNav,
             navigationOptions: {
-                title: 'Настройки',
+                title: 'Профиль',
                 tabBarOnPress: handleTabPress,
             },
         },
@@ -42,27 +49,29 @@ const TabsNav = createBottomTabNavigator({
     {
         defaultNavigationOptions: ({navigation}) => ({
             tabBarIcon: ({focused, horizontal, tintColor}) => {
-                let IconComponent = Ionicons;
                 const {routeName} = navigation.state;
                 let iconName;
 
                 switch (routeName) {
                     case 'Appointment':
-                        iconName = 'ios-add-circle-outline';
+                        iconName = 'plus-square';
                         break;
                     case 'Visits':
-                        iconName = 'ios-book';
+                        iconName = 'book';
                         break;
                     case 'Promotions':
-                        iconName = 'ios-information-circle';
+                        iconName = 'percent';
                         break;
-                    case 'Settings':
-                        iconName = 'ios-settings';
+                    case 'Favorites':
+                        iconName = 'star';
+                        break;
+                    case 'Profiles':
+                        iconName = 'user';
                         break;
                 }
 
                 // You can return any component that you like here!
-                return <IconComponent name={iconName} size={25} color={tintColor}/>;
+                return <Icon name={iconName} size={22} color={tintColor}/>;
             },
         }),
         tabBarOptions: defaultTabBarOptions,

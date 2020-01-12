@@ -24,8 +24,7 @@ class IndexScreen extends React.Component {
     };
 
     static navigationOptions = (({navigation}) => {
-        return {
-        };
+        return {};
     });
 
     constructor(props) {
@@ -90,6 +89,7 @@ class IndexScreen extends React.Component {
                         value={search}
                         lightTheme={true}
                         showCancel={true}
+                        cancelButtonTitle={'Отменить'}
                         platform={Platform}
                         style={{
                             fontSize: 22,

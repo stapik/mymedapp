@@ -15,7 +15,7 @@
       }
     }
   },
-  "defaultTabBarOptions" : {
+  "defaultTabBarOptions": {
     "activeTintColor": "tomato",
     "inactiveTintColor": "gray"
   }

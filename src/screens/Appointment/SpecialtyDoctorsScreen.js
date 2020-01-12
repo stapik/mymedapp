@@ -38,12 +38,12 @@ class SpecialtyDoctorsScreen extends React.Component {
     static navigationOptions = (({navigation}) => {
         return {
             title: navigation.getParam('title'),
-            headerRight: (
-                <TouchableOpacity onPress={() => navigation.navigate('FilterModal')}>
-                    <Ionicons name='ios-options' style={{color: '#fff', paddingRight: 10}} size={25}/>
-                </TouchableOpacity>
-
-            ),
+            // headerRight: (
+            //     <TouchableOpacity onPress={() => navigation.navigate('FilterModal')}>
+            //         <Ionicons name='ios-options' style={{color: '#fff', paddingRight: 10}} size={25}/>
+            //     </TouchableOpacity>
+            //
+            // ),
         };
     });
 

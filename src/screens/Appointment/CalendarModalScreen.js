@@ -32,7 +32,8 @@ class CalendarModalScreen extends React.Component {
 
         // get from api
         let date_format = 'YYYY-MM-DD';
-        let available_dates = ['2020-01-15', '2020-01-16', '2020-01-19', '2020-01-20', '2020-01-21'],
+        let available_dates = ['2020-01-15', '2020-01-16', '2020-01-19', '2020-01-20', '2020-01-23', '2020-01-24',
+                '2020-01-27', '2020-01-28', '2020-01-31', '2020-02-01'],
             from_date_str = moment().format(date_format);
 
         // parse
@@ -45,7 +46,7 @@ class CalendarModalScreen extends React.Component {
 
         let marked_dates = {
             [from_date_str]: {selected: true, selectedColor: current_day_color},
-            [selected_date_str]: {selected: true, selectedColor: selected_color},
+            // [selected_date_str]: {selected: true, selectedColor: selected_color},
         };
 
         // add marked days

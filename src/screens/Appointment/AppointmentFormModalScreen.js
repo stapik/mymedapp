@@ -49,9 +49,9 @@ class AppointmentFormModalScreen extends React.Component {
                         <View style={{
                             flex: 1,
                             flexDirection: 'row',
-                            borderWidth: 2,
                             borderRadius: 5,
-                            borderColor: '#009989',
+                            padding: 10,
+                            backgroundColor: '#eeeeee'
                         }}>
                             <View style={{flex: 0.4}}>
                                 <Image
@@ -63,13 +63,13 @@ class AppointmentFormModalScreen extends React.Component {
                             </View>
                             <View style={{flex: 0.6, paddingLeft: 15, paddingTop: 9}}>
                                 <Text style={{fontSize: 16}}>Иванов Иван Иванович</Text>
-                                <Divider style={{height: 5, backgroundColor: '#fff'}}/>
+                                <Divider style={{height: 5, backgroundColor: 'transparent'}}/>
                                 <Text style={{fontSize: 16}}>20.01.2020</Text>
-                                <Divider style={{height: 5, backgroundColor: '#fff'}}/>
+                                <Divider style={{height: 5, backgroundColor: 'transparent'}}/>
                                 <Text style={{fontSize: 16}}>16:00</Text>
                             </View>
                         </View>
-                        <Divider style={{height: 10, backgroundColor: '#fff'}}/>
+                        <Divider style={{height: 10, backgroundColor: 'transparent'}}/>
                         <Input
                             label={'Номер телефона'}
                             placeholder=''
@@ -81,14 +81,14 @@ class AppointmentFormModalScreen extends React.Component {
                                 <Text style={{paddingRight: 5, fontSize: 18, marginTop: -1}}>+7</Text>
                             }
                         />
-                        <Divider style={{height: 10, backgroundColor: '#fff'}}/>
+                        <Divider style={{height: 10, backgroundColor: 'transparent'}}/>
                         <Input
                             label={'Фамилия'}
                             placeholder=''
                             autoFocus={true}
                             style={{fontSize: 18}}
                         />
-                        <Divider style={{height: 10, backgroundColor: '#fff'}}/>
+                        <Divider style={{height: 10, backgroundColor: 'transparent'}}/>
                         <Input
                             label={'Имя'}
                             placeholder=''

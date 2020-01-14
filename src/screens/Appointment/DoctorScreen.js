@@ -1,8 +1,9 @@
 import React from 'react';
-import {View, ActivityIndicator, ScrollView} from 'react-native';
+import {View, ActivityIndicator, ScrollView, TouchableOpacity} from 'react-native';
 import {Card, Divider, Image, Text, Button, Tile} from 'react-native-elements';
 import {TextSmall} from '../../components/base';
 import {SlotCarousel} from '../../components/uikit';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const user = {
     name: 'brynn',
@@ -10,6 +11,10 @@ const user = {
 };
 
 class DoctorScreen extends React.Component {
+
+    state = {
+        favorites: true,
+    };
 
     static navigationOptions = {
         title: 'Иванов',
@@ -19,19 +24,44 @@ class DoctorScreen extends React.Component {
         this.props.navigation.navigate('CalendarModal');
     };
 
+    _favoriteToggle = () => {
+        this.setState({favorites: !this.state.favorites})
+    };
+
     render() {
 
         const {navigation} = this.props;
         return (
             <ScrollView style={{flex: 1}}>
-
-
                 <Image
                     source={{uri: user.avatar}}
                     style={{width: '100%', height: 250}}
                     PlaceholderContent={<ActivityIndicator/>}
                 />
+                <TouchableOpacity onPress={this._favoriteToggle}>
+                    <View style={{
+                        backgroundColor: '#ddd',
+                        width: 40,
+                        height: 40,
+                        top: -55,
+                        right: 15,
+                        borderRadius: 20,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        position: 'absolute',
+                        alignSelf: 'flex-end',
+                    }}>
+                        <Icon name={'star'} style={{
+                            fontSize: 20,
+                            color: this.state.favorites ? '#F04155' : '#fff',
+                            marginTop: 1,
+                            marginLeft: 2,
+                        }}/>
+                    </View>
+                </TouchableOpacity>
+
                 <View style={{padding: 15}}>
+
                     <Text h4>Иванов Иван Иванович</Text>
                     <Divider style={{height: 5, backgroundColor: '#fff'}}/>
                     <TextSmall>Дерматолог, Венеролог, Лазерный хирург</TextSmall>
@@ -53,21 +83,21 @@ class DoctorScreen extends React.Component {
                     <View style={{flex: 1}}>
                         <Card title="Первая клиника">
                             <View style={{flex: 1}}>
-                                <SlotCarousel navigation={navigation} />
+                                <SlotCarousel navigation={navigation}/>
                             </View>
                         </Card>
                     </View>
                     <View style={{flex: 1}}>
                         <Card title="Вторая клиника">
                             <View style={{flex: 1}}>
-                                <SlotCarousel navigation={navigation} />
+                                <SlotCarousel navigation={navigation}/>
                             </View>
                         </Card>
                     </View>
                     <View style={{flex: 1}}>
                         <Card title="Третья клиника">
                             <View style={{flex: 1}}>
-                                <SlotCarousel navigation={navigation} />
+                                <SlotCarousel navigation={navigation}/>
                             </View>
                         </Card>
                     </View>

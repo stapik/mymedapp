@@ -66,7 +66,7 @@ class SpecialtyDoctorsScreen extends React.Component {
                                 style={{height: 200, width: '100%'}}
                                 source={{uri: u.avatar}}
                             />
-                            <Button onPress={this._selectDoctor} style={{marginTop: 15}} title={'Записаться на приём'}/>
+                            <Button onPress={this._selectDoctor} style={{marginTop: 15}} title={'Расписание'}/>
                         </View>
                     </Card>,
                 )}

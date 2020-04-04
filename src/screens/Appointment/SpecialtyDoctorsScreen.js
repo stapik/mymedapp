@@ -1,72 +1,62 @@
 import React from 'react';
-import {View, ScrollView, TouchableOpacity, ActivityIndicator, TouchableHighlight} from 'react-native';
-import {Button, Card, Divider, Image, ListItem, SearchBar, Text} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import {Platform} from '../../Constants';
+import {View, ScrollView, TouchableOpacity, ActivityIndicator} from 'react-native';
+import {Button, Card, Divider, Image} from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import _ from 'lodash';
+import {fetchDoctorInfo} from '../../actions';
+import compose from '../../utils/compose';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {withDoctorStoreService} from '../../components/hoc';
 
-const users = [
-    {
-        name: 'brynn',
-        avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg',
-    },
-    {
-        name: 'brynn',
-        avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg',
-    },
-    {
-        name: 'brynn',
-        avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg',
-    },
-    {
-        name: 'brynn',
-        avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg',
-    },
-    {
-        name: 'brynn',
-        avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg',
-    },
-    {
-        name: 'brynn',
-        avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg',
-    },
-];
+class ContainerScreen extends React.Component {
 
-class SpecialtyDoctorsScreen extends React.Component {
-
-    static navigationOptions = (({navigation}) => {
+    /**
+     *
+     * @param navigation
+     * @returns {{headerRight: *, title: *}}
+     */
+    static navigationOptions = ({navigation}) => {
+        const title = navigation.getParam('title');
         return {
-            title: navigation.getParam('title'),
-            // headerRight: (
-            //     <TouchableOpacity onPress={() => navigation.navigate('FilterModal')}>
-            //         <Ionicons name='ios-options' style={{color: '#fff', paddingRight: 10}} size={25}/>
-            //     </TouchableOpacity>
-            //
-            // ),
+            title: title,
+            headerRight: (
+                <TouchableOpacity onPress={() => navigation.navigate('FilterModal')}>
+                    <Ionicons name='ios-options' style={{color: 'blue', paddingRight: 10}} size={25}/>
+                </TouchableOpacity>
+            ),
         };
-    });
-
-    _selectDoctor = () => {
-        const {navigation} = this.props;
-        navigation.navigate('Doctor');
     };
 
-    render() {
-        const {navigation} = this.props;
+    /**
+     *
+     * @param doctor
+     * @private
+     */
+    _selectDoctorHandler = (doctor) => {
+        console.log(doctor);
+        const {fetchDoctorInfo, navigation} = this.props;
+        fetchDoctorInfo(doctor.id, () => navigation.navigate('DoctorInfo', {title: doctor.name}));
+    };
 
+    /**
+     *
+     * @returns {*}
+     */
+    render() {
+        const {doctors} = this.props;
         return (
             <ScrollView style={{flex: 1}}>
-                {users.map((u, ii) =>
-                    <Card title="Иванов Иван Иванович" key={ii}>
-                        <View key={ii}>
+                {doctors.map((doctor, idx) =>
+                    <Card title={doctor.name} key={idx}>
+                        <View key={idx}>
                             <Image
                                 PlaceholderContent={<ActivityIndicator/>}
                                 resizeMode="cover"
                                 style={{height: 200, width: '100%'}}
-                                source={{uri: u.avatar}}
+                                source={{uri: doctor.avatar}}
                             />
-                            <Button onPress={this._selectDoctor} style={{marginTop: 15}} title={'Расписание'}/>
+                            <Button onPress={() => this._selectDoctorHandler(doctor)} style={{marginTop: 15}}
+                                    title={'Расписание'}/>
                         </View>
                     </Card>,
                 )}
@@ -75,5 +65,20 @@ class SpecialtyDoctorsScreen extends React.Component {
         );
     }
 }
+
+const mapStateToProps = ({doctors, page_loader}) => {
+    return {doctors, page_loader};
+};
+
+const mapDispatchToProps = (dispatch, {doctorsStoreService}) => {
+    return bindActionCreators({
+        fetchDoctorInfo: fetchDoctorInfo(doctorsStoreService),
+    }, dispatch);
+};
+
+const SpecialtyDoctorsScreen = compose(
+    withDoctorStoreService(),
+    connect(mapStateToProps, mapDispatchToProps),
+)(ContainerScreen);
 
 export {SpecialtyDoctorsScreen};

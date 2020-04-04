@@ -1,82 +1,74 @@
 import React from 'react';
-import {Platform} from '../../Constants';
+import {Platform} from '../../constants';
 import {ListItem} from 'react-native-elements';
+import {connect} from 'react-redux';
 import {
     View,
-    Text,
     ScrollView,
     TouchableHighlight,
-    StyleSheet,
-    TouchableOpacity,
 } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-import _ from 'lodash';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {SearchBar} from 'react-native-elements';
+import compose from '../../utils/compose';
+import {fetchSpecialties, fetchSpecialtyDoctors} from '../../actions';
+import {withDoctorStoreService, withSpecialtiesStoreService} from '../../components/hoc';
+import Loader from '../../components/Loader';
+import {bindActionCreators} from 'redux';
+import {searchInStr} from '../../utils';
 
-class IndexScreen extends React.Component {
+class ContainerScreen extends React.Component {
 
     state = {
         count: 0,
         backgroundColor: '#fff',
         active: false,
-        search: '',
+        loading: true,
     };
 
     static navigationOptions = (({navigation}) => {
         return {};
     });
 
+    /**
+     *
+     * @param props
+     */
     constructor(props) {
         super(props);
-        this.getData();
     }
 
-    storeData = () => {
-        AsyncStorage.setItem('count', this.state.count).catch((e) => console.log(e.toString()));
-    };
-
-    getData = () => {
-        AsyncStorage.getItem('count').then((value) => {
-            let val = JSON.parse(value);
-            this.setState({count: val ?? 0});
-        }).catch((e) => {
-            this.setState({count: 0});
-        });
-    };
-
-    _increaseCount = () => {
-        let new_count = this.state.count + 1;
-        //this.setState({}, () => this.storeData());
-        //this.setState();
-    };
-
+    /**
+     *
+     */
     componentDidMount(): void {
-        this.props.navigation.setParams({increaseCount: this._increaseCount});
+        this.props.fetchSpecialties();
     }
 
-    _typeSpecialtyHandler(valued) {
-
+    /***
+     *
+     * @param specialty
+     * @private
+     */
+    _selectSpecialtyHandler(specialty) {
+        const {fetchSpecialtyDoctors, navigation} = this.props;
+        fetchSpecialtyDoctors(specialty.id, () => navigation.navigate('SpecialtyDoctors', {title: specialty.title}));
     }
 
-    _selectSpecialtyHandler(id) {
-        let title = 'Терапия';
-        this.props.navigation.navigate('Specialty', {id, title});
-    }
-
-    _changeItemStyle() {
-        this.setState({
-            backgroundColor: '#dadada',
-        });
-    }
-
+    /**
+     *
+     * @param search
+     */
     updateSearch = search => {
         this.setState({search});
     };
 
+    /**
+     *
+     * @returns {*}
+     */
     render() {
-        const {navigation} = this.props;
+        const {specialties, page_loader} = this.props;
         const {search} = this.state;
+
         return (
             <View style={{flex: 1}}>
                 <View style={{
@@ -99,12 +91,18 @@ class IndexScreen extends React.Component {
                     />
                 </View>
                 <ScrollView style={{flex: 1}}>
-                    {_.times(4, i => {
+                    {specialties.map((specialty) => {
+
+                        if (search && !searchInStr(search, specialty.title)) {
+                            return;
+                        }
+
                         return (
-                            <TouchableHighlight onPress={() => this._selectSpecialtyHandler(i)} key={i}>
+                            <TouchableHighlight
+                                onPress={() => this._selectSpecialtyHandler(specialty)} key={specialty.id}>
                                 <ListItem
                                     style={{backgroundColor: '#fff'}}
-                                    title={'Терапия'}
+                                    title={specialty.title}
                                     bottomDivider
                                     chevron
                                 />
@@ -112,29 +110,30 @@ class IndexScreen extends React.Component {
                         );
                     })}
                 </ScrollView>
+                <Loader loading={page_loader}/>
             </View>
         );
     }
 }
 
+
+const mapStateToProps = ({specialties, page_loader}) => {
+    return {specialties, page_loader};
+};
+
+const mapDispatchToProps = (dispatch, {specialtiesStoreService, doctorsStoreService}) => {
+    return bindActionCreators({
+        fetchSpecialties: fetchSpecialties(specialtiesStoreService),
+        fetchSpecialtyDoctors: fetchSpecialtyDoctors(doctorsStoreService),
+    }, dispatch);
+};
+
+const IndexScreen = compose(
+    withSpecialtiesStoreService(),
+    withDoctorStoreService(),
+    connect(mapStateToProps, mapDispatchToProps),
+)(ContainerScreen);
+
 export {IndexScreen};
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        paddingHorizontal: 10,
-    },
-    button: {
-        alignItems: 'center',
-        backgroundColor: '#DDDDDD',
-        padding: 10,
-    },
-    countContainer: {
-        alignItems: 'center',
-        padding: 10,
-    },
-    countText: {
-        color: '#FF00FF',
-    },
-});
+

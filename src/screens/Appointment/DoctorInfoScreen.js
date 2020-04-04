@@ -4,33 +4,51 @@ import {Card, Divider, Image, Text, Button, Tile} from 'react-native-elements';
 import {TextSmall} from '../../components/base';
 import {SlotCarousel} from '../../components/uikit';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {bindActionCreators} from 'redux';
+import {fetchDoctorInfo} from '../../actions';
+import compose from '../../utils/compose';
+import {withDoctorStoreService} from '../../components/hoc';
+import {connect} from 'react-redux';
+import Ionicons from './SpecialtyDoctorsScreen';
 
 const user = {
     name: 'brynn',
     avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg',
 };
 
-class DoctorScreen extends React.Component {
+class ContainerScreen extends React.Component {
 
     state = {
         favorites: true,
     };
 
-    static navigationOptions = {
-        title: 'Иванов',
+    static navigationOptions = ({navigation}) => {
+        const title = navigation.getParam('title');
+        return {
+            title: title,
+        };
     };
+
+    componentDidMount(): void {
+        const {doctor_info, navigation} = this.props;
+        navigation.setParams({title: doctor_info.name});
+    }
 
     _showCalendar = () => {
         this.props.navigation.navigate('CalendarModal');
     };
 
     _favoriteToggle = () => {
-        this.setState({favorites: !this.state.favorites})
+        this.setState({favorites: !this.state.favorites});
     };
 
+    /**
+     *
+     * @returns {*}
+     */
     render() {
+        const {navigation, doctor_info} = this.props;
 
-        const {navigation} = this.props;
         return (
             <ScrollView style={{flex: 1}}>
                 <Image
@@ -61,11 +79,11 @@ class DoctorScreen extends React.Component {
                 </TouchableOpacity>
 
                 <View style={{padding: 15}}>
-
-                    <Text h4>Иванов Иван Иванович</Text>
+                    <Text h4>{doctor_info.name}</Text>
                     <Divider style={{height: 5, backgroundColor: '#fff'}}/>
                     <TextSmall>Дерматолог, Венеролог, Лазерный хирург</TextSmall>
                 </View>
+
                 <View style={{paddingTop: 5}}>
                     <View style={{borderColor: '#ddd', borderTopWidth: 2, borderBottomWidth: 2, padding: 10}}>
                         <Text style={{textAlign: 'center', fontSize: 20}}>Расписание</Text>
@@ -108,4 +126,19 @@ class DoctorScreen extends React.Component {
     }
 }
 
-export {DoctorScreen};
+const mapStateToProps = ({doctor_info, page_loader}) => {
+    return {doctor_info, page_loader};
+};
+
+const mapDispatchToProps = (dispatch, {doctorsStoreService}) => {
+    return bindActionCreators({
+        fetchDoctorInfo: fetchDoctorInfo(doctorsStoreService),
+    }, dispatch);
+};
+
+const DoctorInfoScreen = compose(
+    connect(mapStateToProps, mapDispatchToProps),
+)(ContainerScreen);
+
+export {DoctorInfoScreen};
+

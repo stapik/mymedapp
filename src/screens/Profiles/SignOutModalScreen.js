@@ -3,13 +3,18 @@ import {View} from 'react-native';
 import {Button, Divider, Text} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import {StackActions, NavigationActions} from 'react-navigation';
+import {persistor} from './../../store';
+import {resetStore} from '../../actions';
+import compose from '../../utils/compose';
+import {connect} from 'react-redux';
 
-class SignOutModalScreen extends React.Component {
+class SignOutModalContainer extends React.Component {
 
     _signOutAsync = async () => {
         let keys = await AsyncStorage.getAllKeys();
         await AsyncStorage.multiRemove(keys);
-
+        await persistor.purge();
+        this.props.resetStore();
         // reset login info
         const resetAction = StackActions.reset({
             index: 0,
@@ -42,5 +47,19 @@ class SignOutModalScreen extends React.Component {
         );
     }
 }
+
+export {SignOutModalContainer};
+
+const mapStateToProps = () => {
+    return {};
+};
+
+const mapDispatchToProps = {
+    resetStore: resetStore,
+};
+
+const SignOutModalScreen = compose(
+    connect(mapStateToProps, mapDispatchToProps),
+)(SignOutModalContainer);
 
 export {SignOutModalScreen};

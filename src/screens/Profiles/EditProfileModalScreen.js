@@ -76,6 +76,7 @@ class EditProfileModalScreen extends React.Component {
                                 <DatePicker
                                     style={{width: 150, paddingTop: 10}}
                                     date={this.state.date}
+                                    locale={'ru'}
                                     mode="date"
                                     placeholder="Выберите дату"
                                     format="DD.MM.YYYY"

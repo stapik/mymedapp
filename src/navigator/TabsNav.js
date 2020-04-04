@@ -31,13 +31,13 @@ const TabsNav = createBottomTabNavigator({
                 tabBarOnPress: handleTabPress,
             },
         },
-        Promotions: {
-            screen: PromotionsNav,
-            navigationOptions: {
-                title: 'Акции',
-                tabBarOnPress: handleTabPress,
-            },
-        },
+        // Promotions: {
+        //     screen: PromotionsNav,
+        //     navigationOptions: {
+        //         title: 'Акции',
+        //         tabBarOnPress: handleTabPress,
+        //     },
+        // },
         Profiles: {
             screen: ProfilesNav,
             navigationOptions: {

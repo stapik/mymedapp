@@ -2,12 +2,13 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {
     AppointmentFormModalScreen,
     CalendarModalScreen,
-    DoctorScreen,
+    DoctorInfoScreen,
     FilterModalScreen,
     IndexScreen,
     SpecialtyDoctorsScreen,
 } from '../screens/Appointment';
 import {defaultStackConfig} from '../../settings';
+import React from 'react';
 
 const AppointmentStack = createStackNavigator({
     Index: {
@@ -16,10 +17,10 @@ const AppointmentStack = createStackNavigator({
             title: 'Запись к врачу',
         },
     },
-    Doctor: {
-        screen: DoctorScreen,
+    DoctorInfo: {
+        screen: DoctorInfoScreen,
     },
-    Specialty: {
+    SpecialtyDoctors: {
         screen: SpecialtyDoctorsScreen,
     },
 }, defaultStackConfig);

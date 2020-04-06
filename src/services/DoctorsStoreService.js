@@ -1,4 +1,6 @@
-export default class DoctorsStoreService {
+import BaseService from './BaseService';
+
+export default class DoctorsStoreService extends BaseService{
 
     data = [
         {

@@ -1,4 +1,6 @@
-export default class SpecialtiesStoreService {
+import BaseService from './BaseService';
+
+export default class SpecialtiesStoreService extends BaseService {
 
     data = [
         {id: 1, title: 'Терапевт'},
@@ -13,7 +15,7 @@ export default class SpecialtiesStoreService {
      */
     getList() {
         return new Promise((resolve) => {
-            setTimeout(()=>{
+            setTimeout(() => {
                 resolve(this.data);
             }, 1200);
         });

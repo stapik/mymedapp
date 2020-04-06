@@ -10,6 +10,13 @@ const resetStore = () => {
     };
 };
 
+const internetStatus = (status) => {
+    return {
+        type: 'INTERNET_STATUS',
+        payload: status,
+    };
+};
+
 const updateToken = (token) => {
     return {
         type: 'UPDATE_TOKEN',
@@ -125,4 +132,5 @@ export {
     fetchDoctorInfo,
     resetStore,
     updateToken,
+    internetStatus,
 };

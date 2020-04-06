@@ -5,9 +5,9 @@ const filterInitialState = {
     gender: null,
 };
 
-
 const initialState = {
     token: null,
+    internet_status: false,
     doctors: [],
     specialties: [],
     page_loader: false,
@@ -15,6 +15,11 @@ const initialState = {
     doctors_filter: filterInitialState,
 };
 
+/**
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'UPDATE_TOKEN':
@@ -46,6 +51,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 page_loader: false,
+            };
+        case 'INTERNET_STATUS':
+            return {
+                ...state,
+                internet_status: false,
             };
         case 'PAGE_LOADING':
             return {

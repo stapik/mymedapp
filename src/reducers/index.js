@@ -6,7 +6,7 @@ const filterInitialState = {
 };
 
 const initialState = {
-    token: null,
+    token_info: null,
     internet_status: false,
     doctors: [],
     specialties: [],
@@ -25,7 +25,7 @@ const reducer = (state = initialState, action) => {
         case 'UPDATE_TOKEN':
             return {
                 ...state,
-                token: action.payload,
+                token_info: action.payload,
             };
         case 'DOCTORS_LOADED':
             return {

@@ -50,7 +50,8 @@ class ContainerScreen extends React.Component {
      */
     _selectSpecialtyHandler(specialty) {
         const {fetchSpecialtyDoctors, navigation} = this.props;
-        fetchSpecialtyDoctors(specialty.id, () => navigation.navigate('SpecialtyDoctors', {title: specialty.title}));
+        fetchSpecialtyDoctors(specialty.id, () =>
+            navigation.navigate('SpecialtyDoctors', {specialty_name: specialty.name}));
     }
 
     /**
@@ -93,7 +94,7 @@ class ContainerScreen extends React.Component {
                 <ScrollView style={{flex: 1}}>
                     {specialties.map((specialty) => {
 
-                        if (search && !searchInStr(search, specialty.title)) {
+                        if (search && !searchInStr(search, specialty.name)) {
                             return;
                         }
 
@@ -102,7 +103,7 @@ class ContainerScreen extends React.Component {
                                 onPress={() => this._selectSpecialtyHandler(specialty)} key={specialty.id}>
                                 <ListItem
                                     style={{backgroundColor: '#fff'}}
-                                    title={specialty.title}
+                                    title={specialty.name}
                                     bottomDivider
                                     chevron
                                 />

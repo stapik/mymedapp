@@ -4,7 +4,7 @@ import {TabsNav} from './TabsNav';
 import {createStackNavigator} from 'react-navigation-stack';
 import {defaultStackConfig} from '../../settings';
 
-const AuthStack = createStackNavigator({
+const AuthNav = createStackNavigator({
     Login: {
         screen: LoginScreen,
         navigationOptions: {
@@ -22,18 +22,18 @@ const AuthStack = createStackNavigator({
     defaultNavigationOptions: defaultStackConfig.defaultNavigationOptions,
 });
 
-const AuthNav = createStackNavigator({
-    Main: {
-        screen: AuthStack,
-    },
-    TabsNav: {
-        screen: TabsNav,
-        navigationOptions: {
-            gesturesEnabled: false,
-        },
-    },
-}, {
-    headerMode: 'none',
-});
+// const AuthNav = createStackNavigator({
+//     Main: {
+//         screen: AuthStack,
+//     },
+//     TabsNav: {
+//         screen: TabsNav,
+//         navigationOptions: {
+//             gesturesEnabled: false,
+//         },
+//     },
+// }, {
+//     headerMode: 'none',
+// });
 
 export {AuthNav};

@@ -73,28 +73,8 @@ const fetchSpecialties = (specialtiesStoreService) => () => (dispatch) => {
     dispatch(pageLoading());
     specialtiesStoreService
         .getList()
-        .then((data) => dispatch(specialtiesLoaded(data)))
-        .catch((err) => dispatch(fetchError(err)))
-        .finally(() => dispatch(pageLoaded()));
-};
-
-/**
- *
- * @param doctorsStoreService
- * @returns {function(*, *=): Function}
- */
-const fetchSpecialtyDoctors = (doctorsStoreService) => (specialty, cb) => (dispatch, getState) => {
-    dispatch(resetDoctorsFilter());
-    let state = getState();
-    let doctorsFilter = state.doctors_filter;
-    doctorsFilter.specialty = specialty;
-    //
-    dispatch(pageLoading());
-    doctorsStoreService
-        .search(doctorsFilter)
-        .then((data) => {
-            dispatch(doctorsLoaded(data));
-            cb();
+        .then(({data: {data}}) => {
+            dispatch(specialtiesLoaded(data));
         })
         .catch((err) => dispatch(fetchError(err)))
         .finally(() => dispatch(pageLoaded()));
@@ -105,7 +85,33 @@ const fetchSpecialtyDoctors = (doctorsStoreService) => (specialty, cb) => (dispa
  * @param doctorsStoreService
  * @returns {function(*, *=): Function}
  */
-const fetchDoctorInfo = (doctorsStoreService) => (doctor, cb) => (dispatch, getState) => {
+const fetchSpecialtyDoctors = (doctorsStoreService) => (specialty, successCb) => (dispatch, getState) => {
+    dispatch(resetDoctorsFilter());
+    console.log(specialty);
+    let state = getState();
+    let doctorsFilter = state.doctors_filter;
+    doctorsFilter.specialty = specialty;
+    //
+    dispatch(pageLoading());
+    doctorsStoreService
+        .search(doctorsFilter)
+        .then(({data: {data}}) => {
+            console.log(data);
+            dispatch(doctorsLoaded(data));
+            successCb();
+        })
+        .catch((err) => {
+            console.log(err.request);
+            dispatch(fetchError(err))})
+        .finally(() => dispatch(pageLoaded()));
+};
+
+/**
+ *
+ * @param doctorsStoreService
+ * @returns {function(*, *=): Function}
+ */
+const fetchDoctorInfo = (doctorsStoreService) => (doctor, successCb) => (dispatch, getState) => {
     let state = getState();
     let doctorsFilter = state.doctors_filter;
     //
@@ -114,12 +120,11 @@ const fetchDoctorInfo = (doctorsStoreService) => (doctor, cb) => (dispatch, getS
         .getInfo(doctor, doctorsFilter)
         .then((data) => {
             dispatch(doctorInfoLoaded(data));
-            cb();
+            successCb();
         })
         .catch((err) => dispatch(fetchError(err)))
         .finally(() => {
             dispatch(pageLoaded());
-            console.log(getState());
         });
 };
 

@@ -7,9 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {bindActionCreators} from 'redux';
 import {fetchDoctorInfo} from '../../actions';
 import compose from '../../utils/compose';
-import {withDoctorStoreService} from '../../components/hoc';
 import {connect} from 'react-redux';
-import Ionicons from './SpecialtyDoctorsScreen';
 
 const user = {
     name: 'brynn',

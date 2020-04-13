@@ -1,7 +1,8 @@
 import React from 'react';
 import {View} from 'react-native';
-import {Button, Text, Divider, Input,} from 'react-native-elements';
+import {Button, Text, Divider, Input} from 'react-native-elements';
 import Helper from '../../components/Helper';
+import Api from '../../Api';
 
 class CheckSmsScreen extends React.Component {
 
@@ -11,9 +12,9 @@ class CheckSmsScreen extends React.Component {
 
     static navigationOptions = ({navigation}) => {
         return {
-            title: navigation.getParam('phone_number', 'Нет номера телефона'),
+            title: navigation.getParam('sms_phone_number', 'Нет номера телефона'),
             headerRight: (
-                <Button type={'clear'} title="Далее" onPress={navigation.getParam('checkCode')}/>
+                <Button type={'clear'} title="Далее" onPress={navigation.getParam('verifyPhoneNumber')}/>
             ),
             headerTitleStyle: {
                 fontWeight: 'bold',
@@ -22,19 +23,23 @@ class CheckSmsScreen extends React.Component {
     };
 
     componentDidMount(): void {
-        this.props.navigation.setParams({confirmPhoneNumber: this.checkCode});
+        this.props.navigation.setParams({verifyPhoneNumber: this.verifyPhoneNumber});
     }
 
-    checkCode = () => {
-        /**
-         * TODO: check code
-         */
-        //api.post();
+    /**
+     *
+     */
+    verifyPhoneNumber = () => {
         if (this.state.code.toString().length !== 5) {
             return;
         }
 
-        this.props.navigation.navigate('TabsNav');
+        let api = Api.make();
+        api.verifyPhoneNumber(this.state.code).then(() => {
+            this.props.navigation.navigate('TabsNav');
+        }).catch(() => {
+            Api._showError('Неверный код подтверждения');
+        });
     };
 
     /**
@@ -45,7 +50,7 @@ class CheckSmsScreen extends React.Component {
     _typeCodeHandler(code) {
         code = Helper.clearNumber(code);
         this.setState({code}, () => {
-            this.checkCode();
+            this.verifyPhoneNumber();
         });
     }
 

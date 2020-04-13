@@ -1,8 +1,9 @@
 import React from 'react';
 import {View} from 'react-native';
-import {Button, Text, Divider, Input} from 'react-native-elements';
+import {Text, Divider, Input} from 'react-native-elements';
 import {TextSmall} from '../../components/base';
 import Helper from '../../components/Helper';
+import Api from '../../Api';
 
 class LoginScreen extends React.Component {
 
@@ -11,35 +12,22 @@ class LoginScreen extends React.Component {
         country_code: '+7 ',
     };
 
-    static navigationOptions = (({navigation}) => {
-        return {
-            headerRight: (
-                <Button title="Далее" type="clear" onPress={navigation.getParam('checkPhoneNumber')}/>
-            ),
-        };
-    });
-
-    /**
-     *
-     */
-    componentDidMount() {
-        this.props.navigation.setParams({checkPhoneNumber: this.checkPhoneNumber});
-    }
-
     /**
      *
      */
     checkPhoneNumber = () => {
-        /**
-         * TODO: check number, send sms, open screen for check sms
-         */
         if (Helper.clearNumber(this.state.phone_number.toString()).length !== 10) {
             return;
         }
 
-        let formatted_phone_number = this.state.country_code + Helper.formatMobilePhone(this.state.phone_number);
-        let data = {phone_number: formatted_phone_number};
-        this.props.navigation.navigate('CheckSms', data);
+        let phone_number = this.state.country_code + Helper.formatMobilePhone(this.state.phone_number);
+        let api = Api.make();
+        api.getSms(Helper.clearNumber(phone_number))
+            .catch(({response}) => {
+                Api._showError(response.data.message);
+            });
+
+        this.props.navigation.navigate('CheckSms', {phone_number});
     };
 
     /**

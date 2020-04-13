@@ -24,13 +24,8 @@ export default class DoctorsStoreService extends BaseService{
      *
      * @returns {Array}
      */
-    search(doctorsFilter) {
-        console.log(doctorsFilter);
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(this.data);
-            }, 1200);
-        });
+    search(filter) {
+        return this.api.request('doctor/search', filter);
     }
 
     /**
@@ -38,8 +33,6 @@ export default class DoctorsStoreService extends BaseService{
      * @returns {Array}
      */
     getInfo(doctor, filter) {
-        console.log(doctor);
-        console.log(this.data[doctor]);
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve(this.data[doctor]);

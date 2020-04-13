@@ -1,7 +1,7 @@
 {
   "app_id": 1,
-  "app_secret": "TNgHz2zyo9bw7rHyNnFkXA1lMitpX9s7Ul2nqMaW",
-  "api_url": "http://192.168.88.252:3030/api/",
+  "app_secret": "WRlPpsWoy773XxxKsJWUbVEs24yC5aeJBV7rMlIr",
+  "server_url": "http://192.168.88.254:3030/",
   "api_version": "v1",
   "defaultStackConfig": {
     "initialRouteName": "Index",
@@ -12,7 +12,7 @@
       "headerBackTitle": " ",
       "headerTitleStyle": {
         "fontWeight": "normal",
-        "fontSize" : 17
+        "fontSize": 17
       }
     }
   },

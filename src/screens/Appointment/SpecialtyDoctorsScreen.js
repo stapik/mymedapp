@@ -16,7 +16,7 @@ class ContainerScreen extends React.Component {
      * @returns {{headerRight: *, title: *}}
      */
     static navigationOptions = ({navigation}) => {
-        const title = navigation.getParam('title');
+        const title = navigation.getParam('specialty_name');
         return {
             title: title,
             headerRight: (
@@ -33,7 +33,6 @@ class ContainerScreen extends React.Component {
      * @private
      */
     _selectDoctorHandler = (doctor) => {
-        console.log(doctor);
         const {fetchDoctorInfo, navigation} = this.props;
         fetchDoctorInfo(doctor.id, () => navigation.navigate('DoctorInfo', {title: doctor.name}));
     };
@@ -53,7 +52,7 @@ class ContainerScreen extends React.Component {
                                 PlaceholderContent={<ActivityIndicator/>}
                                 resizeMode="cover"
                                 style={{height: 200, width: '100%'}}
-                                source={{uri: doctor.avatar}}
+                                source={{uri: doctor.avatar ?? ''}}
                             />
                             <Button onPress={() => this._selectDoctorHandler(doctor)} style={{marginTop: 15}}
                                     title={'Расписание'}/>

@@ -14,11 +14,7 @@ export default class SpecialtiesStoreService extends BaseService {
      * @returns {Array}
      */
     getList() {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(this.data);
-            }, 1200);
-        });
+        return this.api.request('specialty/index');
     }
 
 }

@@ -91,7 +91,6 @@ class CalendarModalScreen extends React.Component {
                         minDate={from_date_str}
                         maxDate={last_date_format}
                         onDayPress={(day) => {
-                            console.log('selected day', day);
                         }}
                         markedDates={marked_dates}
                     />

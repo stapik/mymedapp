@@ -1,53 +1,24 @@
-import Carousel from 'react-native-snap-carousel';
-import {Button, ListItem, Text, Overlay} from 'react-native-elements';
+import {ListItem} from 'react-native-elements';
 import React, {Component} from 'react';
-import {View, ScrollView, TouchableHighlight, TouchableOpacity} from 'react-native';
-import _ from 'lodash';
+import {ScrollView, TouchableOpacity} from 'react-native';
+import {TextSmall} from '../base';
 
 export class SlotCarousel extends Component {
 
-    state = {
-        slots: [
-            {
-                id: 1,
-                title: '15:00',
-            },
-            {
-                id: 2,
-                title: '16:00',
-            },
-            {
-                id: 3,
-                title: '17:00',
-            },
-            {
-                id: 4,
-                title: '18:00',
-            },
-            {
-                id: 5,
-                title: '19:00',
-            },
-            {
-                id: 6,
-                title: '20:00',
-            },
-            {
-                id: 7,
-                title: '21:00',
-            },
-        ],
-        isFormVisible: false,
-    };
-
+    /**
+     * @returns {*}
+     */
     render() {
+        const {navigation, slots} = this.props;
 
-        const {navigation} = this.props;
+        if(!slots.length){
+            return <TextSmall>Нет свободного времени</TextSmall>;
+        }
 
         return (
             <ScrollView style={{flex: 1}} horizontal={true}>
-                {this.state.slots.map((item) =>
-                    <TouchableOpacity onPress={()=>{navigation.navigate('AppointmentForm')}} key={item.id}>
+                {slots.map((item) =>
+                    <TouchableOpacity onPress={()=>{navigation.navigate('AppointmentForm')}} key={item.time_start}>
                         <ListItem
                             contentContainerStyle={{backgroundColor: '#009989', padding: 10, borderRadius: 5}}
                             titleStyle={{color: '#fff'}}

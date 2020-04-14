@@ -87,27 +87,25 @@ class ContainerScreen extends React.Component {
                         <Text style={{fontSize: 19, paddingTop: 8}}>Сегодня</Text>
                         <Button type={'clear'} title={'Изменить дату'} onPress={this._showCalendar}/>
                     </View>
-                    <View style={{flex: 1}}>
-                        <Card title="Первая клиника">
-                            <View style={{flex: 1}}>
-                                <SlotCarousel navigation={navigation}/>
-                            </View>
-                        </Card>
-                    </View>
-                    <View style={{flex: 1}}>
-                        <Card title="Вторая клиника">
-                            <View style={{flex: 1}}>
-                                <SlotCarousel navigation={navigation}/>
-                            </View>
-                        </Card>
-                    </View>
-                    <View style={{flex: 1}}>
-                        <Card title="Третья клиника">
-                            <View style={{flex: 1}}>
-                                <SlotCarousel navigation={navigation}/>
-                            </View>
-                        </Card>
-                    </View>
+
+                    {doctor_info.clinics.map((clinic) => {
+
+                        let clinic_slots = doctor_info.slots.filter(slot => slot.clinic_id === clinic.id);
+
+                        return (<View style={{flex: 1}}>
+                            <Card title={clinic.name}>
+                                <View style={{flex: 1}}>
+                                    <SlotCarousel
+                                        slots={clinic_slots}
+                                        doctor_id={doctor_info.id}
+                                        clinic_id={clinic.id}
+                                        navigation={navigation}/>
+                                </View>
+                            </Card>
+                        </View>);
+                    })}
+
+
                     <Divider style={{height: 15, backgroundColor: '#fff'}}/>
                 </View>
             </ScrollView>

@@ -9,6 +9,7 @@ const initialState = {
     token_info: null,
     internet_status: false,
     doctors: [],
+    favorite_doctors: [],
     specialties: [],
     page_loader: false,
     doctor_info: {},
@@ -57,13 +58,23 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 internet_status: false,
             };
+        case 'FAVORITE_DOCTORS_LOADED':
+            return {
+                ...state,
+                favorite_doctors: action.payload,
+            };
         case 'PAGE_LOADING':
             return {
                 ...state,
                 page_loader: true,
             };
+        case 'CHANGE_DOCTOR_FAVORITE_STATUS':
+            state.doctor_info.is_favorite = action.payload;
+            return {...state};
+
         case 'RESET_STORE':
             return initialState;
+
         default:
             return state;
     }

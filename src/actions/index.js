@@ -17,10 +17,10 @@ const internetStatus = (status) => {
     };
 };
 
-const updateToken = (token) => {
+const updateTokenInfo = (token_info) => {
     return {
         type: 'UPDATE_TOKEN',
-        payload: token,
+        payload: token_info,
     };
 };
 
@@ -28,6 +28,13 @@ const doctorsLoaded = (newDoctors) => {
     return {
         type: 'DOCTORS_LOADED',
         payload: newDoctors,
+    };
+};
+
+const favoriteDoctorsLoaded = (favoriteDoctors) => {
+    return {
+        type: 'FAVORITE_DOCTORS_LOADED',
+        payload: favoriteDoctors,
     };
 };
 
@@ -64,6 +71,13 @@ const specialtiesLoaded = (newSpecialties) => {
     };
 };
 
+const changeDoctorFavoriteStatus = (newStatus) => {
+    return {
+        type: 'CHANGE_DOCTOR_FAVORITE_STATUS',
+        payload: newStatus,
+    };
+};
+
 /**
  *
  * @param specialtiesStoreService
@@ -87,7 +101,6 @@ const fetchSpecialties = (specialtiesStoreService) => () => (dispatch) => {
  */
 const fetchSpecialtyDoctors = (doctorsStoreService) => (specialty, successCb) => (dispatch, getState) => {
     dispatch(resetDoctorsFilter());
-    console.log(specialty);
     let state = getState();
     let doctorsFilter = state.doctors_filter;
     doctorsFilter.specialty = specialty;
@@ -96,13 +109,35 @@ const fetchSpecialtyDoctors = (doctorsStoreService) => (specialty, successCb) =>
     doctorsStoreService
         .search(doctorsFilter)
         .then(({data: {data}}) => {
-            console.log(data);
             dispatch(doctorsLoaded(data));
             successCb();
         })
         .catch((err) => {
-            console.log(err.request);
-            dispatch(fetchError(err))})
+            dispatch(fetchError(err));
+        })
+        .finally(() => dispatch(pageLoaded()));
+};
+
+/**
+ *
+ * @param doctorsStoreService
+ * @returns {function(*, *=): Function}
+ */
+const fetchFavoriteDoctors = (doctorsStoreService) => (withLoader = false) => (dispatch) => {
+    //
+    console.log(withLoader, 'loader status');
+    if(withLoader){
+        dispatch(pageLoading());
+    }
+    doctorsStoreService
+        .getFavoriteDoctors()
+        .then(({data: {data}}) => {
+            console.log(data);
+            dispatch(favoriteDoctorsLoaded(data));
+        })
+        .catch((err) => {
+            dispatch(fetchError(err));
+        })
         .finally(() => dispatch(pageLoaded()));
 };
 
@@ -118,7 +153,7 @@ const fetchDoctorInfo = (doctorsStoreService) => (doctor, successCb) => (dispatc
     dispatch(pageLoading());
     doctorsStoreService
         .getInfo(doctor, doctorsFilter)
-        .then((data) => {
+        .then(({data: {data}}) => {
             dispatch(doctorInfoLoaded(data));
             successCb();
         })
@@ -130,12 +165,36 @@ const fetchDoctorInfo = (doctorsStoreService) => (doctor, successCb) => (dispatc
 
 /**
  *
+ * @param doctorsStoreService
+ * @returns {function(*, *=): Function}
+ */
+const toggleFavoriteDoctor = (doctorsStoreService) => (successCb) => (dispatch, getState) => {
+    const state = getState();
+    const doctor_info = state.doctor_info;
+    const old_favorite_status = doctor_info.is_favorite;
+    const new_favorite_status = !old_favorite_status;
+
+    //
+    dispatch(changeDoctorFavoriteStatus(new_favorite_status));
+    doctorsStoreService
+        .toggleFavoriteStatus(doctor_info.id, new_favorite_status)
+        .then(successCb)
+        .catch((err) => {
+            dispatch(changeDoctorFavoriteStatus(old_favorite_status));
+            dispatch(fetchError(err));
+        });
+};
+
+/**
+ *
  */
 export {
     fetchSpecialties,
     fetchSpecialtyDoctors,
+    fetchFavoriteDoctors,
     fetchDoctorInfo,
     resetStore,
-    updateToken,
+    updateTokenInfo,
     internetStatus,
+    toggleFavoriteDoctor,
 };

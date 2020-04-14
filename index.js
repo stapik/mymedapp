@@ -2,7 +2,7 @@
  * @format
  */
 
-import {AppRegistry} from 'react-native';
+import {AppRegistry, YellowBox} from 'react-native';
 import App from './src/components/App';
 import {name as appName} from './app.json';
 
@@ -10,6 +10,9 @@ import {name as appName} from './app.json';
  * TODO: disable warnings
  * @type {boolean}
  */
-console.disableYellowBox = true;
+
+YellowBox.ignoreWarnings([
+    'Calling `getNode()` on the ref of an Animated component is no longer necessary. You can now directly use the ref instead.',
+]);
 
 AppRegistry.registerComponent(appName, () => App);

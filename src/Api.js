@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {api_version, app_id, app_secret, server_url} from '../settings';
 import {store} from './store';
-import {internetStatus, updateToken} from './actions';
+import {internetStatus, updateTokenInfo} from './actions';
 import {Platform} from './constants';
 import NetInfo from '@react-native-community/netinfo';
 import {Toast} from 'native-base';
@@ -11,13 +11,13 @@ import {Toast} from 'native-base';
  */
 class Api {
 
-    token_info;
     netInfo;
     instance_api;
     api_url;
     server_url;
     sms_phone_number;
     static self;
+    static token_info;
     static _singleton_key = '1ksgjopa390ksfdfs3r32y3w45u';
 
     /**
@@ -28,17 +28,13 @@ class Api {
             throw new Error('Api class is singleton');
         }
 
-        // store
-        const state = store.getState();
-        this.token_info = state.token_info;
-
         // default headers
         axios.defaults.headers.common['Accept'] = 'application/json';
 
         // Subscribe net info
-        this.netInfo = NetInfo.addEventListener(state => {
-            store.dispatch(internetStatus(state.isInternetReachable));
-            if (!state.isConnected) {
+        this.netInfo = NetInfo.addEventListener(net_state => {
+            store.dispatch(internetStatus(net_state.isInternetReachable));
+            if (!net_state.isConnected) {
                 Api._showError('Нет доступа к интернету');
             }
         });
@@ -79,43 +75,38 @@ class Api {
             verification_code: phone_verification_code,
             scope: '',
         }).then(({data}) => {
-            this._updateTokenInfo(data);
+            Api._updateTokenInfo(data);
         });
     }
 
     /**
      *
      */
-    logout() {
-        let token = this._getToken();
-        axios.post({
-            url: server_url + 'oauth/logout',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            },
-        });
+    static logout() {
+        const api = Api.make();
+        api.request('logout').then(({message})=>Api._showError(message));
     }
 
     /**
      *
      */
     refreshToken() {
-        let token_status = this._checkTokenLifetime();
+        let token_status = Api._checkTokenLifetime();
         if (token_status) {
             return;
         }
-        if (!this.token_info) {
+        if (!Api.token_info) {
             return;
         }
-        let refresh_token = this.token_info.refresh_token;
+        let refresh_token = Api.token_info.refresh_token;
         axios.post(server_url + 'oauth/token', {
             grant_type: 'refresh_token',
             refresh_token: refresh_token,
             client_id: app_id,
             client_secret: app_secret,
             scope: '',
-        }).then((token_info) => {
-            this._updateTokenInfo(token_info);
+        }).then(({data}) => {
+            Api._updateTokenInfo(data);
         });
     }
 
@@ -123,28 +114,29 @@ class Api {
      * @param token_info
      * @private
      */
-    _updateTokenInfo(token_info) {
+    static _updateTokenInfo(token_info) {
         token_info.lifetime = new Date().getTime() / 1000 + token_info.expires_in;
-        this.token_info = token_info;
-        store.dispatch(updateToken(token_info));
+        Api.token_info = token_info;
+        store.dispatch(updateTokenInfo(token_info));
     }
 
     /**
      * @returns {boolean}
      * @private
      */
-    _checkTokenLifetime() {
+    static _checkTokenLifetime() {
         const month_seconds = 2592000;
-        if (this.token_info && 'lifetime' in this.token_info) {
-            return this.token_info.lifetime > (new Date().getTime() / 1000 + month_seconds);
+        if (Api.token_info && 'lifetime' in Api.token_info) {
+            return Api.token_info.lifetime > (new Date().getTime() / 1000 + month_seconds);
         }
         return false;
     }
 
     /**
-     *
+     * @private
      */
     _createInstance() {
+        const _this = this;
         this.instance_api = axios.create({
             baseURL: this.api_url,
             timeout: 3000,
@@ -158,7 +150,7 @@ class Api {
             if ('response' in error && error.response !== undefined) {
                 let status = 'status' in error.response ? error.response.status : '';
                 if (status === 401) {
-                    return;
+                    _this.refreshToken();
                 }
 
             }
@@ -182,13 +174,19 @@ class Api {
     }
 
     /**
-     * @param uri
+     * @param url
      * @param data
      */
-    request(uri, data = {}) {
-        let token = this._getToken();
-        this.instance_api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        return this.instance_api.post(uri, data);
+    request(url, data = {}) {
+        let token = Api.getToken();
+        return this.instance_api.request({
+            method: 'post',
+            url: url,
+            data: data,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        });
     }
 
     /**
@@ -204,8 +202,23 @@ class Api {
         });
     };
 
-    _getToken(){
-        return this.token_info ?  this.token_info.access_token : '';
+    /**
+     * @returns {string}
+     * @private
+     */
+    static setTokenInfo(token_info) {
+        Api.token_info = token_info;
+    }
+
+    /**
+     * @returns {null}
+     * @private
+     */
+    static getToken() {
+        // store
+        const state = store.getState();
+        Api.token_info = state.token_info;
+        return Api.token_info ? Api.token_info.access_token : null;
     }
 }
 

@@ -1,24 +1,16 @@
 import React from 'react';
 import {View, ActivityIndicator, ScrollView, TouchableOpacity} from 'react-native';
-import {Card, Divider, Image, Text, Button, Tile} from 'react-native-elements';
+import {Card, Divider, Image, Text, Button} from 'react-native-elements';
 import {TextSmall} from '../../components/base';
 import {SlotCarousel} from '../../components/uikit';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {bindActionCreators} from 'redux';
-import {fetchDoctorInfo} from '../../actions';
+import {fetchFavoriteDoctors, toggleFavoriteDoctor} from '../../actions';
 import compose from '../../utils/compose';
 import {connect} from 'react-redux';
-
-const user = {
-    name: 'brynn',
-    avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg',
-};
+import {withDoctorStoreService} from '../../components/hoc';
 
 class ContainerScreen extends React.Component {
-
-    state = {
-        favorites: true,
-    };
 
     static navigationOptions = ({navigation}) => {
         const title = navigation.getParam('title');
@@ -36,25 +28,22 @@ class ContainerScreen extends React.Component {
         this.props.navigation.navigate('CalendarModal');
     };
 
-    _favoriteToggle = () => {
-        this.setState({favorites: !this.state.favorites});
-    };
-
     /**
      *
      * @returns {*}
      */
     render() {
-        const {navigation, doctor_info} = this.props;
+        const {navigation, doctor_info, toggleFavorite, is_favorite, fetchFavoriteDoctors} = this.props;
+        const specialties = (doctor_info.specialties.map((item) => item.name)).join(', ');
 
         return (
             <ScrollView style={{flex: 1}}>
                 <Image
-                    source={{uri: user.avatar}}
+                    source={{uri: doctor_info.avatar ?? ''}}
                     style={{width: '100%', height: 250}}
                     PlaceholderContent={<ActivityIndicator/>}
                 />
-                <TouchableOpacity onPress={this._favoriteToggle}>
+                <TouchableOpacity onPress={() => toggleFavorite(() => fetchFavoriteDoctors())}>
                     <View style={{
                         backgroundColor: '#ddd',
                         width: 40,
@@ -69,7 +58,7 @@ class ContainerScreen extends React.Component {
                     }}>
                         <Icon name={'star'} style={{
                             fontSize: 20,
-                            color: this.state.favorites ? '#F04155' : '#fff',
+                            color: is_favorite ? '#F04155' : '#fff',
                             marginTop: 1,
                             marginLeft: 2,
                         }}/>
@@ -79,7 +68,9 @@ class ContainerScreen extends React.Component {
                 <View style={{padding: 15}}>
                     <Text h4>{doctor_info.name}</Text>
                     <Divider style={{height: 5, backgroundColor: '#fff'}}/>
-                    <TextSmall>Дерматолог, Венеролог, Лазерный хирург</TextSmall>
+                    <TextSmall>
+                        {specialties}
+                    </TextSmall>
                 </View>
 
                 <View style={{paddingTop: 5}}>
@@ -124,17 +115,19 @@ class ContainerScreen extends React.Component {
     }
 }
 
-const mapStateToProps = ({doctor_info, page_loader}) => {
-    return {doctor_info, page_loader};
+const mapStateToProps = ({doctor_info, page_loader, doctor_info: {is_favorite}}) => {
+    return {doctor_info, page_loader, is_favorite};
 };
 
 const mapDispatchToProps = (dispatch, {doctorsStoreService}) => {
     return bindActionCreators({
-        fetchDoctorInfo: fetchDoctorInfo(doctorsStoreService),
+        toggleFavorite: toggleFavoriteDoctor(doctorsStoreService),
+        fetchFavoriteDoctors: fetchFavoriteDoctors(doctorsStoreService),
     }, dispatch);
 };
 
 const DoctorInfoScreen = compose(
+    withDoctorStoreService(),
     connect(mapStateToProps, mapDispatchToProps),
 )(ContainerScreen);
 

@@ -2,30 +2,20 @@ import React from 'react';
 import {View} from 'react-native';
 import {Button, Divider, Text} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
-import {StackActions, NavigationActions} from 'react-navigation';
 import {persistor} from './../../store';
 import {resetStore} from '../../actions';
 import compose from '../../utils/compose';
 import {connect} from 'react-redux';
+import Api from '../../Api';
 
 class SignOutModalContainer extends React.Component {
 
     _signOutAsync = async () => {
+        Api.logout();
         let keys = await AsyncStorage.getAllKeys();
         await AsyncStorage.multiRemove(keys);
         await persistor.purge();
         this.props.resetStore();
-        // reset login info
-        const resetAction = StackActions.reset({
-            index: 0,
-            actions: [
-                NavigationActions.navigate({routeName: 'Login'}),
-            ],
-        });
-        this.props.navigation.dispatch(resetAction);
-
-        //
-        this.props.navigation.navigate('Login');
     };
 
     render() {

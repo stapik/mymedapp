@@ -1,34 +1,47 @@
 import React from 'react';
-import {ActivityIndicator, ScrollView, Text, View} from 'react-native';
+import {ActivityIndicator, ScrollView, View} from 'react-native';
 import {Button, Card, Divider, Image} from 'react-native-elements';
+import {bindActionCreators} from 'redux';
+import {fetchDoctorInfo, fetchFavoriteDoctors} from '../../actions';
+import compose from '../../utils/compose';
+import {withDoctorStoreService} from '../../components/hoc';
+import {connect} from 'react-redux';
 
-const users = [
-    {
-        name: 'brynn',
-        avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg',
-    },
-];
+class ContainerScreen extends React.Component {
 
-class IndexScreen extends React.Component {
+    componentDidMount(): void {
+        const {fetchFavoriteDoctors} = this.props;
+        fetchFavoriteDoctors(true);
+    }
 
-    _selectDoctor = () => {
-        const {navigation} = this.props;
-        navigation.navigate('Doctor');
+    /**
+     *
+     * @param doctor
+     * @private
+     */
+    _selectDoctorHandler = (doctor) => {
+        const {fetchDoctorInfo, navigation} = this.props;
+        fetchDoctorInfo(doctor.id, () => navigation.navigate('DoctorInfo', {title: doctor.name}));
     };
 
+    /**
+     * @returns {*}
+     */
     render() {
+        const {favorite_doctors} = this.props;
         return (
             <ScrollView style={{flex: 1}}>
-                {users.map((u, ii) =>
-                    <Card title="Иванов Иван Иванович" key={ii}>
-                        <View key={ii}>
+                {favorite_doctors.map((doctor, idx) =>
+                    <Card title={doctor.name} key={idx}>
+                        <View key={idx}>
                             <Image
                                 PlaceholderContent={<ActivityIndicator/>}
                                 resizeMode="cover"
                                 style={{height: 200, width: '100%'}}
-                                source={{uri: u.avatar}}
+                                source={{uri: doctor.avatar ?? ''}}
                             />
-                            <Button onPress={this._selectDoctor} style={{marginTop: 15}} title={'Расписание'}/>
+                            <Button onPress={() => this._selectDoctorHandler(doctor)} style={{marginTop: 15}}
+                                    title={'Расписание'}/>
                         </View>
                     </Card>,
                 )}
@@ -37,5 +50,21 @@ class IndexScreen extends React.Component {
         );
     }
 }
+
+const mapStateToProps = ({favorite_doctors, page_loader}) => {
+    return {favorite_doctors, page_loader};
+};
+
+const mapDispatchToProps = (dispatch, {doctorsStoreService}) => {
+    return bindActionCreators({
+        fetchFavoriteDoctors: fetchFavoriteDoctors(doctorsStoreService),
+        fetchDoctorInfo: fetchDoctorInfo(doctorsStoreService),
+    }, dispatch);
+};
+
+const IndexScreen = compose(
+    withDoctorStoreService(),
+    connect(mapStateToProps, mapDispatchToProps),
+)(ContainerScreen);
 
 export {IndexScreen};

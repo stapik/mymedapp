@@ -24,7 +24,6 @@ export default class App extends React.Component {
      * @returns {*}
      */
     render() {
-
         const api = Api.make();
         const doctorsStoreService = new DoctorsStoreService();
         const specialtiesStoreService = new SpecialtiesStoreService();

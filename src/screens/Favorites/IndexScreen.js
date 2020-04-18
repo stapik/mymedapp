@@ -10,8 +10,15 @@ import {connect} from 'react-redux';
 class ContainerScreen extends React.Component {
 
     componentDidMount(): void {
-        const {fetchFavoriteDoctors} = this.props;
-        fetchFavoriteDoctors(true);
+        const {navigation, fetchFavoriteDoctors} = this.props;
+        this.focusListener = navigation.addListener('didFocus', () => {
+            fetchFavoriteDoctors();
+        });
+    }
+
+    componentWillUnmount() {
+        // Remove the event listener
+        this.focusListener.remove();
     }
 
     /**
@@ -51,8 +58,8 @@ class ContainerScreen extends React.Component {
     }
 }
 
-const mapStateToProps = ({favorite_doctors, page_loader}) => {
-    return {favorite_doctors, page_loader};
+const mapStateToProps = ({favorite_doctors}) => {
+    return {favorite_doctors};
 };
 
 const mapDispatchToProps = (dispatch, {doctorsStoreService}) => {

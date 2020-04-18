@@ -20,7 +20,7 @@ class ContainerScreen extends React.Component {
         return {
             title: title,
             headerRight: (
-                <TouchableOpacity onPress={() => navigation.navigate('FilterModal')}>
+                <TouchableOpacity onPress={() => navigation.navigate('DoctorFilter')}>
                     <Ionicons name='ios-options' style={{color: 'blue', paddingRight: 10}} size={25}/>
                 </TouchableOpacity>
             ),
@@ -32,9 +32,10 @@ class ContainerScreen extends React.Component {
      * @param doctor
      * @private
      */
-    _selectDoctorHandler = (doctor) => {
+    selectHandler = (doctor) => {
         const {fetchDoctorInfo, navigation} = this.props;
-        fetchDoctorInfo(doctor.id, () => navigation.navigate('DoctorInfo', {title: doctor.name}));
+        const lastname = doctor.name.split(' ')[0];
+        fetchDoctorInfo(doctor.id, () => navigation.navigate('DoctorInfo', {title: lastname}));
     };
 
     /**
@@ -54,7 +55,7 @@ class ContainerScreen extends React.Component {
                                 style={{height: 200, width: '100%'}}
                                 source={{uri: doctor.avatar ?? ''}}
                             />
-                            <Button onPress={() => this._selectDoctorHandler(doctor)} style={{marginTop: 15}}
+                            <Button onPress={() => this.selectHandler(doctor)} style={{marginTop: 15}}
                                     title={'Расписание'}/>
                         </View>
                     </Card>,
@@ -65,8 +66,8 @@ class ContainerScreen extends React.Component {
     }
 }
 
-const mapStateToProps = ({doctors, page_loader}) => {
-    return {doctors, page_loader};
+const mapStateToProps = ({doctors}) => {
+    return {doctors};
 };
 
 const mapDispatchToProps = (dispatch, {doctorsStoreService}) => {

@@ -5,7 +5,7 @@ import {TextSmall} from '../../components/base';
 import {SlotCarousel} from '../../components/uikit';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {bindActionCreators} from 'redux';
-import {fetchFavoriteDoctors, toggleFavoriteDoctor} from '../../actions';
+import {toggleFavoriteDoctor} from '../../actions';
 import compose from '../../utils/compose';
 import {connect} from 'react-redux';
 import {withDoctorStoreService} from '../../components/hoc';
@@ -14,18 +14,14 @@ class ContainerScreen extends React.Component {
 
     static navigationOptions = ({navigation}) => {
         const title = navigation.getParam('title');
+
         return {
             title: title,
         };
     };
 
-    componentDidMount(): void {
-        const {doctor_info, navigation} = this.props;
-        navigation.setParams({title: doctor_info.name});
-    }
-
     _showCalendar = () => {
-        this.props.navigation.navigate('CalendarModal');
+        this.props.navigation.navigate('Calendar');
     };
 
     /**
@@ -33,7 +29,7 @@ class ContainerScreen extends React.Component {
      * @returns {*}
      */
     render() {
-        const {navigation, doctor_info, toggleFavorite, is_favorite, fetchFavoriteDoctors} = this.props;
+        const {navigation, doctor_info, toggleFavorite, is_favorite} = this.props;
         const specialties = (doctor_info.specialties.map((item) => item.name)).join(', ');
 
         return (
@@ -43,7 +39,7 @@ class ContainerScreen extends React.Component {
                     style={{width: '100%', height: 250}}
                     PlaceholderContent={<ActivityIndicator/>}
                 />
-                <TouchableOpacity onPress={() => toggleFavorite(() => fetchFavoriteDoctors())}>
+                <TouchableOpacity onPress={toggleFavorite}>
                     <View style={{
                         backgroundColor: '#ddd',
                         width: 40,
@@ -120,7 +116,6 @@ const mapStateToProps = ({doctor_info, page_loader, doctor_info: {is_favorite}})
 const mapDispatchToProps = (dispatch, {doctorsStoreService}) => {
     return bindActionCreators({
         toggleFavorite: toggleFavoriteDoctor(doctorsStoreService),
-        fetchFavoriteDoctors: fetchFavoriteDoctors(doctorsStoreService),
     }, dispatch);
 };
 

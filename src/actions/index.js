@@ -57,7 +57,15 @@ const pageLoaded = () => {
     };
 };
 
+const clinicsLoaded = (newClinics) => {
+    return {
+        type: 'CLINICS_LOADED',
+        payload: newClinics
+    };
+};
+
 const fetchError = (error) => {
+    console.log(error, 'fetchError');
     return {
         type: 'FETCH_FAILURE',
         payload: error,
@@ -96,6 +104,22 @@ const fetchSpecialties = (specialtiesStoreService) => () => (dispatch) => {
 
 /**
  *
+ * @param clinicsStoreService
+ * @returns {function(): Function}
+ */
+const fetchClinics = (clinicsStoreService) => () => (dispatch) => {
+    dispatch(pageLoading());
+    clinicsStoreService
+        .getList()
+        .then(({data: {data}}) => {
+            dispatch(clinicsLoaded(data));
+        })
+        .catch((err) => dispatch(fetchError(err)))
+        .finally(() => dispatch(pageLoaded()));
+};
+
+/**
+ *
  * @param doctorsStoreService
  * @returns {function(*, *=): Function}
  */
@@ -123,16 +147,12 @@ const fetchSpecialtyDoctors = (doctorsStoreService) => (specialty, successCb) =>
  * @param doctorsStoreService
  * @returns {function(*, *=): Function}
  */
-const fetchFavoriteDoctors = (doctorsStoreService) => (withLoader = false) => (dispatch) => {
+const fetchFavoriteDoctors = (doctorsStoreService) => () => (dispatch) => {
     //
-    console.log(withLoader, 'loader status');
-    if(withLoader){
-        dispatch(pageLoading());
-    }
+    dispatch(pageLoading());
     doctorsStoreService
         .getFavoriteDoctors()
         .then(({data: {data}}) => {
-            console.log(data);
             dispatch(favoriteDoctorsLoaded(data));
         })
         .catch((err) => {
@@ -168,7 +188,7 @@ const fetchDoctorInfo = (doctorsStoreService) => (doctor, successCb) => (dispatc
  * @param doctorsStoreService
  * @returns {function(*, *=): Function}
  */
-const toggleFavoriteDoctor = (doctorsStoreService) => (successCb) => (dispatch, getState) => {
+const toggleFavoriteDoctor = (doctorsStoreService) => () => (dispatch, getState) => {
     const state = getState();
     const doctor_info = state.doctor_info;
     const old_favorite_status = doctor_info.is_favorite;
@@ -178,7 +198,6 @@ const toggleFavoriteDoctor = (doctorsStoreService) => (successCb) => (dispatch, 
     dispatch(changeDoctorFavoriteStatus(new_favorite_status));
     doctorsStoreService
         .toggleFavoriteStatus(doctor_info.id, new_favorite_status)
-        .then(successCb)
         .catch((err) => {
             dispatch(changeDoctorFavoriteStatus(old_favorite_status));
             dispatch(fetchError(err));
@@ -197,4 +216,5 @@ export {
     updateTokenInfo,
     internetStatus,
     toggleFavoriteDoctor,
+    fetchClinics,
 };

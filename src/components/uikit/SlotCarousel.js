@@ -17,7 +17,7 @@ export class SlotCarousel extends Component {
 
         return (
             <ScrollView style={{flex: 1}} horizontal={true}>
-                {slots.map((item) =>
+                {slots.map((item, idx) =>
                     <TouchableOpacity onPress={()=>{navigation.navigate('AppointmentForm')}} key={item.time_start}>
                         <ListItem
                             contentContainerStyle={{backgroundColor: '#009989', padding: 10, borderRadius: 5}}

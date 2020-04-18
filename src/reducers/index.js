@@ -13,6 +13,7 @@ const initialState = {
     specialties: [],
     page_loader: false,
     doctor_info: {},
+    clinics: [],
     doctors_filter: filterInitialState,
 };
 
@@ -42,6 +43,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 specialties: action.payload,
+            };
+        case 'CLINICS_LOADED':
+            return {
+                ...state,
+                clinics: action.payload,
             };
         case 'RESET_DOCTORS_FILTER':
             return {

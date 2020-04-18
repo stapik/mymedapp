@@ -16,7 +16,13 @@ LocaleConfig.locales['ru'] = {
 };
 LocaleConfig.defaultLocale = 'ru';
 
-class CalendarModalScreen extends React.Component {
+class CalendarScreen extends React.Component {
+
+    static navigationOptions = ({navigation}) => {
+        return {
+            title: 'Выберите день',
+        };
+    };
 
     apply_filter() {
         this.props.navigation.goBack();
@@ -76,17 +82,7 @@ class CalendarModalScreen extends React.Component {
 
         return (
             <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start'}}>
-                <Header
-                    backgroundColor={'#fff'}
-                    leftContainerStyle={{flex: 0.30}}
-                    centerContainerStyle={{flex: 0.40}}
-                    rightContainerStyle={{flex: 0.3}}
-
-                    leftComponent={<Button type={'clear'} onPress={() => navigation.goBack()}
-                                           titleStyle={{fontSize: 16}} title={'Закрыть'}/>}
-                    centerComponent={<Text style={{fontSize: 16}}>Выберите день</Text>}
-                />
-                <View style={{paddingTop: 15, width: '100%'}}>
+                <View style={{width: '100%', marginTop: 20}}>
                     <Calendar
                         minDate={from_date_str}
                         maxDate={last_date_format}
@@ -104,4 +100,4 @@ class CalendarModalScreen extends React.Component {
     }
 }
 
-export {CalendarModalScreen};
+export {CalendarScreen};

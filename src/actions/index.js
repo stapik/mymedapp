@@ -65,7 +65,7 @@ const clinicsLoaded = (newClinics) => {
 };
 
 const fetchError = (error) => {
-    console.log(error, 'fetchError');
+    console.log('fetchError', error);
     return {
         type: 'FETCH_FAILURE',
         payload: error,

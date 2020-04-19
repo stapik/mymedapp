@@ -1,11 +1,10 @@
 import React from 'react';
 import {View} from 'react-native';
-import {Button, Text, Header, Divider} from 'react-native-elements';
+import {Divider} from 'react-native-elements';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
 import {TextSmall} from '../../components/base';
 import moment from 'moment/src/moment';
 import * as _ from 'lodash';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 LocaleConfig.locales['ru'] = {
     monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],

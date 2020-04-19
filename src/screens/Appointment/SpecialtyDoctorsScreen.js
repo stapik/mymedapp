@@ -1,12 +1,12 @@
 import React from 'react';
-import {View, ScrollView, TouchableOpacity, ActivityIndicator} from 'react-native';
-import {Button, Card, Divider, Image} from 'react-native-elements';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {TouchableOpacity, StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import {fetchDoctorInfo} from '../../actions';
 import compose from '../../utils/compose';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {withDoctorStoreService} from '../../components/hoc';
+import {DoctorList} from '../../components/uikit';
 
 class ContainerScreen extends React.Component {
 
@@ -20,8 +20,8 @@ class ContainerScreen extends React.Component {
         return {
             title: title,
             headerRight: (
-                <TouchableOpacity onPress={() => navigation.navigate('DoctorFilter')}>
-                    <Ionicons name='ios-options' style={{color: 'blue', paddingRight: 10}} size={25}/>
+                <TouchableOpacity activeOpacity={0.6} onPress={() => navigation.navigate('DoctorFilter')}>
+                    <Icon name='sliders-h' style={{paddingRight: 15}} size={20}/>
                 </TouchableOpacity>
             ),
         };
@@ -34,8 +34,7 @@ class ContainerScreen extends React.Component {
      */
     selectHandler = (doctor) => {
         const {fetchDoctorInfo, navigation} = this.props;
-        const lastname = doctor.name.split(' ')[0];
-        fetchDoctorInfo(doctor.id, () => navigation.navigate('DoctorInfo', {title: lastname}));
+        fetchDoctorInfo(doctor.id, () => navigation.navigate('DoctorInfo', {doctor}));
     };
 
     /**
@@ -44,25 +43,7 @@ class ContainerScreen extends React.Component {
      */
     render() {
         const {doctors} = this.props;
-        return (
-            <ScrollView style={{flex: 1}}>
-                {doctors.map((doctor, idx) =>
-                    <Card title={doctor.name} key={idx}>
-                        <View key={idx}>
-                            <Image
-                                PlaceholderContent={<ActivityIndicator/>}
-                                resizeMode="cover"
-                                style={{height: 200, width: '100%'}}
-                                source={{uri: doctor.avatar ?? ''}}
-                            />
-                            <Button onPress={() => this.selectHandler(doctor)} style={{marginTop: 15}}
-                                    title={'Расписание'}/>
-                        </View>
-                    </Card>,
-                )}
-                <Divider style={{height: 15, backgroundColor: '#fff'}}/>
-            </ScrollView>
-        );
+        return <DoctorList doctors={doctors} selectHandler={this.selectHandler}/>;
     }
 }
 
@@ -82,3 +63,13 @@ const SpecialtyDoctorsScreen = compose(
 )(ContainerScreen);
 
 export {SpecialtyDoctorsScreen};
+
+const styles = StyleSheet.create({
+    contentContainer: {
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+    },
+    item: {
+        margin: 4,
+    },
+});

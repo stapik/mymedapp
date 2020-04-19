@@ -2,7 +2,7 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 import React from 'react';
 import {defaultTabBarOptions} from '../../settings';
 import {AppointmentNav, VisitsNav, PromotionsNav, ProfilesNav, FavoritesNav} from './';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 let handleTabPress = ({navigation}) => {
     navigation.popToTop();
@@ -71,7 +71,7 @@ const TabsNav = createBottomTabNavigator({
                 }
 
                 // You can return any component that you like here!
-                return <Icon name={iconName} size={22} color={tintColor}/>;
+                return <Icon name={iconName} size={22} color={tintColor} solid/>;
             },
         }),
         tabBarOptions: defaultTabBarOptions,

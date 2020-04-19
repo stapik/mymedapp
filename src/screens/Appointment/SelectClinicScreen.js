@@ -35,7 +35,6 @@ class ContainerScreen extends React.Component {
      * @private
      */
     selectHandler = (clinic) => {
-        console.log(clinic, 'clicked');
         this.props.navigation.navigate('DoctorFilter', {clinic});
     };
 
@@ -45,6 +44,10 @@ class ContainerScreen extends React.Component {
      */
     render() {
         const {clinics, navigation} = this.props;
+        const default_item = {
+            id: null,
+            name: 'Все клиники',
+        };
 
         return (
             <SearchList
@@ -55,6 +58,7 @@ class ContainerScreen extends React.Component {
                 key_name={'id'}
                 value_name={'name'}
                 bottomDivider={true}
+                default_item={default_item}
                 chevron={false}/>
         );
     }

@@ -14,7 +14,6 @@ import * as eva from '@eva-design/eva';
 import {PageLoader} from './uikit';
 import ClinicsStoreService from '../services/ClinicsStoreService';
 
-
 export default class App extends React.Component {
 
     /**

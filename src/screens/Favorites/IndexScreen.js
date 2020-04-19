@@ -6,6 +6,7 @@ import {fetchDoctorInfo, fetchFavoriteDoctors} from '../../actions';
 import compose from '../../utils/compose';
 import {withDoctorStoreService} from '../../components/hoc';
 import {connect} from 'react-redux';
+import {DoctorList} from '../../components/uikit';
 
 class ContainerScreen extends React.Component {
 
@@ -26,9 +27,9 @@ class ContainerScreen extends React.Component {
      * @param doctor
      * @private
      */
-    _selectDoctorHandler = (doctor) => {
+    selectHandler = (doctor) => {
         const {fetchDoctorInfo, navigation} = this.props;
-        fetchDoctorInfo(doctor.id, () => navigation.navigate('DoctorInfo', {title: doctor.name}));
+        fetchDoctorInfo(doctor.id, () => navigation.navigate('DoctorInfo', {doctor}));
     };
 
     /**
@@ -36,25 +37,7 @@ class ContainerScreen extends React.Component {
      */
     render() {
         const {favorite_doctors} = this.props;
-        return (
-            <ScrollView style={{flex: 1}}>
-                {favorite_doctors.map((doctor, idx) =>
-                    <Card title={doctor.name} key={idx}>
-                        <View key={idx}>
-                            <Image
-                                PlaceholderContent={<ActivityIndicator/>}
-                                resizeMode="cover"
-                                style={{height: 200, width: '100%'}}
-                                source={{uri: doctor.avatar ?? ''}}
-                            />
-                            <Button onPress={() => this._selectDoctorHandler(doctor)} style={{marginTop: 15}}
-                                    title={'Расписание'}/>
-                        </View>
-                    </Card>,
-                )}
-                <Divider style={{height: 15, backgroundColor: '#fff'}}/>
-            </ScrollView>
-        );
+        return <DoctorList doctors={favorite_doctors} selectHandler={this.selectHandler}/>;
     }
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {CheckBox, Text, Layout, Radio, RadioGroup, Button, Divider} from '@ui-kitten/components';
-import {ScrollView, StyleSheet, TouchableHighlight, TouchableOpacity} from 'react-native';;
+import {ScrollView, StyleSheet, TouchableHighlight} from 'react-native';
 
 const CheckboxSimpleUsageShowcase = () => {
 
@@ -46,6 +46,8 @@ const styles = StyleSheet.create({
 
 class DoctorFilterScreen extends React.Component {
 
+
+
     static navigationOptions = ({navigation}) => {
         return {
             title: 'Фильтр',
@@ -60,10 +62,11 @@ class DoctorFilterScreen extends React.Component {
         const {navigation} = this.props;
         return (
             <ScrollView>
+
                 <TouchableHighlight onPress={() => {navigation.navigate('SelectClinic')}}>
                     <Layout style={{padding: 15}}>
                         <Text appearance={'hint'} category={'s1'} style={{paddingBottom: 5}}>Клиника</Text>
-                        <Text category={'с1'} appearance={'hint'}>Все клиники</Text>
+                        <Text category={'s1'}>Все клиники</Text>
                     </Layout>
                 </TouchableHighlight>
 
@@ -72,7 +75,7 @@ class DoctorFilterScreen extends React.Component {
                 <TouchableHighlight onPress={() => {navigation.navigate('SelectSpecialty')}}>
                     <Layout style={{padding: 15}}>
                         <Text appearance={'hint'} category={'s1'} style={{paddingBottom: 5}}>Специальность</Text>
-                        <Text category={'с1'}>Терапевт</Text>
+                        <Text category={'s1'}>Все специальности</Text>
                     </Layout>
                 </TouchableHighlight>
 
@@ -81,7 +84,7 @@ class DoctorFilterScreen extends React.Component {
                 <TouchableHighlight onPress={() => {navigation.navigate('SelectDate')}}>
                     <Layout style={{padding: 15}}>
                         <Text appearance={'hint'} category={'s1'} style={{paddingBottom: 5}}>Дата приёма</Text>
-                        <Text category={'с1'}>Все дни</Text>
+                        <Text category={'s1'}>Все дни</Text>
                     </Layout>
                 </TouchableHighlight>
 

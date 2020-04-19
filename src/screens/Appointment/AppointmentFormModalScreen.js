@@ -1,10 +1,8 @@
 import React from 'react';
 import {ActivityIndicator, KeyboardAvoidingView, ScrollView, View} from 'react-native';
-import {Button, Text, Header, Divider, Input, Card, Image} from 'react-native-elements';
+import {Button, Text, Header, Divider, Input, Image} from 'react-native-elements';
 import DatePicker from 'react-native-datepicker';
-import {TextSmall} from '../../components/base';
-import moment from 'moment/src/moment';
-import * as _ from 'lodash';
+import {Form, Label,Item} from 'native-base';
 
 class AppointmentFormModalScreen extends React.Component {
 
@@ -46,6 +44,16 @@ class AppointmentFormModalScreen extends React.Component {
 
                 <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
                     <ScrollView style={{padding: 20}}>
+                        <Form>
+                            <Item stackedLabel>
+                                <Label>Username</Label>
+                                <Input />
+                            </Item>
+                            <Item stackedLabel last>
+                                <Label>Password</Label>
+                                <Input />
+                            </Item>
+                        </Form>
                         <View style={{
                             flex: 1,
                             flexDirection: 'row',

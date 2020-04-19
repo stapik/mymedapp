@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, ActivityIndicator, ScrollView, TouchableOpacity} from 'react-native';
 import {Card, Divider, Image, Text, Button} from 'react-native-elements';
 import {TextSmall} from '../../components/base';
 import {SlotCarousel} from '../../components/uikit';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import {bindActionCreators} from 'redux';
 import {toggleFavoriteDoctor} from '../../actions';
 import compose from '../../utils/compose';
@@ -12,55 +12,64 @@ import {withDoctorStoreService} from '../../components/hoc';
 
 class ContainerScreen extends React.Component {
 
-    static navigationOptions = ({navigation}) => {
-        const title = navigation.getParam('title');
-
+    static navigationOptions = ({navigation, navigation: {state: {params}}}) => {
+        const last_name = params.doctor.name.split(' ')[0];
+        const is_favorite = params.is_favorite;
         return {
-            title: title,
+            title: last_name,
+            headerRight: (is_favorite === undefined ? <Text/> :
+                    <TouchableOpacity activeOpacity={0.6} onPress={params.toggleFavorite}>
+                        <Icon name='star' style={{paddingRight: 15, color: 'red'}} size={20}
+                              solid={is_favorite}/>
+                    </TouchableOpacity>
+            ),
         };
     };
 
+    /**
+     *
+     * @private
+     */
     _showCalendar = () => {
         this.props.navigation.navigate('Calendar');
     };
 
     /**
      *
+     */
+    componentDidMount(): void {
+        const {toggleFavorite} = this.props;
+        this.props.navigation.setParams({toggleFavorite});
+    }
+
+    /**
+     * s
+     * @param prevProps
+     * @param prevState
+     * @param snapshot
+     */
+    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
+        const {navigation, is_favorite} = this.props;
+        if (navigation.getParam('is_favorite', -1) !== is_favorite) {
+            navigation.setParams({is_favorite});
+        }
+    }
+
+    /**
+     *
      * @returns {*}
      */
     render() {
-        const {navigation, doctor_info, toggleFavorite, is_favorite} = this.props;
+        const {navigation, doctor_info} = this.props;
         const specialties = (doctor_info.specialties.map((item) => item.name)).join(', ');
 
         return (
             <ScrollView style={{flex: 1}}>
                 <Image
-                    source={{uri: doctor_info.avatar ?? ''}}
+                    source={{uri: doctor_info.avatar}}
                     style={{width: '100%', height: 250}}
                     PlaceholderContent={<ActivityIndicator/>}
                 />
-                <TouchableOpacity onPress={toggleFavorite}>
-                    <View style={{
-                        backgroundColor: '#ddd',
-                        width: 40,
-                        height: 40,
-                        top: -55,
-                        right: 15,
-                        borderRadius: 20,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        position: 'absolute',
-                        alignSelf: 'flex-end',
-                    }}>
-                        <Icon name={'star'} style={{
-                            fontSize: 20,
-                            color: is_favorite ? '#F04155' : '#fff',
-                            marginTop: 1,
-                            marginLeft: 2,
-                        }}/>
-                    </View>
-                </TouchableOpacity>
-
                 <View style={{padding: 15}}>
                     <Text h4>{doctor_info.name}</Text>
                     <Divider style={{height: 5, backgroundColor: '#fff'}}/>
@@ -88,17 +97,19 @@ class ContainerScreen extends React.Component {
 
                         let clinic_slots = doctor_info.slots.filter(slot => slot.clinic_id === clinic.id);
 
-                        return (<View style={{flex: 1}}>
-                            <Card title={clinic.name}>
-                                <View style={{flex: 1}}>
-                                    <SlotCarousel
-                                        slots={clinic_slots}
-                                        doctor_id={doctor_info.id}
-                                        clinic_id={clinic.id}
-                                        navigation={navigation}/>
-                                </View>
-                            </Card>
-                        </View>);
+                        return (
+                            <View style={{flex: 1}} key={clinic.id}>
+                                <Card title={clinic.name}>
+                                    <View style={{flex: 1}}>
+                                        <SlotCarousel
+                                            slots={clinic_slots}
+                                            doctor_id={doctor_info.id}
+                                            clinic_id={clinic.id}
+                                            navigation={navigation}/>
+                                    </View>
+                                </Card>
+                            </View>
+                        );
                     })}
 
 

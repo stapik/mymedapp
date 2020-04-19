@@ -28,9 +28,17 @@ class SearchList extends React.Component {
      * @returns {*}
      */
     render() {
-        const {items, placeholder, selectHandler, key_name, value_name, bottomDivider, chevron} = this.props;
+        const {
+            items, placeholder, selectHandler,
+            key_name, value_name, bottomDivider,
+            chevron, selected, default_item,
+        } = this.props;
         const {search} = this.state;
         const filtered_items = items.filter((item) => !(search && !searchInStr(search, item[value_name])));
+
+        if (default_item) {
+            filtered_items.unshift(default_item);
+        }
 
         let content = <Layout style={{padding: 25}}>
             <Text appearance={'hint'} category={'s1'}>По вашему запросу ничего не найдено</Text>
@@ -47,6 +55,7 @@ class SearchList extends React.Component {
                                 title={item[value_name]}
                                 bottomDivider={bottomDivider}
                                 chevron={chevron}
+                                checkmark={item[key_name] === selected}
                             />
                         </TouchableHighlight>
                     );

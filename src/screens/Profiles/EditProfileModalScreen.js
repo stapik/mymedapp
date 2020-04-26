@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, Image, ScrollView, KeyboardAvoidingView} from 'react-native';
+import {View, ScrollView, KeyboardAvoidingView} from 'react-native';
 import {Button, Divider, Header, Input, Text} from 'react-native-elements';
-import DatePicker from 'react-native-datepicker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 class EditProfileModalScreen extends React.Component {
 
@@ -73,31 +73,10 @@ class EditProfileModalScreen extends React.Component {
                             <Divider style={{height: 10, backgroundColor: '#fff'}}/>
                             <View style={{padding: 10}}>
                                 <Text style={{color: '#919191', fontWeight: 'bold', fontSize: 16}}>Дата рождения</Text>
-                                <DatePicker
-                                    style={{width: 150, paddingTop: 10}}
-                                    date={this.state.date}
-                                    locale={'ru'}
-                                    mode="date"
-                                    placeholder="Выберите дату"
-                                    format="DD.MM.YYYY"
-                                    confirmBtnText="Выбрать"
-                                    cancelBtnText="Закрыть"
-                                    customStyles={{
-                                        dateIcon: {
-                                            position: 'absolute',
-                                            display: 'none',
-                                            left: 0,
-                                            marginLeft: 0,
-                                        },
-                                        dateInput: {
-                                            marginLeft: 0,
-                                            fontSize: 15,
-                                        },
-                                        // ... You can check the source to find the other keys.
-                                    }}
-                                    onDateChange={(date) => {
-                                        this.setState({date: date});
-                                    }}
+                                <DateTimePicker
+                                    testID="dateTimePicker"
+                                    value={new Date()}
+                                    timeZoneOffsetInMinutes={0}
                                 />
                             </View>
                         </View>

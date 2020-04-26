@@ -12,7 +12,7 @@ class CheckSmsScreen extends React.Component {
 
     static navigationOptions = ({navigation}) => {
         return {
-            title: navigation.getParam('sms_phone_number', 'Нет номера телефона'),
+            title: navigation.getParam('phone_number', 'Нет номера телефона'),
             headerRight: (
                 <Button type={'clear'} title="Далее" onPress={navigation.getParam('verifyPhoneNumber')}/>
             ),

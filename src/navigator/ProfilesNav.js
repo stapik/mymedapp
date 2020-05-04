@@ -1,5 +1,5 @@
 import {createStackNavigator} from 'react-navigation-stack';
-import {IndexScreen, SignOutModalScreen, EditProfileModalScreen, SupportScreen} from '../screens/Profiles';
+import {IndexScreen, SignOutModalScreen, EditProfileScreen, SupportScreen} from '../screens/Profiles';
 import {defaultStackConfig} from '../../settings';
 
 const SettingsStack = createStackNavigator({
@@ -15,6 +15,9 @@ const SettingsStack = createStackNavigator({
             title: 'Поддержка',
         },
     },
+    EditProfile: {
+        screen: EditProfileScreen,
+    },
 }, defaultStackConfig);
 
 const ProfilesNav = createStackNavigator({
@@ -23,9 +26,6 @@ const ProfilesNav = createStackNavigator({
     },
     SignOut: {
         screen: SignOutModalScreen,
-    },
-    EditProfile: {
-        screen: EditProfileModalScreen,
     },
 }, {
     mode: 'modal',

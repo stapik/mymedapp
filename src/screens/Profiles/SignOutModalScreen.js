@@ -1,11 +1,12 @@
 import React from 'react';
 import {View} from 'react-native';
-import {Button, Divider, Text} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
-import {persistor} from './../../store';
+import {persistor} from '../../store';
 import {resetStore} from '../../actions';
 import compose from '../../utils/compose';
 import {connect} from 'react-redux';
+
+import {Button, Divider, Text} from '@ui-kitten/components';
 import Api from '../../Api';
 
 class SignOutModalContainer extends React.Component {
@@ -20,19 +21,17 @@ class SignOutModalContainer extends React.Component {
 
     render() {
         return (
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <Text style={{fontSize: 20}}>Вы действительно хотите выйти?</Text>
-                <Divider style={{height: 20, backgroundColor: '#fff'}}/>
+            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', padding: 15}}>
+                <Text category={'h6'} style={{textAlign: 'center'}}>Вы действительно хотите выйти?</Text>
+                <Divider style={{height: 30, backgroundColor: '#fff'}}/>
                 <Button
-                    type={'outline'}
+                    appearance={'outline'}
                     onPress={() => this._signOutAsync()}
-                    title="Да"
-                />
+                >Да</Button>
                 <Divider style={{height: 20, backgroundColor: '#fff'}}/>
                 <Button
                     onPress={() => this.props.navigation.goBack()}
-                    title="Нет, остаться"
-                />
+                >Нет, остаться</Button>
             </View>
         );
     }

@@ -1,11 +1,12 @@
 import React from 'react';
-import {View} from 'react-native';
-import {Text, Divider, Input} from 'react-native-elements';
-import {TextSmall} from '../../components/base';
+import {Text, Divider, Input} from '@ui-kitten/components';
 import Helper from '../../components/Helper';
 import Api from '../../Api';
+import {formatPhone} from '../../utils';
+import {Container, Content} from 'native-base';
+import FormValidator from '../../components/FormValidator';
 
-class LoginScreen extends React.Component {
+class LoginScreen extends FormValidator {
 
     state = {
         phone_number: '',
@@ -16,27 +17,22 @@ class LoginScreen extends React.Component {
      *
      */
     checkPhoneNumber = () => {
-        if (Helper.clearNumber(this.state.phone_number.toString()).length !== 10) {
+        const rules = {
+            phone_number: {check_phone_number: 'RU', required: true},
+        };
+        if (!this.validate(rules)) {
             return;
         }
 
-        let phone_number = this.state.country_code + Helper.formatMobilePhone(this.state.phone_number);
-        let api = Api.make();
-        api.getSms(Helper.clearNumber(phone_number))
-            .catch(({response}) => {
-                Api._showError(response.data.message);
-            });
-
+        let phone_number = formatPhone(this.state.phone_number, this.state.country_code);
         this.props.navigation.navigate('CheckSms', {phone_number});
     };
 
     /**
-     *
-     * @param phone_number
-     * @private
+     * @param input_text
      */
-    _typePhoneNumberHandler(phone_number) {
-        phone_number = Helper.clearNumber(phone_number);
+    _phoneNumberHandler(input_text) {
+        const phone_number = formatPhone(input_text, this.state.country_code);
         this.setState({phone_number}, () => {
             this.checkPhoneNumber();
         });
@@ -48,33 +44,22 @@ class LoginScreen extends React.Component {
      */
     render() {
         return (
-            <View style={{
-                flex: 1,
-                padding: 20,
-                paddingTop: '10%',
-            }}>
-                <Text h3>Добро пожаловать!</Text>
-                <Divider style={{height: 15, backgroundColor: 'transparent'}}/>
-                <Text>Войдите, чтобы записываться к врачам</Text>
-                <Divider style={{height: 30, backgroundColor: 'transparent'}}/>
-
-                <Input
-                    label={'Номер телефона'}
-                    placeholder=''
-                    autoFocus={true}
-                    value={this.state.phone_number}
-                    onChangeText={(value) => this._typePhoneNumberHandler(value)}
-                    keyboardType={'numeric'}
-                    maxLength={10}
-                    style={{fontSize: 18}}
-                    leftIcon={
-                        <Text style={{paddingRight: 5, fontSize: 18, marginTop: -1}}>{this.state.country_code}</Text>
-                    }
-                />
-
-                <TextSmall style={{padding: 10}}>Номер телефона нужен только для защиты вашего аккаунта.
-                    Никаких рекламных СМС.</TextSmall>
-            </View>
+            <Container style={{padding: 15}}>
+                <Content style={{paddingTop: 20}}>
+                    <Text category={'h4'}>Добро пожаловать!</Text>
+                    <Divider style={{height: 20, backgroundColor: 'transparent'}}/>
+                    <Text>Войдите, чтобы записываться к врачам</Text>
+                    <Divider style={{height: 20, backgroundColor: 'transparent'}}/>
+                    <Input
+                        label={'Номер телефона'}
+                        placeholder='+7'
+                        caption={'Номер телефона нужен только для защиты вашего аккаунта. Никаких рекламных СМС.'}
+                        autoFocus={true}
+                        value={this.state.phone_number}
+                        onChangeText={(value) => this._phoneNumberHandler(value)}
+                        keyboardType={'numeric'}/>
+                </Content>
+            </Container>
         );
     }
 }

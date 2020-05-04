@@ -139,7 +139,7 @@ class Api {
         const _this = this;
         this.instance_api = axios.create({
             baseURL: this.api_url,
-            timeout: 3000,
+            timeout: 10000,
         });
 
         // Add a response interceptor

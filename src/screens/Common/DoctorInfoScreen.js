@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {View, ActivityIndicator, ScrollView, TouchableOpacity} from 'react-native';
-import {Card, Divider, Image, Text, Button} from 'react-native-elements';
-import {TextSmall} from '../../components/base';
+import {Card, Divider, Image} from 'react-native-elements';
+import {Button, Layout, Text} from '@ui-kitten/components';
 import {SlotCarousel} from '../../components/uikit';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {bindActionCreators} from 'redux';
@@ -71,47 +71,54 @@ class ContainerScreen extends React.Component {
                     PlaceholderContent={<ActivityIndicator/>}
                 />
                 <View style={{padding: 15}}>
-                    <Text h4>{doctor_info.name}</Text>
+                    <Text category={'h6'}>{doctor_info.name}</Text>
                     <Divider style={{height: 5, backgroundColor: '#fff'}}/>
-                    <TextSmall>
+                    <Text appearance={'hint'}>
                         {specialties}
-                    </TextSmall>
+                    </Text>
                 </View>
 
                 <View style={{paddingTop: 5}}>
+
                     <View style={{borderColor: '#ddd', borderTopWidth: 2, borderBottomWidth: 2, padding: 10}}>
-                        <Text style={{textAlign: 'center', fontSize: 20}}>Расписание</Text>
+                        <Text category={'s1'} style={{textAlign: 'center'}}>Расписание</Text>
                     </View>
+
                     <View style={{
                         justifyContent: 'space-between',
+                        alignItems: 'center',
                         flex: 1,
                         flexDirection: 'row',
                         padding: 15,
                         paddingBottom: 0,
                     }}>
-                        <Text style={{fontSize: 19, paddingTop: 8}}>Сегодня</Text>
-                        <Button type={'clear'} title={'Изменить дату'} onPress={this._showCalendar}/>
+                        <Text category={'s1'}>Сегодня</Text>
+                        <Button appearance={'outline'} status={'info'} size={'small'} onPress={this._showCalendar}>
+                            Изменить дату
+                        </Button>
                     </View>
 
-                    {doctor_info.clinics.map((clinic) => {
+                    <Layout style={{padding: 15, paddingBottom: 0, marginBottom: -15}}>
+                        {doctor_info.clinics.map((clinic) => {
 
-                        let clinic_slots = doctor_info.slots.filter(slot => slot.clinic_id === clinic.id);
+                            let clinic_slots = doctor_info.slots.filter(slot => slot.clinic_id === clinic.id);
 
-                        return (
-                            <View style={{flex: 1}} key={clinic.id}>
-                                <Card title={clinic.name}>
-                                    <View style={{flex: 1}}>
+                            return (
+                                <Layout key={clinic.id} style={{marginBottom: 15}}>
+                                    <Layout style={{paddingTop: 15, borderRadius: 5}} level={'3'}>
+                                        <Text category={'p1'} style={{textAlign: 'center'}}>{clinic.name}</Text>
+                                        <Divider style={{margin: 10}}/>
                                         <SlotCarousel
+                                            style={{paddingLeft: 15, paddingBottom: 15}}
                                             slots={clinic_slots}
                                             doctor_id={doctor_info.id}
                                             clinic_id={clinic.id}
                                             navigation={navigation}/>
-                                    </View>
-                                </Card>
-                            </View>
-                        );
-                    })}
-
+                                    </Layout>
+                                </Layout>
+                            );
+                        })}
+                    </Layout>
 
                     <Divider style={{height: 15, backgroundColor: '#fff'}}/>
                 </View>

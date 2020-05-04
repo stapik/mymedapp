@@ -28,6 +28,7 @@ class IndexScreen extends React.Component {
                             style={{backgroundColor: '#fff'}}
                             title={'Редактировать профиль'}
                             bottomDivider
+                            chevron
                         />
                     </TouchableHighlight>
                     <TouchableHighlight onPress={() => this.props.navigation.navigate('Support')}>

@@ -1,29 +1,30 @@
 import React from 'react';
-import {View} from 'react-native';
-import {Button, Text, Divider, Input} from 'react-native-elements';
+import {Text, Divider, Input, Button} from '@ui-kitten/components';
 import Helper from '../../components/Helper';
 import Api from '../../Api';
+import {Container, Content} from 'native-base';
+import moment from 'moment';
 
 class CheckSmsScreen extends React.Component {
 
     state = {
         code: '',
+        sms_interval: 0,
+        default_sms_interval: 120,
     };
 
     static navigationOptions = ({navigation}) => {
         return {
             title: navigation.getParam('phone_number', 'Нет номера телефона'),
-            headerRight: (
-                <Button type={'clear'} title="Далее" onPress={navigation.getParam('verifyPhoneNumber')}/>
-            ),
-            headerTitleStyle: {
-                fontWeight: 'bold',
-            },
         };
     };
 
+    /**
+     *
+     */
     componentDidMount(): void {
         this.props.navigation.setParams({verifyPhoneNumber: this.verifyPhoneNumber});
+        this.getSms();
     }
 
     /**
@@ -44,6 +45,34 @@ class CheckSmsScreen extends React.Component {
 
     /**
      *
+     */
+    getSms = () => {
+        const {seconds} = this.state;
+        if (seconds) {
+            return;
+        }
+        const phone_number = this.props.navigation.getParam('phone_number', '0');
+        const api = Api.make();
+        api.getSms(Helper.clearNumber(phone_number))
+            .catch(({response}) => Api._showError(response.data.message))
+            .then(() => {
+                this.setState(({default_sms_interval}) => ({sms_interval: default_sms_interval}));
+                this.smsInterval = setInterval(() => {
+                    const {sms_interval} = this.state;
+                    if (sms_interval > 0) {
+                        this.setState({
+                            sms_interval: sms_interval - 1,
+                        });
+                    }
+                    if (sms_interval === 0) {
+                        clearInterval(this.smsInterval);
+                    }
+                }, 1000);
+            });
+    };
+
+    /**
+     *
      * @param code
      * @private
      */
@@ -55,27 +84,38 @@ class CheckSmsScreen extends React.Component {
     }
 
     render() {
-        const {navigation} = this.props;
+        const {sms_interval} = this.state;
+        const moment_text = moment.unix(sms_interval).format('mm:ss')
+        const sms_interval_text = sms_interval ? `[${moment_text}]` : ``;
         return (
-            <View style={{
-                flex: 1,
-                padding: 20,
-                paddingTop: '15%',
-            }}>
-                <Text h3>СМС отправлено</Text>
-                <Divider style={{height: 15, backgroundColor: 'transparent'}}/>
-                <Text>В течении двух минут на ваш телефон придет код подтверждения</Text>
-                <Divider style={{height: 30, backgroundColor: 'transparent'}}/>
-                <Input
-                    style={{width: 20}}
-                    autoFocus={true}
-                    keyboardType={'numeric'}
-                    maxLength={5}
-                    placeholder=''
-                    label={'Код из смс'}
-                    onChangeText={(code) => this._typeCodeHandler(code)}
-                />
-            </View>
+            <Container style={{padding: 15}}>
+                <Content style={{paddingTop: 20}}>
+                    <Text category={'h4'}>СМС отправлено</Text>
+                    <Divider style={{height: 15, backgroundColor: 'transparent'}}/>
+                    <Text>В течении двух минут на ваш номер придёт код подтверждения</Text>
+                    <Divider style={{height: 30, backgroundColor: 'transparent'}}/>
+                    <Input
+                        autoFocus={true}
+                        keyboardType={'numeric'}
+                        maxLength={5}
+                        placeholder=''
+                        label={'Код из смс'}
+                        onChangeText={(code) => this._typeCodeHandler(code)}
+                    />
+                    <Button disabled={Boolean(sms_interval)}
+                            onPress={this.getSms}
+                            style={{width: '100%', borderRadius: 5}} size={'small'} status={'primary'}
+                            appearance='ghost'>
+                        Отправить смс повторно {sms_interval_text}
+                    </Button>
+                    <Button
+                        onPress={() => this.props.navigation.goBack()}
+                        style={{width: '100%', borderRadius: 5, marginTop: 5}} size={'small'} status={'primary'}
+                        appearance='ghost'>
+                        Изменить номер
+                    </Button>
+                </Content>
+            </Container>
         );
     }
 }

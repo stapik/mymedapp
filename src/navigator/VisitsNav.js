@@ -1,7 +1,6 @@
 import {createStackNavigator} from 'react-navigation-stack';
-import {ModalScreen} from '../screens';
 import {defaultStackConfig} from '../../settings';
-import {IndexScreen} from '../screens/Visits';
+import {IndexScreen, VisitCreatedModalScreen} from '../screens/Visits';
 
 const VisitsStack = createStackNavigator({
     Index: {
@@ -16,8 +15,8 @@ const VisitsNav = createStackNavigator({
     Main: {
         screen: VisitsStack,
     },
-    Modal: {
-        screen: ModalScreen,
+    VisitCreated: {
+        screen: VisitCreatedModalScreen,
     },
 }, {
     mode: 'modal',

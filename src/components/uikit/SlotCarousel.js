@@ -1,7 +1,6 @@
-import {ListItem} from 'react-native-elements';
 import React, {Component} from 'react';
-import {ScrollView, TouchableOpacity} from 'react-native';
-import {TextSmall} from '../base';
+import {ScrollView} from 'react-native';
+import {Button, Text} from '@ui-kitten/components';
 
 export class SlotCarousel extends Component {
 
@@ -9,22 +8,25 @@ export class SlotCarousel extends Component {
      * @returns {*}
      */
     render() {
-        const {navigation, slots} = this.props;
+        const {navigation, slots, style} = this.props;
 
-        if(!slots.length){
-            return <TextSmall>Нет свободного времени</TextSmall>;
+        if (!slots.length) {
+            return <Text appearance={'hint'} style={style} category={'p1'}>Нет свободного времени</Text>;
         }
 
         return (
-            <ScrollView style={{flex: 1}} horizontal={true}>
+            <ScrollView style={style} horizontal={true}>
                 {slots.map((item, idx) =>
-                    <TouchableOpacity onPress={()=>{navigation.navigate('AppointmentForm')}} key={item.time_start}>
-                        <ListItem
-                            contentContainerStyle={{backgroundColor: '#009989', padding: 10, borderRadius: 5}}
-                            titleStyle={{color: '#fff'}}
-                            title={item.title}
-                        />
-                    </TouchableOpacity>,
+                    <Button
+                        style={{marginRight: 15}}
+                        size={'small'}
+                        key={idx}
+                        status={'info'}
+                        onPress={() => {
+                            navigation.navigate('AppointmentForm');
+                        }}>
+                        {item.title}
+                    </Button>,
                 )}
             </ScrollView>
         );

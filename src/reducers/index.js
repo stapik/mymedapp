@@ -65,6 +65,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 internet_status: false,
             };
+        case 'UPDATE_PROFILE':
+            return {
+                ...state,
+                profile: action.payload,
+            };
         case 'FAVORITE_DOCTORS_LOADED':
             return {
                 ...state,

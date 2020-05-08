@@ -17,6 +17,13 @@ const internetStatus = (status) => {
     };
 };
 
+const updateProfile = (profile) => {
+    return {
+        type: 'UPDATE_PROFILE',
+        payload: profile,
+    };
+};
+
 const updateTokenInfo = (token_info) => {
     return {
         type: 'UPDATE_TOKEN',
@@ -236,4 +243,5 @@ export {
     toggleFavoriteDoctor,
     fetchClinics,
     createVisit,
+    updateProfile
 };

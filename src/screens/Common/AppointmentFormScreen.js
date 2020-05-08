@@ -26,7 +26,7 @@ class ContainerScreen extends React.Component {
 
     render() {
         return (
-            <ProfileForm submitHandler={this.submitHandler} submitText={'Записаться'} profile={this.props.profile}/>
+            <ProfileForm submitHandler={this.submitHandler} submitText={'Записаться'}/>
         );
     }
 }

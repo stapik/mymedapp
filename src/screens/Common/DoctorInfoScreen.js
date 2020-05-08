@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, ActivityIndicator, ScrollView, TouchableOpacity} from 'react-native';
-import {Card, Divider, Image} from 'react-native-elements';
+import {Divider, Image} from 'react-native-elements';
 import {Button, Layout, Text} from '@ui-kitten/components';
 import {SlotCarousel} from '../../components/uikit';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -107,9 +107,11 @@ class ContainerScreen extends React.Component {
                                 <Layout key={clinic.id} style={{marginBottom: 15}}>
                                     <Layout style={{paddingTop: 15, borderRadius: 5}} level={'3'}>
                                         <Text category={'p1'} style={{textAlign: 'center'}}>{clinic.name}</Text>
+                                        {clinic.address ? <Text style={{paddingLeft: 15, paddingRight: 15}}
+                                                                appearance={'hint'}>{clinic.address}</Text> : null}
                                         <Divider style={{margin: 10}}/>
                                         <SlotCarousel
-                                            style={{paddingLeft: 15, paddingBottom: 15}}
+                                            style={{marginLeft: 15, paddingBottom: 15, marginRight: 15}}
                                             slots={clinic_slots}
                                             doctor_id={doctor_info.id}
                                             clinic_id={clinic.id}

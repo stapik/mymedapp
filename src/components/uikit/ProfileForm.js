@@ -5,15 +5,20 @@ import {DatePicker} from 'native-base';
 import moment from 'moment';
 import {Container, Content} from 'native-base';
 import FormValidator from '../FormValidator';
+import {bindActionCreators} from 'redux';
+import {createVisit, updateProfile} from '../../actions';
+import compose from '../../utils/compose';
+import {withVisitsStoreService} from '../hoc';
+import {connect} from 'react-redux';
 
-class ProfileForm extends FormValidator {
+class ProfileFormContainer extends FormValidator {
     /**
      *
      * @param props
      */
     constructor(props) {
         super(props);
-        this.state = Object.assign(this.state, props.profile);
+        this.state = Object.assign(this.state, this.props.profile);
     }
 
     state = {
@@ -37,7 +42,7 @@ class ProfileForm extends FormValidator {
      * @private
      */
     _onPressButton = () => {
-        const {submitHandler} = this.props;
+        const {submitHandler, updateProfile} = this.props;
 
         this.validate({
             first_name: {minlength: 2, required: true},
@@ -47,6 +52,7 @@ class ProfileForm extends FormValidator {
         });
         if (this.isFormValid()) {
             submitHandler(this.state);
+            updateProfile(this.state);
         }
     };
 
@@ -96,7 +102,6 @@ class ProfileForm extends FormValidator {
                             textStyle={{fontSize: 15, color: '#343434'}}
                             placeHolderTextStyle={{color: '#9e9e9e'}}
                             locale={'ru'}
-                            placeHolderText={' '}
                             formatChosenDate={(date) => moment(date).format('DD.MM.YYYY')}
                             androidMode={'spinner'}
                             onDateChange={(date) => this.setState(
@@ -113,5 +118,17 @@ class ProfileForm extends FormValidator {
         );
     }
 }
+
+const mapStateToProps = ({profile}) => {
+    return {profile};
+};
+
+const mapDispatchToProps = {
+    updateProfile,
+};
+
+const ProfileForm = compose(
+    connect(mapStateToProps, mapDispatchToProps),
+)(ProfileFormContainer);
 
 export default ProfileForm;

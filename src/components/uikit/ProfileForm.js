@@ -7,6 +7,14 @@ import {Container, Content} from 'native-base';
 import FormValidator from '../FormValidator';
 
 class ProfileForm extends FormValidator {
+    /**
+     *
+     * @param props
+     */
+    constructor(props) {
+        super(props);
+        this.state = Object.assign(this.state, props.profile);
+    }
 
     state = {
         country_code: '+7',
@@ -35,7 +43,7 @@ class ProfileForm extends FormValidator {
             first_name: {minlength: 2, required: true},
             last_name: {minlength: 2, required: true},
             phone_number: {check_phone_number: 'RU', required: true},
-            birth_date: {date: 'DD.MM.YYYY', required: true},
+            birth_date: {date: 'YYYY-MM-DD', required: true},
         });
         if (this.isFormValid()) {
             submitHandler(this.state);
@@ -84,14 +92,17 @@ class ProfileForm extends FormValidator {
                                 paddingLeft: 5,
                             }}>
                         <DatePicker
-                            defaultDate={birth_date ? moment(birth_date).toDate() : null}
+                            defaultDate={birth_date ? moment(birth_date, 'YYYY-MM-DD').toDate() : null}
                             textStyle={{fontSize: 15, color: '#343434'}}
                             placeHolderTextStyle={{color: '#9e9e9e'}}
                             locale={'ru'}
                             placeHolderText={' '}
                             formatChosenDate={(date) => moment(date).format('DD.MM.YYYY')}
                             androidMode={'spinner'}
-                            onDateChange={(birth_date) => this.setState({birth_date})}
+                            onDateChange={(date) => this.setState(
+                                {
+                                    birth_date: moment(date).format('YYYY-MM-DD'),
+                                })}
                         />
                     </Layout>
                     <Button style={{marginTop: 25}} onPress={this._onPressButton}>

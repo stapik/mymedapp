@@ -14,6 +14,7 @@ const initialState = {
     page_loader: false,
     doctor_info: {},
     clinics: [],
+    profile: {},
     doctors_filter: filterInitialState,
 };
 

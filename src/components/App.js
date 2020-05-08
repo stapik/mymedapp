@@ -4,7 +4,13 @@ import {Provider} from 'react-redux';
 import {store, persistor} from '../store';
 import DoctorsStoreService from '../services/DoctorsStoreService';
 import SpecialtiesStoreService from '../services/SpecialtiesStoreService';
-import {DoctorsStoreProvider, SpecialtiesStoreProvider, ApiProvider, ClinicsStoreProvider} from './contexts';
+import {
+    DoctorsStoreProvider,
+    SpecialtiesStoreProvider,
+    ApiProvider,
+    ClinicsStoreProvider,
+    VisitsStoreProvider,
+} from './contexts';
 import {PersistGate} from 'redux-persist/integration/react';
 import Api from '../Api';
 import {Root} from 'native-base';
@@ -13,6 +19,7 @@ import {ApplicationProvider} from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
 import {PageLoader} from './uikit';
 import ClinicsStoreService from '../services/ClinicsStoreService';
+import VisitsStoreService from '../services/VisitsStoreService';
 
 export default class App extends React.Component {
 
@@ -31,6 +38,7 @@ export default class App extends React.Component {
         const doctorsStoreService = new DoctorsStoreService();
         const specialtiesStoreService = new SpecialtiesStoreService();
         const clinicsStoreService = new ClinicsStoreService();
+        const visitsStoreService = new VisitsStoreService();
 
         return (
             <Root>
@@ -38,14 +46,16 @@ export default class App extends React.Component {
                     <ApiProvider value={api}>
                         <PersistGate loading={null} persistor={persistor}>
                             <SpecialtiesStoreProvider value={specialtiesStoreService}>
-                                <DoctorsStoreProvider value={doctorsStoreService}>
-                                    <ClinicsStoreProvider value={clinicsStoreService}>
-                                        <ApplicationProvider {...eva} theme={eva.light}>
-                                            <AppContainer/>
-                                            <PageLoader/>
-                                        </ApplicationProvider>
-                                    </ClinicsStoreProvider>
-                                </DoctorsStoreProvider>
+                                <VisitsStoreProvider value={visitsStoreService}>
+                                    <DoctorsStoreProvider value={doctorsStoreService}>
+                                        <ClinicsStoreProvider value={clinicsStoreService}>
+                                            <ApplicationProvider {...eva} theme={eva.light}>
+                                                <AppContainer/>
+                                                <PageLoader/>
+                                            </ApplicationProvider>
+                                        </ClinicsStoreProvider>
+                                    </DoctorsStoreProvider>
+                                </VisitsStoreProvider>
                             </SpecialtiesStoreProvider>
                         </PersistGate>
                     </ApiProvider>

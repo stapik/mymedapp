@@ -60,7 +60,7 @@ const pageLoaded = () => {
 const clinicsLoaded = (newClinics) => {
     return {
         type: 'CLINICS_LOADED',
-        payload: newClinics
+        payload: newClinics,
     };
 };
 
@@ -185,6 +185,24 @@ const fetchDoctorInfo = (doctorsStoreService) => (doctor, successCb) => (dispatc
 
 /**
  *
+ * @param visitsStoreService
+ * @returns {function(*, *=): Function}
+ */
+const createVisit = (visitsStoreService) => (data, successCb) => (dispatch) => {
+    dispatch(pageLoading());
+    visitsStoreService
+        .create(data)
+        .then(({data: {data}}) => {
+            successCb();
+        })
+        .catch((err) => dispatch(fetchError(err)))
+        .finally(() => {
+            dispatch(pageLoaded());
+        });
+};
+
+/**
+ *
  * @param doctorsStoreService
  * @returns {function(*, *=): Function}
  */
@@ -217,4 +235,5 @@ export {
     internetStatus,
     toggleFavoriteDoctor,
     fetchClinics,
+    createVisit,
 };

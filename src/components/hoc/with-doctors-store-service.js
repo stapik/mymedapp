@@ -1,5 +1,5 @@
 import React from 'react';
-import {DoctorsStoreConsumer} from '../contexts/doctors-store-context';
+import {DoctorsStoreConsumer} from '../contexts';
 
 const withDoctorStoreService = () => (Wrapped) => {
     return (props) => {

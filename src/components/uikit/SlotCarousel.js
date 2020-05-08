@@ -8,7 +8,7 @@ export class SlotCarousel extends Component {
      * @returns {*}
      */
     render() {
-        const {navigation, slots, style} = this.props;
+        const {navigation, slots, style, doctor_id, clinic_id} = this.props;
 
         if (!slots.length) {
             return <Text appearance={'hint'} style={style} category={'p1'}>Нет свободного времени</Text>;
@@ -23,9 +23,9 @@ export class SlotCarousel extends Component {
                         key={idx}
                         status={'info'}
                         onPress={() => {
-                            navigation.navigate('AppointmentForm');
+                            navigation.navigate('AppointmentForm', {doctor_id, clinic_id, time_start: item.time_start});
                         }}>
-                        {item.title}
+                        <Text category={'s1'} style={{color: '#fff'}}>{item.title}</Text>
                     </Button>,
                 )}
             </ScrollView>

@@ -76,7 +76,7 @@ class Api {
             scope: '',
         }).then(({data}) => {
             Api._updateTokenInfo(data);
-        });
+        }).catch((error) => Api.errorHandler(error));
     }
 
     /**
@@ -84,7 +84,7 @@ class Api {
      */
     static logout() {
         const api = Api.make();
-        api.request('logout').then(({message})=>Api._showError(message));
+        api.request('logout');
     }
 
     /**
@@ -107,7 +107,7 @@ class Api {
             scope: '',
         }).then(({data}) => {
             Api._updateTokenInfo(data);
-        });
+        }).catch((error) => Api.errorHandler(error));
     }
 
     /**
@@ -139,7 +139,7 @@ class Api {
         const _this = this;
         this.instance_api = axios.create({
             baseURL: this.api_url,
-            timeout: 10000,
+            timeout: 5000,
         });
 
         // Add a response interceptor
@@ -154,9 +154,7 @@ class Api {
                 }
 
             }
-
-            Api._showError('Ошибка при обработке запроса');
-
+            Api.errorHandler(error);
             return Promise.reject(error);
         });
     }
@@ -198,9 +196,23 @@ class Api {
         Toast.show({
             text: error_info + status_text,
             buttonText: 'Ок',
-            duration: 10000,
+            duration: 5000,
         });
     };
+
+
+    /**
+     * @param error
+     */
+    static errorHandler(error) {
+        if (error.response) {
+            Api._showError(error.response.data.message);
+        } else if (error.request) {
+            Api._showError('Ведутся технические работы');
+        } else {
+            Api._showError('Нет доступа к интернету');
+        }
+    }
 
     /**
      * @returns {string}

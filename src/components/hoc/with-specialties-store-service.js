@@ -1,5 +1,5 @@
 import React from 'react';
-import {SpecialtiesStoreConsumer} from '../contexts/specialties-store-context';
+import {SpecialtiesStoreConsumer} from '../contexts';
 
 const withSpecialtiesStoreService = () => (Wrapped) => {
     return (props) => {

@@ -54,7 +54,6 @@ class CheckSmsScreen extends React.Component {
         const phone_number = this.props.navigation.getParam('phone_number', '0');
         const api = Api.make();
         api.getSms(Helper.clearNumber(phone_number))
-            .catch(({response}) => Api._showError(response.data.message))
             .then(() => {
                 this.setState(({default_sms_interval}) => ({sms_interval: default_sms_interval}));
                 this.smsInterval = setInterval(() => {
@@ -68,7 +67,8 @@ class CheckSmsScreen extends React.Component {
                         clearInterval(this.smsInterval);
                     }
                 }, 1000);
-            });
+            }).catch((error) => Api.errorHandler(error))
+        ;
     };
 
     /**

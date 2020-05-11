@@ -1,2 +1,2 @@
 export * from './IndexScreen'
-export * from './VisitCreatedModalScreen'
+export * from '../Common/VisitCreatedModalScreen'

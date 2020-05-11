@@ -5,10 +5,8 @@ import {DatePicker} from 'native-base';
 import moment from 'moment';
 import {Container, Content} from 'native-base';
 import FormValidator from '../FormValidator';
-import {bindActionCreators} from 'redux';
-import {createVisit, updateProfile} from '../../actions';
+import {updateProfile} from '../../actions';
 import compose from '../../utils/compose';
-import {withVisitsStoreService} from '../hoc';
 import {connect} from 'react-redux';
 
 class ProfileFormContainer extends FormValidator {
@@ -100,7 +98,8 @@ class ProfileFormContainer extends FormValidator {
                         <DatePicker
                             defaultDate={birth_date ? moment(birth_date, 'YYYY-MM-DD').toDate() : null}
                             textStyle={{fontSize: 15, color: '#343434'}}
-                            placeHolderTextStyle={{color: '#9e9e9e'}}
+                            placeHolderTextStyle={{color: '#343434'}}
+                            placeHolderText={birth_date ? moment(birth_date).format('DD.MM.YYYY') : 'Выберите дату'}
                             locale={'ru'}
                             formatChosenDate={(date) => moment(date).format('DD.MM.YYYY')}
                             androidMode={'spinner'}

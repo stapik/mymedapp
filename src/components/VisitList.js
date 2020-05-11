@@ -83,12 +83,19 @@ class VisitListContainer extends Component {
     renderItem = ({item: {doctor, patient, clinic, date, time, canceled, id}}) => {
         const {old} = this.props;
 
-        return (<Layout style={{padding: 10, margin: 10, marginBottom: 0, borderRadius: 5}}>
+        return (<Layout style={{
+            padding: 10,
+            borderRadius: 5,
+            shadowOpacity: 0.07,
+            shadowRadius: 3,
+            marginRight: 15,
+            marginLeft: 15,
+        }}>
             <TouchableOpacity activeOpacity={0.75} onPress={() => this._selectDoctor(doctor)}>
                 <View style={{flexDirection: 'row'}}>
                     <Image
                         source={{uri: doctor.avatar}}
-                        style={{width: 100, height: 100, borderRadius: 5}}
+                        style={{width: 90, height: 90, borderRadius: 5}}
                         PlaceholderContent={<ActivityIndicator/>}
                     />
                     <View style={{padding: 5, paddingLeft: 15, alignItems: 'flex-start', flex: 1, flexWrap: 'wrap'}}>
@@ -176,6 +183,10 @@ class VisitListContainer extends Component {
         fetchVisits(() => this.setState({refreshing: false}));
     };
 
+    renderDivider = () => {
+        return <View style={{height: 15, backgroundColor: 'transparent'}}/>;
+    };
+
     /**
      * @returns {*}
      */
@@ -183,11 +194,14 @@ class VisitListContainer extends Component {
         const {visits} = this.props;
         return (
             <FlatList
-                ListEmptyComponent={<Text appearance={'hint'} category={'p1'} style={{padding: 15}}>Нет
-                    записей</Text>}
-                style={{marginBottom: 10, backgroundColor: '#f5f5f5'}}
+                ListEmptyComponent={<Text appearance={'hint'} category={'p1'} style={{padding: 15}}>
+                    Нет записей</Text>}
+                style={{backgroundColor: '#f5f5f5'}}
                 data={visits}
                 initialNumToRender={5}
+                ItemSeparatorComponent={this.renderDivider}
+                ListFooterComponent={this.renderDivider}
+                ListHeaderComponent={this.renderDivider}
                 refreshing={this.state.refreshing}
                 onRefresh={this.handleRefresh}
                 keyExtractor={(item) => item.id.toString()}

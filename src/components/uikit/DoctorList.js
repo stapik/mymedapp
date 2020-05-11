@@ -43,6 +43,7 @@ class DoctorList extends React.Component {
             style={styles.container}
             contentContainerStyle={styles.contentContainer}
             data={doctors}
+            ListEmptyComponent={<Text appearance={'hint'} category={'p1'} style={{padding: 15}}>Пусто</Text>}
             renderItem={this.renderItem}/>);
     }
 }

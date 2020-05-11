@@ -2,7 +2,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {ModalScreen} from '../screens';
 import {defaultStackConfig} from '../../settings';
 import {IndexScreen} from '../screens/Favorites';
-import {AppointmentFormScreen, CalendarScreen, DoctorInfoScreen} from '../screens/Common';
+import {commonScreens} from './commonScreens';
 
 const FavoritesStack = createStackNavigator({
     Index: {
@@ -11,15 +11,7 @@ const FavoritesStack = createStackNavigator({
             title: 'Избранное',
         },
     },
-    DoctorInfo: {
-        screen: DoctorInfoScreen,
-    },
-    Calendar: {
-        screen: CalendarScreen,
-    },
-    AppointmentForm: {
-        screen: AppointmentFormScreen,
-    },
+    ...commonScreens
 }, defaultStackConfig);
 
 const FavoritesNav = createStackNavigator({

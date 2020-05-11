@@ -1,10 +1,9 @@
-import {ErrorModalScreen} from '../screens/Auth/ErrorModalScreen';
+import {ErrorModalScreen} from '../screens/Auth';
 import {CheckSmsScreen, LoginScreen} from '../screens/Auth';
-import {TabsNav} from './TabsNav';
 import {createStackNavigator} from 'react-navigation-stack';
 import {defaultStackConfig} from '../../settings';
 
-const AuthNav = createStackNavigator({
+const GuestNav = createStackNavigator({
     Login: {
         screen: LoginScreen,
         navigationOptions: {
@@ -22,18 +21,4 @@ const AuthNav = createStackNavigator({
     defaultNavigationOptions: defaultStackConfig.defaultNavigationOptions,
 });
 
-// const AuthNav = createStackNavigator({
-//     Main: {
-//         screen: AuthStack,
-//     },
-//     TabsNav: {
-//         screen: TabsNav,
-//         navigationOptions: {
-//             gesturesEnabled: false,
-//         },
-//     },
-// }, {
-//     headerMode: 'none',
-// });
-
-export {AuthNav};
+export {GuestNav};

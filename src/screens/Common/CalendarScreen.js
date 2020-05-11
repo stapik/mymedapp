@@ -24,11 +24,11 @@ class CalendarScreen extends React.Component {
     };
 
     apply_filter() {
-        this.props.navigation.goBack();
+        this.props.navigation.goBack(null);
     }
 
     reset_filter() {
-        this.props.navigation.goBack();
+        this.props.navigation.goBack(null);
     }
 
     render() {

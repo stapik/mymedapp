@@ -12,7 +12,6 @@ import compose from '../../utils/compose';
 import {fetchSpecialties, fetchSpecialtyDoctors} from '../../actions';
 import {withDoctorStoreService, withSpecialtiesStoreService} from '../../components/hoc';
 import {bindActionCreators} from 'redux';
-import {searchInStr} from '../../utils';
 
 class ContainerScreen extends React.Component {
 

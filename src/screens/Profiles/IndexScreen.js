@@ -21,7 +21,7 @@ class ContainerScreen extends React.Component {
                     <Image
                         source={require('../../images/profile.png')}
                         style={{height: 100, width: 100, marginTop: 0}}/>
-                    <View style={{paddingLeft: 20}}>
+                    <View style={{paddingLeft: 20, display: Object.keys(profile).length ? 'flex' : 'none'}}>
                         <Text>
                             {profile.last_name} {profile.first_name}
                         </Text>

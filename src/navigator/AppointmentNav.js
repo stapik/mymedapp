@@ -4,18 +4,15 @@ import {
     IndexScreen, SelectDateScreen,
     SelectSpecialtyScreen,
     SpecialtyDoctorsScreen,
+    SelectClinicScreen
 } from '../screens/Appointment';
 import {defaultStackConfig} from '../../settings';
 import React from 'react';
-import {AppointmentFormScreen, CalendarScreen, DoctorInfoScreen} from '../screens/Common';
-import {SelectClinicScreen} from '../screens/Appointment/SelectClinicScreen';
+import {commonScreens} from './commonScreens';
 
 const AppointmentNav = createStackNavigator({
     Index: {
         screen: IndexScreen,
-    },
-    DoctorInfo: {
-        screen: DoctorInfoScreen,
     },
     DoctorFilter: {
         screen: DoctorFilterScreen,
@@ -32,12 +29,7 @@ const AppointmentNav = createStackNavigator({
     SpecialtyDoctors: {
         screen: SpecialtyDoctorsScreen,
     },
-    Calendar: {
-        screen: CalendarScreen,
-    },
-    AppointmentForm: {
-        screen: AppointmentFormScreen,
-    },
+    ...commonScreens
 }, defaultStackConfig);
 
 export {AppointmentNav};

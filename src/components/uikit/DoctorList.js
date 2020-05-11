@@ -13,7 +13,8 @@ class DoctorList extends React.Component {
         <Card>
             <TouchableOpacity onPress={() => this.props.selectHandler(doctor)} activeOpacity={0.75}>
                 <CardItem cardBody>
-                    <Image source={{uri: doctor.avatar}} style={{height: 200, width: null, flex: 1}}/>
+                    <Image source={{uri: doctor.avatar}} resizeMode={'cover'}
+                           style={{height: 200, width: 200, flex: 1}}/>
                 </CardItem>
             </TouchableOpacity>
             <CardItem>

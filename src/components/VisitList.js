@@ -1,0 +1,219 @@
+import React, {Component} from 'react';
+import {Button, Layout, Text, Divider} from '@ui-kitten/components';
+import {ActivityIndicator, Alert, FlatList, Image, TouchableOpacity, View} from 'react-native';
+import {formatPhone} from '../utils';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import {Content} from 'native-base';
+import {bindActionCreators} from 'redux';
+import {cancelVisit, deleteVisit, fetchDoctorInfo, fetchVisits} from '../actions';
+import compose from '../utils/compose';
+import {withDoctorStoreService, withVisitsStoreService} from './hoc';
+import {connect} from 'react-redux';
+
+class VisitListContainer extends Component {
+
+    state = {
+        refreshing: false,
+    };
+
+    /**
+     * @param doctor
+     * @private
+     */
+    _selectDoctor = (doctor) => {
+        const {fetchDoctorInfo, navigation} = this.props;
+        fetchDoctorInfo(doctor.id, () => navigation.navigate('DoctorInfo', {doctor}));
+    };
+
+    /**
+     * @param id
+     * @private
+     */
+    _cancelVisit = (id) => {
+        const {cancelVisit, fetchVisits} = this.props;
+        Alert.alert(
+            '',
+            'Отмениить визит?',
+            [
+                {
+                    text: 'Нет',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Да', onPress: () => {
+                        cancelVisit(id, () => {
+                            fetchVisits();
+                        });
+                    },
+                },
+            ],
+            {cancelable: false},
+        );
+    };
+
+    /**
+     * @param id
+     * @private
+     */
+    _deleteVisit = (id) => {
+        const {deleteVisit, fetchVisits} = this.props;
+        Alert.alert(
+            '',
+            'Удалить визит?',
+            [
+                {
+                    text: 'Нет',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Да', onPress: () => {
+                        deleteVisit(id, () => {
+                            fetchVisits();
+                        });
+                    },
+                },
+            ],
+            {cancelable: false},
+        );
+    };
+
+    /**
+     *
+     */
+    renderItem = ({item: {doctor, patient, clinic, date, time, canceled, id}}) => {
+        const {old} = this.props;
+
+        return (<Layout style={{padding: 10, margin: 10, marginBottom: 0, borderRadius: 5}}>
+            <TouchableOpacity activeOpacity={0.75} onPress={() => this._selectDoctor(doctor)}>
+                <View style={{flexDirection: 'row'}}>
+                    <Image
+                        source={{uri: doctor.avatar}}
+                        style={{width: 100, height: 100, borderRadius: 5}}
+                        PlaceholderContent={<ActivityIndicator/>}
+                    />
+                    <View style={{padding: 5, paddingLeft: 15, alignItems: 'flex-start', flex: 1, flexWrap: 'wrap'}}>
+                        <Text category={'s1'}>{doctor.name}</Text>
+                        <View style={{
+                            flex: 1,
+                            flexWrap: 'wrap',
+                            flexDirection: 'row',
+                            paddingTop: 5,
+                            alignItems: 'center',
+                        }}>
+                            <Icon style={{color: '#6f6f6f'}} name={'calendar-alt'} size={12}/>
+                            <Text style={{paddingLeft: 5, paddingRight: 15}} category={'c2'} appearance={'hint'}>
+                                {date}
+                            </Text>
+                            <Icon style={{color: '#6f6f6f'}} name={'clock'} size={12}/>
+                            <Text style={{paddingLeft: 5, paddingRight: 5}} category={'c2'} appearance={'hint'}>
+                                {time}
+                            </Text>
+                        </View>
+                        <Text category={'s1'}>{clinic.name}</Text>
+                        <Text category={'c2'} appearance={'hint'}>{clinic.address}</Text>
+                    </View>
+                </View>
+                <Divider style={{marginTop: 15, marginBottom: 10, backgroundColor: '#e7e7e7'}}/>
+                <View>
+                    <Text category={'s1'}>{patient.first_name} {patient.last_name}</Text>
+                    <Text category={'c2'} appearance={'hint'}>
+                        {formatPhone(patient.phone_number)}
+                    </Text>
+                </View>
+                <View style={{paddingTop: 10}}>
+                    {this.statusButtons(old, canceled, id, doctor)}
+                </View>
+            </TouchableOpacity>
+        </Layout>);
+    };
+
+    /**
+     * @param old
+     * @param canceled
+     * @param visit_id
+     * @param doctor
+     * @returns {*}
+     */
+    statusButtons(old, canceled, visit_id, doctor) {
+
+        const statusText = canceled ? 'Отменён' : 'Зарегистрирован';
+        const statusType = canceled ? 'danger' : 'success';
+        let pressCb, pressBtnText;
+
+        if (old) {
+            pressCb = () => this._deleteVisit(visit_id);
+            pressBtnText = 'Удалить';
+        } else {
+            pressCb = canceled ? () => this._deleteVisit(visit_id) : () => this._cancelVisit(visit_id);
+            pressBtnText = canceled ? 'Удалить' : 'Отменить';
+        }
+
+        return <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Button size={'small'}
+                    onPress={pressCb}
+                    style={{width: '39%'}}
+                    appearance='outline'
+                    status={'danger'}>{pressBtnText}</Button>
+            {old ? <Button size={'small'}
+                           style={{width: '59%'}}
+                           onPress={() => this._selectDoctor(doctor)}
+                           appearance='outline'
+                           status={'info'}>Повторная запись</Button>
+                :
+                <Layout style={{padding: 7, borderRadius: 5, width: '59%'}} level={'3'}>
+                    <Text status={statusType} style={{textAlign: 'center'}}>{statusText}</Text>
+                </Layout>
+            }
+        </View>;
+    }
+
+    /**
+     *
+     */
+    handleRefresh = () => {
+        const {fetchVisits} = this.props;
+        this.setState({refreshing: true});
+        fetchVisits(() => this.setState({refreshing: false}));
+    };
+
+    /**
+     * @returns {*}
+     */
+    render() {
+        const {visits} = this.props;
+        return (
+            <FlatList
+                ListEmptyComponent={<Text appearance={'hint'} category={'p1'} style={{padding: 15}}>Нет
+                    записей</Text>}
+                style={{marginBottom: 10, backgroundColor: '#f5f5f5'}}
+                data={visits}
+                initialNumToRender={5}
+                refreshing={this.state.refreshing}
+                onRefresh={this.handleRefresh}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={this.renderItem}/>
+        );
+    }
+}
+
+const mapStateToProps = ({}) => {
+    return {};
+};
+
+const mapDispatchToProps = (dispatch, {doctorsStoreService, visitsStoreService}) => {
+    return bindActionCreators({
+        fetchDoctorInfo: fetchDoctorInfo(doctorsStoreService),
+        fetchVisits: fetchVisits(visitsStoreService),
+        deleteVisit: deleteVisit(visitsStoreService),
+        cancelVisit: cancelVisit(visitsStoreService),
+    }, dispatch);
+};
+
+const VisitList = compose(
+    withDoctorStoreService(),
+    withVisitsStoreService(),
+    connect(mapStateToProps, mapDispatchToProps),
+)(VisitListContainer);
+
+export {VisitList};
+

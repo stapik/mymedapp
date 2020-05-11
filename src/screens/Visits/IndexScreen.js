@@ -1,49 +1,82 @@
 import React from 'react';
-import {ActivityIndicator, ScrollView, Text, View} from 'react-native';
-import {Button, Card, Divider, Image} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import _ from 'lodash';
+import {Container, Content, Tabs, Tab} from 'native-base';
+import {bindActionCreators} from 'redux';
+import {fetchVisits} from '../../actions';
+import compose from '../../utils/compose';
+import {withVisitsStoreService} from '../../components/hoc';
+import {connect} from 'react-redux';
+import {VisitList} from '../../components/uikit';
+import moment from 'moment';
 
-class IndexScreen extends React.Component {
+class ContainerScreen extends React.Component {
+
+    /**
+     *
+     */
+    componentDidMount(): void {
+        const {navigation, fetchVisits} = this.props;
+
+        let visitsListLoaded = false;
+        this.visitsFocusListener = navigation.addListener('didFocus', () => {
+            if (!visitsListLoaded) {
+                fetchVisits();
+                visitsListLoaded = true;
+            }
+            setTimeout(() => visitsListLoaded = false, 20000);
+        });
+    }
+
+    /**
+     *
+     */
+    componentWillUnmount() {
+        // Remove the event listener
+        this.visitsFocusListener.remove();
+    }
+
+    /**
+     *
+     * @returns {*}
+     */
     render() {
+        const {visits, navigation} = this.props;
+        const sorted_visits = visits.sort((a, b) => {
+            return Boolean(a.canceled) === Boolean(b.canceled);
+        });
+        const currentVisits = sorted_visits.filter((item) => moment(item.time_start).isAfter());
+        const pastVisits = sorted_visits.filter((item) => moment(item.time_start).isBefore());
         return (
-            <ScrollView style={{flex: 1, padding: 10}}>
-                {_.times(12, i => {
-                    return (<View key={i}>
-                        <View style={{
-                            backgroundColor: '#eeeeee',
-                            padding: 10,
-                            borderRadius: 5,
-                            flex: 1,
-                        }}>
-                            <View
-                                style={{
-                                    flex: 1,
-                                    flexDirection: 'row',
-                                    borderColor: '#F04155',
-                                    paddingBottom: 5,
-                                    borderBottomWidth: 1,
-                                }}>
-                                <Icon name={'calendar'} style={{fontSize: 15, color: '#009989'}}/>
-                                <Text style={{paddingLeft: 10}}>10.01.2020 в 12:00</Text>
-                            </View>
-                            <Divider style={{height: 5, backgroundColor: 'transparent'}}/>
-                            <Text>Врач: Иванов Иван Иванович</Text>
-                            <Divider
-                                style={{
-                                    height: 5,
-                                    backgroundColor: 'transparent',
-                                }}/>
-                            <Text>Пациент: Тестовый Тест Тестович</Text>
-                        </View>
-                        <Divider style={{height: 10, backgroundColor: 'transparent'}}/>
-                    </View>);
-                })}
-
-                <Divider style={{height: 10, backgroundColor: 'transparent'}}/>
-            </ScrollView>
+            <Container>
+                <Tabs>
+                    <Tab heading="Текущие">
+                        <VisitList navigation={navigation}
+                                   visits={currentVisits}
+                                   old={false}/>
+                    </Tab>
+                    <Tab heading="Прошедшие">
+                        <VisitList navigation={navigation}
+                                   visits={pastVisits}
+                                   old={true}/>
+                    </Tab>
+                </Tabs>
+            </Container>
         );
     }
 }
+
+const mapStateToProps = ({visits}) => {
+    return {visits};
+};
+
+const mapDispatchToProps = (dispatch, {visitsStoreService}) => {
+    return bindActionCreators({
+        fetchVisits: fetchVisits(visitsStoreService),
+    }, dispatch);
+};
+
+const IndexScreen = compose(
+    withVisitsStoreService(),
+    connect(mapStateToProps, mapDispatchToProps),
+)(ContainerScreen);
 
 export {IndexScreen};

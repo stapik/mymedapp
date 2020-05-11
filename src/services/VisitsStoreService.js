@@ -7,7 +7,7 @@ export default class VisitStoreService extends BaseService {
      * @returns {Array}
      */
     getList() {
-        return this.api.request('visits/index');
+        return this.api.request('visit/index');
     }
 
     /**

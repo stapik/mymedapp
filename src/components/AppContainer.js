@@ -11,7 +11,6 @@ class AppContainerComponent extends React.Component {
     }
 }
 
-
 const mapStateToProps = ({token_info}) => {
     return {token_info};
 };

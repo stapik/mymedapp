@@ -93,6 +93,13 @@ const changeDoctorFavoriteStatus = (newStatus) => {
     };
 };
 
+const visitsLoaded = (visits) => {
+    return {
+        type: 'VISITS_LOADED',
+        payload: visits,
+    };
+};
+
 /**
  *
  * @param specialtiesStoreService
@@ -104,6 +111,59 @@ const fetchSpecialties = (specialtiesStoreService) => () => (dispatch) => {
         .getList()
         .then(({data: {data}}) => {
             dispatch(specialtiesLoaded(data));
+        })
+        .catch((err) => dispatch(fetchError(err)))
+        .finally(() => dispatch(pageLoaded()));
+};
+
+/**
+ *
+ * @param visitsStoreService
+ * @returns {function(): Function}
+ */
+const fetchVisits = (visitsStoreService) => (finalCb) => (dispatch) => {
+    const isDefault = typeof finalCb !== 'function';
+    if (isDefault) {
+        dispatch(pageLoading());
+    }
+    visitsStoreService
+        .getList()
+        .then(({data: {data}}) => {
+            dispatch(visitsLoaded(data));
+        })
+        .catch((err) => dispatch(fetchError(err)))
+        .finally(() => {
+            isDefault ? dispatch(pageLoaded()) : finalCb();
+        });
+};
+
+/**
+ *
+ * @param visitsStoreService
+ * @returns {function(): Function}
+ */
+const deleteVisit = (visitsStoreService) => (id, successCb) => (dispatch) => {
+    dispatch(pageLoading());
+    visitsStoreService
+        .delete(id)
+        .then(() => {
+            successCb();
+        })
+        .catch((err) => dispatch(fetchError(err)))
+        .finally(() => dispatch(pageLoaded()));
+};
+
+/**
+ *
+ * @param visitsStoreService
+ * @returns {function(): Function}
+ */
+const cancelVisit = (visitsStoreService) => (id, successCb) => (dispatch) => {
+    dispatch(pageLoading());
+    visitsStoreService
+        .cancel(id)
+        .then(() => {
+            successCb();
         })
         .catch((err) => dispatch(fetchError(err)))
         .finally(() => dispatch(pageLoaded()));
@@ -243,5 +303,8 @@ export {
     toggleFavoriteDoctor,
     fetchClinics,
     createVisit,
-    updateProfile
+    updateProfile,
+    fetchVisits,
+    deleteVisit,
+    cancelVisit,
 };

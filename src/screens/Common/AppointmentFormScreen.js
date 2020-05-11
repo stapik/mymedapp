@@ -18,7 +18,6 @@ class ContainerScreen extends React.Component {
         const {navigation, createVisit} = this.props;
         const data = Object.assign(navigation.state.params, form_state);
         createVisit(data, (r) => {
-            console.log(r);
             navigation.popToTop();
             navigation.navigate('VisitCreated');
         });

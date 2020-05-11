@@ -10,7 +10,7 @@ class VisitCreatedModalScreen extends React.Component {
                     <Text category={'h3'} style={{textAlign: 'center'}}>Запись принята</Text>
                     <Divider style={{margin: 10}}/>
                     <Text category={'p1'}>
-                        Запись отправлена в клиинку. Администратор клиники свяжется с Вами для подтверждения.
+                        Запись отправлена в клинику. Администратор клиники свяжется с Вами для подтверждения.
                     </Text>
                 </Content>
                 <Footer>

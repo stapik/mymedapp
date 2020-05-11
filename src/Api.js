@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {api_version, app_id, app_secret, server_url} from '../settings';
+import {api_version, app_id, app_secret, server_url, api_url} from '../settings';
 import {store} from './store';
 import {internetStatus, updateTokenInfo} from './actions';
 import {Platform} from './constants';
@@ -40,11 +40,8 @@ class Api {
         });
 
         // url
-        let last_symbol_url = server_url.substring(server_url.length - 1);
-        this.server_url = last_symbol_url === '/' ? server_url : server_url + '/';
-        this.api_url = (this.server_url.substring(-1) === '/' ?
-            this.server_url : this.server_url) + 'api/' + api_version + '/';
-
+        this.server_url = server_url.substring(server_url.length - 1) === '/' ? server_url : server_url + '/';
+        this.api_url = (api_url.substring(api_url.length - 1) === '/' ? api_url : api_url + '/') + api_version + '/';
         this._createInstance();
         this.refreshToken();
     }
@@ -196,7 +193,7 @@ class Api {
         Toast.show({
             text: error_info + status_text,
             buttonText: 'Ок',
-            duration: 5000,
+            duration: 10000,
         });
     };
 

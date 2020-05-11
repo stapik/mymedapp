@@ -11,12 +11,11 @@ class DoctorList extends React.Component {
      */
     renderItem = ({item: doctor}) => (
         <Card>
-            <TouchableOpacity onPress={() => this.props.selectHandler(doctor)} activeOpacity={0.9}>
+            <TouchableOpacity onPress={() => this.props.selectHandler(doctor)} activeOpacity={0.75}>
                 <CardItem cardBody>
                     <Image source={{uri: doctor.avatar}} style={{height: 200, width: null, flex: 1}}/>
                 </CardItem>
             </TouchableOpacity>
-
             <CardItem>
                 <Text category='s1'>
                     {doctor.name}

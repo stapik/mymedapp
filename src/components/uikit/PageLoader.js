@@ -8,7 +8,6 @@ import {
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import compose from '../../utils/compose';
-import {Spinner} from '@ui-kitten/components';
 
 class LoaderComponent extends Component {
     render() {
@@ -20,7 +19,7 @@ class LoaderComponent extends Component {
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <View style={styles.controlContainer}>
-                            <Spinner status={'primary'}/>
+                            <ActivityIndicator/>
                         </View>
                     </View>
                 </View>

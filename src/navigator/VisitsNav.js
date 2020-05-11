@@ -1,6 +1,7 @@
 import {createStackNavigator} from 'react-navigation-stack';
 import {defaultStackConfig} from '../../settings';
 import {IndexScreen, VisitCreatedModalScreen} from '../screens/Visits';
+import {DoctorInfoScreen} from '../screens/Common';
 
 const VisitsStack = createStackNavigator({
     Index: {
@@ -8,6 +9,9 @@ const VisitsStack = createStackNavigator({
         navigationOptions:{
             title:'Визиты'
         }
+    },
+    DoctorInfo: {
+        screen: DoctorInfoScreen,
     },
 }, defaultStackConfig);
 

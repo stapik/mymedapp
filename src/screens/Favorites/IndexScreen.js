@@ -1,6 +1,4 @@
 import React from 'react';
-import {ActivityIndicator, ScrollView, View} from 'react-native';
-import {Button, Card, Divider, Image} from 'react-native-elements';
 import {bindActionCreators} from 'redux';
 import {fetchDoctorInfo, fetchFavoriteDoctors} from '../../actions';
 import compose from '../../utils/compose';
@@ -9,18 +7,31 @@ import {connect} from 'react-redux';
 import {DoctorList} from '../../components/uikit';
 
 class ContainerScreen extends React.Component {
-
+    /**
+     *
+     */
     componentDidMount(): void {
+
         const {navigation, fetchFavoriteDoctors} = this.props;
-        this.focusListener = navigation.addListener('didFocus', () => {
-            fetchFavoriteDoctors();
+
+        let favoritesListLoaded = false;
+        this.favoritesFocusListener = navigation.addListener('didFocus', () => {
+            if (!favoritesListLoaded) {
+                fetchFavoriteDoctors();
+                favoritesListLoaded = true;
+            }
+            setTimeout(() => favoritesListLoaded = false, 20000);
         });
     }
 
+    /**
+     *
+     */
     componentWillUnmount() {
         // Remove the event listener
-        this.focusListener.remove();
+        this.favoritesFocusListener.remove();
     }
+
 
     /**
      *

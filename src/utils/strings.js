@@ -17,7 +17,7 @@ const searchInStr = (search, string) => {
  * @param country_code
  * @returns {string}
  */
-const formatPhone = (input_text, country_code) => {
+const formatPhone = (input_text, country_code = +7) => {
     const type = new AsYouType('RU');
     let filtered_text = input_text.toString().replace(country_code, '');
     return filtered_text ? country_code + ' ' + type.input(filtered_text) : '';

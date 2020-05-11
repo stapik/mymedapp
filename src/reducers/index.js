@@ -14,6 +14,7 @@ const initialState = {
     page_loader: false,
     doctor_info: {},
     clinics: [],
+    visits: [],
     profile: {},
     doctors_filter: filterInitialState,
 };
@@ -86,6 +87,18 @@ const reducer = (state = initialState, action) => {
 
         case 'RESET_STORE':
             return initialState;
+
+        case 'FETCH_FAILURE':
+            return {
+                ...state,
+                fetch_error: action.payload,
+            };
+
+        case 'VISITS_LOADED':
+            return {
+                ...state,
+                visits: action.payload,
+            };
 
         default:
             return state;

@@ -19,7 +19,7 @@ class LoaderComponent extends Component {
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <View style={styles.controlContainer}>
-                            <ActivityIndicator/>
+                            <ActivityIndicator color={'red'}/>
                         </View>
                     </View>
                 </View>
@@ -31,7 +31,7 @@ class LoaderComponent extends Component {
 const styles = StyleSheet.create({
     controlContainer: {
         borderRadius: 100,
-        padding: 12,
+        padding: 9,
         backgroundColor: '#fff',
     },
     centeredView: {

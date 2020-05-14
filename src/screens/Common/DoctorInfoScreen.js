@@ -9,8 +9,13 @@ import {toggleFavoriteDoctor} from '../../actions';
 import compose from '../../utils/compose';
 import {connect} from 'react-redux';
 import {withDoctorStoreService} from '../../components/hoc';
+import moment from 'moment';
 
 class ContainerScreen extends React.Component {
+
+    state = {
+        selected_date: null,
+    };
 
     static navigationOptions = ({navigation, navigation: {state: {params}}}) => {
         const last_name = params.doctor.name.split(' ')[0];
@@ -28,10 +33,27 @@ class ContainerScreen extends React.Component {
 
     /**
      *
+     * @returns {moment.Moment}
      * @private
      */
-    _showCalendar = () => {
-        this.props.navigation.navigate('Calendar');
+    _getSelectedDate() {
+        let selected_date = moment();
+        if (this.state.selected_date) {
+            selected_date = moment(this.state.selected_date);
+        }
+        return selected_date.format('YYYY-MM-DD');
+    }
+
+    /**
+     *
+     * @private
+     */
+    showCalendar = (slot_days) => {
+        this.props.navigation.navigate('Calendar', {
+            handleSelectDate: this.handleSelectDate,
+            selectedDate: this._getSelectedDate(),
+            availableDates: slot_days,
+        });
     };
 
     /**
@@ -53,6 +75,44 @@ class ContainerScreen extends React.Component {
         if (navigation.getParam('is_favorite', -1) !== is_favorite) {
             navigation.setParams({is_favorite});
         }
+    }
+
+    /**
+     *
+     * @param date
+     */
+    handleSelectDate = (date) => {
+        this.setState({selected_date: date});
+    };
+
+    /**
+     * @param slots
+     * @param clinic_id
+     * @returns {*}
+     * @private
+     */
+    filterSlots(slots, clinic_id) {
+        let clinic_slots = slots.filter(slot => slot.clinic_id === clinic_id);
+        return clinic_slots.filter(
+            slot => moment(slot.time_start).format('YYYY-MM-DD') === this._getSelectedDate(),
+        );
+    }
+
+    /**
+     *
+     * @returns {string}
+     * @private
+     */
+    _getDateName() {
+        const format = 'YYYY-MM-DD';
+        let selected_date = moment();
+        if (this.state.selected_date) {
+            selected_date = moment(this.state.selected_date);
+        }
+        if (moment().format(format) === selected_date.format(format)) {
+            return 'Сегодня';
+        }
+        return selected_date.format('DD.MM.YYYY');
     }
 
     /**
@@ -92,17 +152,18 @@ class ContainerScreen extends React.Component {
                         padding: 15,
                         paddingBottom: 0,
                     }}>
-                        <Text category={'s1'}>Сегодня</Text>
-                        <Button appearance={'outline'} status={'info'} size={'small'} onPress={this._showCalendar}>
+                        <Text category={'s1'}>{this._getDateName()}</Text>
+                        <Button appearance={'outline'}
+                                status={'info'}
+                                size={'small'}
+                                disabled={doctor_info.slots.length === 0}
+                                onPress={() => this.showCalendar(doctor_info.slot_days)}>
                             Изменить дату
                         </Button>
                     </View>
 
                     <Layout style={{padding: 15, paddingBottom: 0, marginBottom: -15}}>
                         {doctor_info.clinics.map((clinic) => {
-
-                            let clinic_slots = doctor_info.slots.filter(slot => slot.clinic_id === clinic.id);
-
                             return (
                                 <Layout key={clinic.id} style={{marginBottom: 15}}>
                                     <Layout style={{paddingTop: 15, borderRadius: 5}} level={'3'}>
@@ -112,7 +173,7 @@ class ContainerScreen extends React.Component {
                                         <Divider style={{margin: 10}}/>
                                         <SlotCarousel
                                             style={{marginLeft: 15, paddingBottom: 15, marginRight: 15}}
-                                            slots={clinic_slots}
+                                            slots={this.filterSlots(doctor_info.slots, clinic.id)}
                                             doctor_id={doctor_info.id}
                                             clinic_id={clinic.id}
                                             navigation={navigation}/>

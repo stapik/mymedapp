@@ -1,6 +1,6 @@
 import {createStackNavigator} from 'react-navigation-stack';
 import {
-    DoctorFilterScreen,
+    DoctorsFilterScreen,
     IndexScreen, SelectDateScreen,
     SelectSpecialtyScreen,
     SpecialtyDoctorsScreen,
@@ -14,8 +14,8 @@ const AppointmentNav = createStackNavigator({
     Index: {
         screen: IndexScreen,
     },
-    DoctorFilter: {
-        screen: DoctorFilterScreen,
+    DoctorsFilter: {
+        screen: DoctorsFilterScreen,
     },
     SelectSpecialty: {
         screen: SelectSpecialtyScreen,

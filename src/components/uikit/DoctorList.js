@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Divider, List, Text} from '@ui-kitten/components';
-import {Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {FlatList, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {Card, CardItem, Left} from 'native-base';
 
 class DoctorList extends React.Component {
@@ -38,10 +38,12 @@ class DoctorList extends React.Component {
      * @returns {*}
      */
     render() {
-        const {doctors} = this.props;
-        return (<List
+        const {doctors, renderHeader} = this.props;
+        return (<FlatList
             style={styles.container}
             contentContainerStyle={styles.contentContainer}
+            ListHeaderComponent={renderHeader}
+            keyExtractor={(item, idx)=> idx.toString()}
             data={doctors}
             ListEmptyComponent={<Text appearance={'hint'} category={'p1'} style={{padding: 15}}>Пусто</Text>}
             renderItem={this.renderItem}/>);

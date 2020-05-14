@@ -29,14 +29,6 @@ class ContainerScreen extends React.Component {
         this.focusListener.remove();
     }
 
-    /***
-     *
-     * @param specialty
-     * @private
-     */
-    selectHandler = (specialty) => {
-        this.props.navigation.navigate('DoctorFilter', {specialty});
-    };
 
     /**
      *
@@ -54,7 +46,8 @@ class ContainerScreen extends React.Component {
                 navigation={navigation}
                 items={specialties}
                 placeholder={'Специальность'}
-                selectHandler={this.selectHandler}
+                selected={navigation.getParam('selected')}
+                selectHandler={navigation.getParam('handleSelectSpecialty')}
                 key_name={'id'}
                 value_name={'name'}
                 bottomDivider={true}

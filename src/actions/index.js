@@ -4,6 +4,13 @@ const resetDoctorsFilter = () => {
     };
 };
 
+const updateDoctorsFilter = (filter) => {
+    return {
+        type: 'UPDATE_DOCTORS_FILTER',
+        payload: filter,
+    };
+};
+
 const resetStore = () => {
     return {
         type: 'RESET_STORE',
@@ -185,23 +192,21 @@ const fetchClinics = (clinicsStoreService) => () => (dispatch) => {
         .finally(() => dispatch(pageLoaded()));
 };
 
+
 /**
  *
  * @param doctorsStoreService
  * @returns {function(*, *=): Function}
  */
-const fetchSpecialtyDoctors = (doctorsStoreService) => (specialty, successCb) => (dispatch, getState) => {
-    dispatch(resetDoctorsFilter());
+const searchDoctors = (doctorsStoreService) => () => (dispatch, getState) => {
     let state = getState();
     let doctorsFilter = state.doctors_filter;
-    doctorsFilter.specialty = specialty;
     //
     dispatch(pageLoading());
     doctorsStoreService
         .search(doctorsFilter)
         .then(({data: {data}}) => {
             dispatch(doctorsLoaded(data));
-            successCb();
         })
         .catch((err) => {
             dispatch(fetchError(err));
@@ -294,11 +299,13 @@ const toggleFavoriteDoctor = (doctorsStoreService) => () => (dispatch, getState)
  */
 export {
     fetchSpecialties,
-    fetchSpecialtyDoctors,
+    searchDoctors,
     fetchFavoriteDoctors,
     fetchDoctorInfo,
+    updateDoctorsFilter,
     resetStore,
     updateTokenInfo,
+    resetDoctorsFilter,
     internetStatus,
     toggleFavoriteDoctor,
     fetchClinics,

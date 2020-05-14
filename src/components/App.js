@@ -20,6 +20,7 @@ import * as eva from '@eva-design/eva';
 import {PageLoader} from './uikit';
 import ClinicsStoreService from '../services/ClinicsStoreService';
 import VisitsStoreService from '../services/VisitsStoreService';
+import {resetDoctorsFilter} from '../actions';
 
 export default class App extends React.Component {
 
@@ -28,6 +29,7 @@ export default class App extends React.Component {
      */
     componentDidMount(): void {
         SplashScreen.hide();
+        store.dispatch(resetDoctorsFilter())
     }
 
     /**

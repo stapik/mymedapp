@@ -100,6 +100,12 @@ const reducer = (state = initialState, action) => {
                 visits: action.payload,
             };
 
+        case 'UPDATE_DOCTORS_FILTER':
+            return {
+                ...state,
+                doctors_filter: action.payload,
+            };
+
         default:
             return state;
     }

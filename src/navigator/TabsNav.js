@@ -3,10 +3,13 @@ import React from 'react';
 import {defaultTabBarOptions} from '../../settings';
 import {AppointmentNav, VisitsNav, PromotionsNav, ProfilesNav, FavoritesNav} from './';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import {resetDoctorsFilter} from '../actions';
+import {store} from '../store';
 
 let handleTabPress = ({navigation}) => {
     navigation.popToTop();
     navigation.navigate(navigation.state.routeName);
+    store.dispatch(resetDoctorsFilter())
 };
 
 const TabsNav = createBottomTabNavigator({

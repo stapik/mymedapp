@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity, StyleSheet} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {fetchDoctorInfo} from '../../actions';
 import compose from '../../utils/compose';
@@ -20,7 +20,7 @@ class ContainerScreen extends React.Component {
         return {
             title: title,
             headerRight: (
-                <TouchableOpacity activeOpacity={0.6} onPress={() => navigation.navigate('DoctorFilter')}>
+                <TouchableOpacity activeOpacity={0.6} onPress={() => navigation.navigate('DoctorsFilter')}>
                     <Icon name='sliders-h' style={{paddingRight: 15}} size={20}/>
                 </TouchableOpacity>
             ),
@@ -63,13 +63,3 @@ const SpecialtyDoctorsScreen = compose(
 )(ContainerScreen);
 
 export {SpecialtyDoctorsScreen};
-
-const styles = StyleSheet.create({
-    contentContainer: {
-        paddingHorizontal: 8,
-        paddingVertical: 4,
-    },
-    item: {
-        margin: 4,
-    },
-});

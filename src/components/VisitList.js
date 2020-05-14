@@ -90,21 +90,24 @@ class VisitListContainer extends Component {
             shadowRadius: 3,
             marginRight: 15,
             marginLeft: 15,
+            borderColor: '#e5e5e5',
+            borderWidth: 1
         }}>
             <TouchableOpacity activeOpacity={0.75} onPress={() => this._selectDoctor(doctor)}>
                 <View style={{flexDirection: 'row'}}>
                     <Image
                         source={{uri: doctor.avatar}}
-                        style={{width: 90, height: 90, borderRadius: 5}}
+                        style={{width: '35%', borderRadius: 5}}
                         PlaceholderContent={<ActivityIndicator/>}
                     />
-                    <View style={{padding: 5, paddingLeft: 15, alignItems: 'flex-start', flex: 1, flexWrap: 'wrap'}}>
+                    <View style={{padding: 5, paddingLeft: 10, alignItems: 'flex-start', flex: 1, flexWrap: 'wrap'}}>
                         <Text category={'s1'}>{doctor.name}</Text>
                         <View style={{
                             flex: 1,
                             flexWrap: 'wrap',
                             flexDirection: 'row',
-                            paddingTop: 5,
+                            paddingTop: 3,
+                            paddingBottom: 5,
                             alignItems: 'center',
                         }}>
                             <Icon style={{color: '#6f6f6f'}} name={'calendar-alt'} size={12}/>

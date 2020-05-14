@@ -24,22 +24,31 @@ class CalendarScreen extends React.Component {
     };
 
     apply_filter() {
-        this.props.navigation.goBack(null);
     }
 
-    reset_filter() {
-        this.props.navigation.goBack(null);
-    }
+    /**
+     *
+     * @param day
+     */
+    handleSelectDate = (day) => {
+        const {navigation} = this.props;
+        const {handleSelectDate} = this.props.navigation.state.params;
+        handleSelectDate(day);
+        navigation.goBack();
+    };
 
+    /**
+     *
+     * @returns {*}
+     */
     render() {
-        // selected from redux
-        let selected_date_str = '2020-01-15';
-
+        const {
+            selectedDate: selected_date_str,
+            availableDates: available_dates, allDates
+        } = this.props.navigation.state.params;
         // get from api
         let date_format = 'YYYY-MM-DD';
-        let available_dates = ['2020-01-15', '2020-01-16', '2020-01-19', '2020-01-20', '2020-01-23', '2020-01-24',
-                '2020-01-27', '2020-01-28', '2020-01-31', '2020-02-01'],
-            from_date_str = moment().format(date_format);
+        let from_date_str = moment().format(date_format);
 
         // parse
         let first_date = moment(from_date_str, date_format),
@@ -51,7 +60,7 @@ class CalendarScreen extends React.Component {
 
         let marked_dates = {
             [from_date_str]: {selected: true, selectedColor: current_day_color},
-            // [selected_date_str]: {selected: true, selectedColor: selected_color},
+            [selected_date_str]: {selected: true, selectedColor: selected_color},
         };
 
         // add marked days
@@ -66,7 +75,7 @@ class CalendarScreen extends React.Component {
             let temp_date_str = temp_date.format(date_format);
             last_date_format = temp_date_str;
 
-            if (_.indexOf(available_dates, temp_date_str) === -1) {
+            if (_.indexOf(available_dates, temp_date_str) === -1 && !allDates) {
                 marked_dates[temp_date_str] = Object.assign(
                     {},
                     {disabled: true, disableTouchEvent: true},
@@ -77,16 +86,13 @@ class CalendarScreen extends React.Component {
             temp_count_days--;
         }
 
-        const {navigation} = this.props;
-
         return (
             <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start'}}>
                 <View style={{width: '100%', marginTop: 20}}>
                     <Calendar
                         minDate={from_date_str}
                         maxDate={last_date_format}
-                        onDayPress={(day) => {
-                        }}
+                        onDayPress={(day) => this.handleSelectDate(day.dateString)}
                         markedDates={marked_dates}
                     />
                     <Divider style={{height: 30, backgroundColor: '#fff'}}/>

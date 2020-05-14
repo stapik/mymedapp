@@ -1,5 +1,5 @@
 export * from './IndexScreen';
-export * from './DoctorFilterScreen';
+export * from './DoctorsFilterScreen';
 export * from './SpecialtyDoctorsScreen';
 export * from './SelectDateScreen';
 export * from './SelectClinicScreen';

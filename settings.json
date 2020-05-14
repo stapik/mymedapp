@@ -1,8 +1,8 @@
 {
   "app_id": 1,
-  "app_secret": "WRlPpsWoy773XxxKsJWUbVEs24yC5aeJBV7rMlIr",
-  "server_url": "http://192.168.88.254:3030/",
-  "api_url": "http://192.168.88.254:3030/api/app/",
+  "app_secret": "Fk4SnCQ5p9lZVyeuHeJREESOwmEDjRnttvKZcFkF",
+  "server_url": "https://mymedapp.ru/",
+  "api_url": "https://mymedapp.ru/api/app/",
   "api_version": "v1",
   "defaultStackConfig": {
     "initialRouteName": "Index",

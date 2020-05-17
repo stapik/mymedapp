@@ -16,9 +16,11 @@ export class InputDateTimePicker extends React.Component {
      * @private
      */
     _onChange(date) {
-        const {onChange, output_format = 'YYYY-MM-DD'} = this.props;
+        const {onChange, value_format} = this.props;
         this.setState({show_date_picker: false, date: date});
-        onChange(moment(this.state.date).format(output_format));
+        const result_date = moment(this.state.date).format(value_format);
+        console.log(result_date, 'result_date');
+        onChange(result_date);
     }
 
     /**
@@ -34,10 +36,19 @@ export class InputDateTimePicker extends React.Component {
      * @returns {*}
      */
     render(): React.ReactNode {
-        const {label, error, input_format = 'DD.MM.YYYY'} = this.props;
+        const {label, error, value, input_format, value_format} = this.props;
         const {date, show_date_picker} = this.state;
-        let date_value = date ? date : new Date();
-        const date_text = date ? moment(date_value).format(input_format) : '';
+        let date_value = new Date();
+
+        let date_text = '';
+        if (value) {
+            date_text = moment(value, value_format).format(input_format);
+            date_value =  moment(value, value_format).toDate();
+        }
+        if (date) {
+            date_text = moment(date).format(input_format);
+            date_value =  moment(date).toDate();
+        }
 
         return (
             <View>
@@ -64,6 +75,8 @@ export class InputDateTimePicker extends React.Component {
                     <Layout style={{width: '100%'}}>
 
                         <RNDateTimePicker
+                            mode={'date'}
+                            display={'spinner'}
                             locale={'ru-RU'}
                             onChange={(event, date) => this._onChange(date)}
                             value={date_value}/>

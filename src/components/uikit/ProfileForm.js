@@ -60,9 +60,8 @@ class ProfileFormContainer extends FormValidator {
      * @returns {*}
      */
     render() {
-        const {country_code, phone_number, first_name, last_name} = this.state;
+        const {country_code, phone_number, first_name, last_name, birth_date} = this.state;
         const {submitText} = this.props;
-        const birth_date = this.state.birth_date ? moment(this.state.birth_date).format('DD.MM.YYYY') : '';
 
         return (
             <Container style={{padding: 15}}>
@@ -92,11 +91,12 @@ class ProfileFormContainer extends FormValidator {
 
                     <InputDateTimePicker
                         error={this.isFieldInError('birth_date')}
-                        onChange={(date) => this.setState({birth_date: date})}
+                        onChange={(birth_date) => this.setState({birth_date})}
                         label={'Дата рождения'}
-                        output_format={'YYYY-MM-DD'}
+                        value_format={'YYYY-MM-DD'}
+                        value={birth_date}
                         input_format={'DD.MM.YYYY'}
-                        date={birth_date}/>
+                    />
 
                     <Button style={{marginTop: 25}} onPress={this._onPressSubmit}>
                         {submitText}

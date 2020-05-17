@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Layout, Modal, Text} from '@ui-kitten/components';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View, Platform} from 'react-native';
 import moment from 'moment';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 
@@ -13,14 +13,26 @@ export class InputDateTimePicker extends React.Component {
 
     /**
      *
+     * @returns {string}
+     */
+    getResultDate() {
+        const {value_format} = this.props;
+        return moment(this.state.date).format(value_format);
+    }
+
+    /**
+     *
      * @private
      */
     _onChange(date) {
-        const {onChange, value_format} = this.props;
-        this.setState({show_date_picker: false, date: date});
-        const result_date = moment(this.state.date).format(value_format);
-        console.log(result_date, 'result_date');
-        onChange(result_date);
+        const {onChange} = this.props;
+
+        if (Platform.OS === 'ios') {
+            this.setState({date: date});
+        } else {
+            this.setState({show_date_picker: false, date: date});
+            onChange(this.getResultDate());
+        }
     }
 
     /**
@@ -28,6 +40,10 @@ export class InputDateTimePicker extends React.Component {
      * @private
      */
     _onClose() {
+        const {onChange} = this.props;
+        if (Platform.OS === 'ios') {
+            onChange(this.getResultDate());
+        }
         this.setState({show_date_picker: false});
     }
 
@@ -43,11 +59,11 @@ export class InputDateTimePicker extends React.Component {
         let date_text = '';
         if (value) {
             date_text = moment(value, value_format).format(input_format);
-            date_value =  moment(value, value_format).toDate();
+            date_value = moment(value, value_format).toDate();
         }
         if (date) {
             date_text = moment(date).format(input_format);
-            date_value =  moment(date).toDate();
+            date_value = moment(date).toDate();
         }
 
         return (
@@ -71,7 +87,7 @@ export class InputDateTimePicker extends React.Component {
                     visible={show_date_picker}
                     backdropStyle={styles.backdrop}
                     style={{width: '100%'}}
-                    onBackdropPress={() => this.setState({show_date_picker: false})}>
+                    onBackdropPress={() => this._onClose()}>
                     <Layout style={{width: '100%'}}>
 
                         <RNDateTimePicker
@@ -88,15 +104,7 @@ export class InputDateTimePicker extends React.Component {
                             display: Platform.OS !== 'ios' ? 'none' : 'flex',
                         }}>
                             <Button
-                                style={{paddingTop: 10, width: '49%'}}
-                                status={'basic'}
-                                appearance={'outline'}
-                                onPress={() => this._onClose()}>
-                                Отмена
-                            </Button>
-                            <Layout style={{width: '2%'}}/>
-                            <Button
-                                style={{paddingTop: 10, width: '49%'}}
+                                style={{paddingTop: 10, width: '100%'}}
                                 status={'success'}
                                 onPress={() => this._onClose()}>
                                 Выбрать

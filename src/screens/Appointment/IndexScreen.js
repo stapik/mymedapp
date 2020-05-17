@@ -5,7 +5,7 @@ import {fetchDoctorInfo, searchDoctors} from '../../actions';
 import {withDoctorStoreService} from '../../components/hoc';
 import {bindActionCreators} from 'redux';
 import {DoctorList} from '../../components/uikit';
-import {View, Platform, TouchableOpacity} from 'react-native';
+import {View, Platform, TouchableOpacity, Dimensions} from 'react-native';
 import {SearchBar} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Text} from '@ui-kitten/components';
@@ -43,25 +43,9 @@ class ContainerScreen extends React.Component {
      *
      */
     componentDidMount(): void {
-        const {navigation, searchDoctors} = this.props;
-        let listLoaded = false;
-        this.focusListener = navigation.addListener('didFocus', () => {
-            if (!listLoaded) {
-                searchDoctors();
-                listLoaded = true;
-            }
-            setTimeout(() => listLoaded = false, 12000);
-        });
+        const {searchDoctors} = this.props;
+        searchDoctors();
     }
-
-    /**
-     *
-     */
-    componentWillUnmount() {
-        // Remove the event listener
-        this.focusListener.remove();
-    }
-
 
     /**
      * @param doctor
@@ -83,7 +67,7 @@ class ContainerScreen extends React.Component {
         date_str = date_str === moment().add(1, 'day').format('DD.MM.YYYY') ? 'завтра' : date_str;
 
         return <Text
-            style={{paddingTop: 10, paddingBottom: 10, textAlign: 'center'}}
+            style={{paddingTop: 15, paddingBottom: 15, textAlign: 'center'}}
             category={'s1'}
             appearance={'hint'}>Расписание врачей на {date_str}</Text>;
     };
@@ -119,7 +103,9 @@ class ContainerScreen extends React.Component {
                 />
             </View>
             <DoctorList
-                renderHeader={this.renderHeader} doctors={filtered_doctors} selectHandler={this.selectHandler}/>
+                renderHeader={this.renderHeader}
+                doctors={filtered_doctors}
+                selectHandler={this.selectHandler}/>
         </View>);
     }
 }

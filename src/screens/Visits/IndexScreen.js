@@ -40,9 +40,6 @@ class ContainerScreen extends React.Component {
      */
     render() {
         const {visits, navigation} = this.props;
-        // const sorted_visits = visits.sort((a, b) => {
-        //     return Boolean(a.canceled) === Boolean(b.canceled);
-        // });
         const currentVisits = visits.filter((item) => moment(item.time_start).isAfter());
         const pastVisits = visits.filter((item) => moment(item.time_start).isBefore());
         return (

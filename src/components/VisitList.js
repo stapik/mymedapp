@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Layout, Text, Divider} from '@ui-kitten/components';
-import {ActivityIndicator, Alert, FlatList, Image, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, Alert, Dimensions, FlatList, Image, TouchableOpacity, View} from 'react-native';
 import {formatPhone} from '../utils';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {Content} from 'native-base';
@@ -82,6 +82,10 @@ class VisitListContainer extends Component {
      */
     renderItem = ({item: {doctor, patient, clinic, date, time, canceled, id}}) => {
         const {old} = this.props;
+        const {width} = Dimensions.get('window');
+        const avatar_part = 0.30;
+        const avatar_width = width * avatar_part;
+        const avatar_height = width * avatar_part * 0.75;
 
         return (<Layout style={{
             padding: 10,
@@ -91,16 +95,23 @@ class VisitListContainer extends Component {
             marginRight: 15,
             marginLeft: 15,
             borderColor: '#e5e5e5',
-            borderWidth: 1
+            borderWidth: 1,
         }}>
-            <TouchableOpacity activeOpacity={0.75} onPress={() => this._selectDoctor(doctor)}>
+            <TouchableOpacity activeOpacity={0.60} onPress={() => this._selectDoctor(doctor)}>
                 <View style={{flexDirection: 'row'}}>
                     <Image
                         source={{uri: doctor.avatar}}
-                        style={{width: '35%', borderRadius: 5}}
+                        style={{width: avatar_width, height: avatar_height, borderRadius: 5}}
                         PlaceholderContent={<ActivityIndicator/>}
                     />
-                    <View style={{padding: 5, paddingLeft: 10, alignItems: 'flex-start', flex: 1, flexWrap: 'wrap'}}>
+                    <View style={{
+                        padding: 5,
+                        paddingTop: 0,
+                        paddingLeft: 10,
+                        alignItems: 'flex-start',
+                        flex: 1,
+                        flexWrap: 'wrap',
+                    }}>
                         <Text category={'s1'}>{doctor.name}</Text>
                         <View style={{
                             flex: 1,
@@ -123,7 +134,7 @@ class VisitListContainer extends Component {
                         <Text category={'c2'} appearance={'hint'}>{clinic.address}</Text>
                     </View>
                 </View>
-                <Divider style={{marginTop: 15, marginBottom: 10, backgroundColor: '#e7e7e7'}}/>
+                <Divider style={{marginTop: 13, marginBottom: 10, backgroundColor: '#e7e7e7'}}/>
                 <View>
                     <Text category={'s1'}>{patient.first_name} {patient.last_name}</Text>
                     <Text category={'c2'} appearance={'hint'}>
@@ -200,13 +211,14 @@ class VisitListContainer extends Component {
                 ListEmptyComponent={<Text appearance={'hint'} category={'p1'} style={{padding: 15}}>
                     Нет записей</Text>}
                 style={{backgroundColor: '#f5f5f5'}}
+                // refreshing={this.state.refreshing}
+                // onRefresh={this.handleRefresh}
                 data={visits}
                 initialNumToRender={5}
                 ItemSeparatorComponent={this.renderDivider}
                 ListFooterComponent={this.renderDivider}
                 ListHeaderComponent={this.renderDivider}
-                refreshing={this.state.refreshing}
-                onRefresh={this.handleRefresh}
+
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={this.renderItem}/>
         );

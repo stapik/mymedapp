@@ -37,6 +37,7 @@ class CheckSmsScreen extends React.Component {
 
         let api = Api.make();
         api.verifyPhoneNumber(this.state.code).then(() => {
+            clearInterval(this.smsInterval);
             this.props.navigation.navigate('TabsNav');
         }).catch(() => {
             Api._showError('Неверный код подтверждения');
@@ -85,36 +86,34 @@ class CheckSmsScreen extends React.Component {
 
     render() {
         const {sms_interval} = this.state;
-        const moment_text = moment.unix(sms_interval).format('mm:ss')
+        const moment_text = moment.unix(sms_interval).format('mm:ss');
         const sms_interval_text = sms_interval ? `[${moment_text}]` : ``;
         return (
             <Container style={{padding: 15}}>
-                <Content style={{paddingTop: 20}}>
-                    <Text category={'h4'}>СМС отправлено</Text>
-                    <Divider style={{height: 15, backgroundColor: 'transparent'}}/>
-                    <Text>В течении двух минут на ваш номер придёт код подтверждения</Text>
-                    <Divider style={{height: 30, backgroundColor: 'transparent'}}/>
-                    <Input
-                        autoFocus={true}
-                        keyboardType={'numeric'}
-                        maxLength={5}
-                        placeholder=''
-                        label={'Код из смс'}
-                        onChangeText={(code) => this._typeCodeHandler(code)}
-                    />
-                    <Button disabled={Boolean(sms_interval)}
-                            onPress={this.getSms}
-                            style={{width: '100%', borderRadius: 5}} size={'small'} status={'primary'}
-                            appearance='ghost'>
-                        Отправить смс повторно {sms_interval_text}
-                    </Button>
-                    <Button
-                        onPress={() => this.props.navigation.goBack()}
-                        style={{width: '100%', borderRadius: 5, marginTop: 5}} size={'small'} status={'primary'}
+                <Text category={'h4'}>СМС отправлено</Text>
+                <Divider style={{height: 15, backgroundColor: 'transparent'}}/>
+                <Text>В течении двух минут на ваш номер придёт код подтверждения</Text>
+                <Divider style={{height: 30, backgroundColor: 'transparent'}}/>
+                <Input
+                    autoFocus={true}
+                    keyboardType={'numeric'}
+                    maxLength={5}
+                    placeholder=''
+                    label={'Код из смс'}
+                    onChangeText={(code) => this._typeCodeHandler(code)}
+                />
+                <Button disabled={Boolean(sms_interval)}
+                        onPress={this.getSms}
+                        style={{width: '100%', borderRadius: 5}} size={'small'} status={'primary'}
                         appearance='ghost'>
-                        Изменить номер
-                    </Button>
-                </Content>
+                    Отправить смс повторно {sms_interval_text}
+                </Button>
+                <Button
+                    onPress={() => this.props.navigation.goBack()}
+                    style={{width: '100%', borderRadius: 5, marginTop: 5}} size={'small'} status={'primary'}
+                    appearance='ghost'>
+                    Изменить номер
+                </Button>
             </Container>
         );
     }

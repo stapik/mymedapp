@@ -1,13 +1,13 @@
 import React from 'react';
-import {Button, Layout, Input, Text} from '@ui-kitten/components';
+import {StyleSheet} from 'react-native';
+import {Button, Input} from '@ui-kitten/components';
 import {formatPhone} from '../../utils';
-import {DatePicker} from 'native-base';
-import moment from 'moment';
 import {Container, Content} from 'native-base';
 import FormValidator from '../FormValidator';
 import {updateProfile} from '../../actions';
 import compose from '../../utils/compose';
 import {connect} from 'react-redux';
+import moment from 'moment';
 
 class ProfileFormContainer extends FormValidator {
     /**
@@ -25,6 +25,7 @@ class ProfileFormContainer extends FormValidator {
         phone_number: '',
         first_name: '',
         last_name: '',
+        show_date_picker: false,
     };
 
     /**
@@ -39,14 +40,14 @@ class ProfileFormContainer extends FormValidator {
     /**
      * @private
      */
-    _onPressButton = () => {
+    _onPressSubmit = () => {
         const {submitHandler, updateProfile} = this.props;
 
         this.validate({
             first_name: {minlength: 2, required: true},
             last_name: {minlength: 2, required: true},
             phone_number: {check_phone_number: 'RU', required: true},
-            birth_date: {date: 'YYYY-MM-DD', required: true},
+            birth_date: {required: true},
         });
         if (this.isFormValid()) {
             submitHandler(this.state);
@@ -55,11 +56,35 @@ class ProfileFormContainer extends FormValidator {
     };
 
     /**
+     *
+     * @param date
+     * @private
+     */
+    _changeBirthDate(date) {
+        const birth_date = moment(date).format('YYYY-MM-DD');
+        this.setState({birth_date});
+        if (Platform.OS !== 'ios') {
+            this.setState({show_date_picker: false});
+        }
+    }
+
+    /**
+     *
+     * @returns {*}
+     */
+    renderDatePicker = (state) => {
+        const {birth_date, show_date_picker} = state;
+        const currentDate = birth_date ? moment(birth_date).toDate() : new Date();
+    };
+
+    /**
      * @returns {*}
      */
     render() {
-        const {country_code, birth_date, phone_number, first_name, last_name} = this.state;
+        const {country_code, phone_number, first_name, last_name} = this.state;
         const {submitText} = this.props;
+        const birth_date = this.state.birth_date ? moment(this.state.birth_date).format('DD.MM.YYYY') : '';
+
         return (
             <Container style={{padding: 15}}>
                 <Content>
@@ -85,31 +110,8 @@ class ProfileFormContainer extends FormValidator {
                         status={this.getFieldStatusText('first_name')}
                         onChangeText={(first_name) => this.setState({first_name})}
                     />
-                    <Text appearance={'hint'} category={'label'} style={{paddingBottom: 5, paddingTop: 1}}>
-                        Дата рождения
-                    </Text>
-                    <Layout level={'2'}
-                            style={{
-                                borderRadius: 5,
-                                borderColor: this.isFieldInError('birth_date') ? '#ff0000' : '#e5e5e5',
-                                borderWidth: 1,
-                                paddingLeft: 5,
-                            }}>
-                        <DatePicker
-                            defaultDate={birth_date ? moment(birth_date, 'YYYY-MM-DD').toDate() : null}
-                            textStyle={{fontSize: 15, color: '#343434'}}
-                            placeHolderTextStyle={{color: '#343434'}}
-                            placeHolderText={birth_date ? moment(birth_date).format('DD.MM.YYYY') : 'Выберите дату'}
-                            locale={'ru'}
-                            formatChosenDate={(date) => moment(date).format('DD.MM.YYYY')}
-                            androidMode={'spinner'}
-                            onDateChange={(date) => this.setState(
-                                {
-                                    birth_date: moment(date).format('YYYY-MM-DD'),
-                                })}
-                        />
-                    </Layout>
-                    <Button style={{marginTop: 25}} onPress={this._onPressButton}>
+
+                    <Button style={{marginTop: 25}} onPress={this._onPressSubmit}>
                         {submitText}
                     </Button>
                 </Content>
@@ -117,6 +119,7 @@ class ProfileFormContainer extends FormValidator {
         );
     }
 }
+// this.isFieldInError('birth_date')
 
 const mapStateToProps = ({profile}) => {
     return {profile};

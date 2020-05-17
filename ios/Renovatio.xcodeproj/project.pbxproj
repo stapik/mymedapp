@@ -783,8 +783,9 @@
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = A37D647B9N;
 				INFOPLIST_FILE = medmobile/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -807,8 +808,9 @@
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = A37D647B9N;
 				INFOPLIST_FILE = medmobile/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

@@ -45,20 +45,18 @@ class LoginScreen extends FormValidator {
     render() {
         return (
             <Container style={{padding: 15}}>
-                <Content style={{paddingTop: 20}}>
-                    <Text category={'h4'}>Добро пожаловать!</Text>
-                    <Divider style={{height: 20, backgroundColor: 'transparent'}}/>
-                    <Text>Войдите, чтобы записываться к врачам</Text>
-                    <Divider style={{height: 20, backgroundColor: 'transparent'}}/>
-                    <Input
-                        label={'Номер телефона'}
-                        placeholder='+7'
-                        caption={'Номер телефона нужен только для защиты вашего аккаунта. Никаких рекламных СМС.'}
-                        autoFocus={true}
-                        value={this.state.phone_number}
-                        onChangeText={(value) => this._phoneNumberHandler(value)}
-                        keyboardType={'numeric'}/>
-                </Content>
+                <Text category={'h4'}>Добро пожаловать!</Text>
+                <Divider style={{height: 20, backgroundColor: 'transparent'}}/>
+                <Text>Войдите, чтобы записываться к врачам</Text>
+                <Divider style={{height: 20, backgroundColor: 'transparent'}}/>
+                <Input
+                    label={'Номер телефона'}
+                    placeholder='+7'
+                    caption={'Номер телефона нужен только для защиты вашего аккаунта. Никаких рекламных СМС.'}
+                    autoFocus={true}
+                    value={this.state.phone_number}
+                    onChangeText={(value) => this._phoneNumberHandler(value)}
+                    keyboardType={'numeric'}/>
             </Container>
         );
     }

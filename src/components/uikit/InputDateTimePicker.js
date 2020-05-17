@@ -1,10 +1,10 @@
 import React from 'react';
 import {Button, Layout, Modal, Text} from '@ui-kitten/components';
-import RNDateTimePicker from '@react-native-community/datetimepicker';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import moment from 'moment';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
 
-export class DateTimePicker extends React.Component {
+export class InputDateTimePicker extends React.Component {
 
     state = {
         date: '',
@@ -13,18 +13,20 @@ export class DateTimePicker extends React.Component {
 
     /**
      *
+     * @private
      */
-    constructor() {
-        super();
-        this.setState({date: this.props.date});
+    _onChange(date) {
+        const {onChange, output_format = 'YYYY-MM-DD'} = this.props;
+        this.setState({show_date_picker: false, date: date});
+        onChange(moment(this.state.date).format(output_format));
     }
 
-    _onChange() {
-        const {onChange} = this.props;
-    }
-
+    /**
+     *
+     * @private
+     */
     _onClose() {
-        const {onClose} = this.props;
+        this.setState({show_date_picker: false});
     }
 
     /**
@@ -34,7 +36,8 @@ export class DateTimePicker extends React.Component {
     render(): React.ReactNode {
         const {label, error, input_format = 'DD.MM.YYYY'} = this.props;
         const {date, show_date_picker} = this.state;
-        const date_text = moment(date).format(input_format);
+        let date_value = date ? date : new Date();
+        const date_text = date ? moment(date_value).format(input_format) : '';
 
         return (
             <View>
@@ -62,8 +65,8 @@ export class DateTimePicker extends React.Component {
 
                         <RNDateTimePicker
                             locale={'ru-RU'}
-                            onChange={(e, birth_date) => this._onChange(birth_date)}
-                            value={date}/>
+                            onChange={(event, date) => this._onChange(date)}
+                            value={date_value}/>
 
                         <Layout style={{
                             flex: 1,

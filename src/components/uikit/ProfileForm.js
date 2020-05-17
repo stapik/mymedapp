@@ -8,6 +8,7 @@ import {updateProfile} from '../../actions';
 import compose from '../../utils/compose';
 import {connect} from 'react-redux';
 import moment from 'moment';
+import {InputDateTimePicker} from './InputDateTimePicker';
 
 class ProfileFormContainer extends FormValidator {
     /**
@@ -47,34 +48,12 @@ class ProfileFormContainer extends FormValidator {
             first_name: {minlength: 2, required: true},
             last_name: {minlength: 2, required: true},
             phone_number: {check_phone_number: 'RU', required: true},
-            birth_date: {required: true},
+            birth_date: {date: 'YYYY-MM-DD', required: true},
         });
         if (this.isFormValid()) {
             submitHandler(this.state);
             updateProfile(this.state);
         }
-    };
-
-    /**
-     *
-     * @param date
-     * @private
-     */
-    _changeBirthDate(date) {
-        const birth_date = moment(date).format('YYYY-MM-DD');
-        this.setState({birth_date});
-        if (Platform.OS !== 'ios') {
-            this.setState({show_date_picker: false});
-        }
-    }
-
-    /**
-     *
-     * @returns {*}
-     */
-    renderDatePicker = (state) => {
-        const {birth_date, show_date_picker} = state;
-        const currentDate = birth_date ? moment(birth_date).toDate() : new Date();
     };
 
     /**
@@ -111,6 +90,14 @@ class ProfileFormContainer extends FormValidator {
                         onChangeText={(first_name) => this.setState({first_name})}
                     />
 
+                    <InputDateTimePicker
+                        error={this.isFieldInError('birth_date')}
+                        onChange={(date) => this.setState({birth_date: date})}
+                        label={'Дата рождения'}
+                        output_format={'YYYY-MM-DD'}
+                        input_format={'DD.MM.YYYY'}
+                        date={birth_date}/>
+
                     <Button style={{marginTop: 25}} onPress={this._onPressSubmit}>
                         {submitText}
                     </Button>
@@ -119,7 +106,6 @@ class ProfileFormContainer extends FormValidator {
         );
     }
 }
-// this.isFieldInError('birth_date')
 
 const mapStateToProps = ({profile}) => {
     return {profile};

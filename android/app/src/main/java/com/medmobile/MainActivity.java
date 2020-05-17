@@ -17,12 +17,4 @@ public class MainActivity extends ReactActivity {
         return "medmobile";
     }
 
-    /**
-     * @param savedInstanceState
-     */
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        SplashScreen.show(this);  // here
-//        super.onCreate(savedInstanceState);
-//    }
 }

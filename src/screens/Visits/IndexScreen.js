@@ -5,8 +5,8 @@ import {fetchVisits} from '../../actions';
 import compose from '../../utils/compose';
 import {withVisitsStoreService} from '../../components/hoc';
 import {connect} from 'react-redux';
-import {VisitList} from '../../components/uikit';
 import moment from 'moment';
+import {VisitList} from '../../components/VisitList';
 
 class ContainerScreen extends React.Component {
 

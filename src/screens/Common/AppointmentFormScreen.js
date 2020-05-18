@@ -16,7 +16,8 @@ class ContainerScreen extends React.Component {
 
     submitHandler = (form_state) => {
         const {navigation, createVisit} = this.props;
-        createVisit(form_state, () => {
+        const data = Object.assign(navigation.state.params, form_state);
+        createVisit(data, (r) => {
             navigation.navigate('VisitCreated');
         });
     };

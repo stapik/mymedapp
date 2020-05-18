@@ -112,7 +112,7 @@ class ContainerScreen extends React.Component {
         if (moment().format(format) === selected_date.format(format)) {
             return 'Сегодня';
         }
-        return selected_date.format('DD.MM.YYYY');
+        return selected_date.format('dddd DD.MM');
     }
 
     /**

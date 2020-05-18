@@ -16,9 +16,6 @@ class DoctorList extends React.Component {
         const avatar_width = width * avatar_part;
         const avatar_height = width * avatar_part * 0.75;
         const specialties = doctor.specialties ? (doctor.specialties.map((item) => item.name)).join(', ') : '';
-        const slot_dates = doctor.slot_days ?
-            doctor.slot_days.map((item) => moment(item).format('DD.MM')).join(', ')
-            : '';
 
         // text
         const work_period_text = doctor.work_period ? 'Стаж ' + doctor.work_period : '';
@@ -53,17 +50,17 @@ class DoctorList extends React.Component {
                         flexWrap: 'wrap',
                     }}>
                         <Text category={'s1'}>{doctor.name}</Text>
-                        <Text
+                        {work_period_text ? <Text
                             style={{paddingTop: 5, paddingRight: 15}}
                             category={'c2'}
                             appearance={'hint'}>
                             {work_period_text}
-                        </Text>
+                        </Text> : null}
                         <Text
                             style={{paddingTop: 5, paddingRight: 15}}
                             category={'c2'}
                             appearance={'hint'}>
-                            {work_rank_and_degree}
+                            {specialties}
                         </Text>
                     </View>
                 </View>
@@ -71,19 +68,38 @@ class DoctorList extends React.Component {
                     style={{paddingTop: 5, paddingRight: 15}}
                     category={'c2'}
                     appearance={'hint'}>
-                    {specialties}
+                    {work_rank_and_degree}
                 </Text>
                 <Divider style={{marginTop: 10, marginBottom: 10, backgroundColor: '#e7e7e7'}}/>
                 <View>
-                    <Text category={'s1'}>Даты приема</Text>
-                    <Text category={'c2'} appearance={'hint'}>
-                        {slot_dates}
-                    </Text>
+                    <Text category={'s2'}>Ближайшие даты приема</Text>
+                    {this.renderSlotDays(doctor.slot_days)}
+                    <Button status={'danger'}
+                            size={'small'}
+                            onPress={() => this.props.selectHandler(doctor)}>Записаться</Button>
                 </View>
             </TouchableOpacity>
         </Layout>);
     };
 
+    /**
+     *
+     * @param slot_days
+     * @returns {*}
+     */
+    renderSlotDays(slot_days) {
+        const slot_days_text = slot_days
+            .splice(0, 3)
+            .map((item) => moment(item).format('dddd DD.MM'))
+            .join(', ');
+        return (slot_days_text ? <Text style={{paddingBottom: 5}} category={'c2'} appearance={'hint'}>{slot_days_text}</Text> : null);
+    }
+
+
+    /**
+     *
+     * @returns {*}
+     */
     renderDivider = () => {
         return <View style={{height: 15, backgroundColor: 'transparent'}}/>;
     };

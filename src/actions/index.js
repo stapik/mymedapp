@@ -1,3 +1,5 @@
+import Api from '../Api';
+
 const resetDoctorsFilter = () => {
     return {
         type: 'RESET_DOCTORS_FILTER',
@@ -267,7 +269,8 @@ const createVisit = (visitsStoreService) => (data, successCb) => (dispatch) => {
         .then(({data: {data}}) => {
             successCb();
         })
-        .catch((err) => dispatch(fetchError(err)))
+        // .catch((err) => dispatch(fetchError(err)))
+        .catch((err) => Api._showError('Ошибка обработки запроса'))
         .finally(() => {
             dispatch(pageLoaded());
         });

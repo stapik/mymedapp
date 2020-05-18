@@ -39,12 +39,18 @@ export class InputDateTimePicker extends React.Component {
      *
      * @private
      */
-    _onClose() {
+    close() {
+        this.setState({show_date_picker: false, date: ''});
+    }
+
+    /**
+     *
+     * @private
+     */
+    _onSubmit() {
         const {onChange} = this.props;
-        if (Platform.OS === 'ios') {
-            onChange(this.getResultDate());
-        }
-        this.setState({show_date_picker: false});
+        onChange(this.getResultDate());
+        this.close();
     }
 
     /**
@@ -87,7 +93,7 @@ export class InputDateTimePicker extends React.Component {
                     visible={show_date_picker}
                     backdropStyle={styles.backdrop}
                     style={{width: '100%'}}
-                    onBackdropPress={() => this._onClose()}>
+                    onBackdropPress={() => this.close()}>
                     <Layout style={{width: '100%'}}>
 
                         <RNDateTimePicker
@@ -106,7 +112,7 @@ export class InputDateTimePicker extends React.Component {
                             <Button
                                 style={{paddingTop: 10, width: '100%'}}
                                 status={'success'}
-                                onPress={() => this._onClose()}>
+                                onPress={() => this._onSubmit()}>
                                 Выбрать
                             </Button>
                         </Layout>

@@ -97,6 +97,7 @@ export class InputDateTimePicker extends React.Component {
                     <Layout style={{width: '100%'}}>
 
                         <RNDateTimePicker
+                            style={{width:'100%'}}
                             mode={'date'}
                             display={'spinner'}
                             locale={'ru-RU'}

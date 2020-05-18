@@ -15,7 +15,7 @@ export default class VisitStoreService extends BaseService {
      * @returns {Array}
      */
     create(data) {
-        return this.api.request('visit/create', data);
+        return this.api.request('visit/create/', data);
     }
 
     /**

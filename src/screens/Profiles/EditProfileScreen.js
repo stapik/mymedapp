@@ -9,9 +9,17 @@ class EditProfileScreen extends React.Component {
         };
     });
 
+    submitHandler = (form_state) => {
+        const {navigation} = this.props;
+        /**
+         * TODO: save profile
+         */
+        navigation.goBack();
+    };
+
     render() {
         return (
-            <ProfileForm submitHandler={() => this.props.navigation.goBack()} submitText={'Сохранить'}/>
+            <ProfileForm submitHandler={this.submitHandler} submitText={'Сохранить'}/>
         );
     }
 }

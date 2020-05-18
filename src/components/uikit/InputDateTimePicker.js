@@ -16,8 +16,9 @@ export class InputDateTimePicker extends React.Component {
      * @returns {string}
      */
     getResultDate() {
-        const {value_format} = this.props;
-        return moment(this.state.date).format(value_format);
+        const {value_format, value} = this.props;
+        const return_date = this.state.date ? this.state.date : value;
+        return moment(return_date).format(value_format);
     }
 
     /**
@@ -97,7 +98,7 @@ export class InputDateTimePicker extends React.Component {
                     <Layout style={{width: '100%'}}>
 
                         <RNDateTimePicker
-                            style={{width:'100%'}}
+                            style={{width: '100%'}}
                             mode={'date'}
                             display={'spinner'}
                             locale={'ru-RU'}

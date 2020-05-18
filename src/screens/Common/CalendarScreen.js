@@ -7,10 +7,44 @@ import moment from 'moment/src/moment';
 import * as _ from 'lodash';
 
 LocaleConfig.locales['ru'] = {
-    monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-    monthNamesShort: ['Янв.', 'Фев.', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Авг.', 'Сент.', 'Окт.', 'Ноябрь', 'Декабрь'],
-    dayNames: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
-    dayNamesShort: ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'],
+    monthNames: [
+        'Январь',
+        'Февраль',
+        'Март',
+        'Апрель',
+        'Май',
+        'Июнь',
+        'Июль',
+        'Август',
+        'Сентябрь',
+        'Октябрь',
+        'Ноябрь',
+        'Декабрь',
+    ],
+    monthNamesShort: [
+        'Янв',
+        'Фев',
+        'Мар',
+        'Апр',
+        'Май',
+        'Июн',
+        'Июл',
+        'Авг',
+        'Сен',
+        'Окт',
+        'Ноя',
+        'Дек',
+    ],
+    dayNames: [
+        'воскресенье',
+        'понедельник',
+        'вторник',
+        'среда',
+        'четверг',
+        'пятница',
+        'суббота',
+    ],
+    dayNamesShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
     today: 'Сегодня',
 };
 LocaleConfig.defaultLocale = 'ru';
@@ -22,9 +56,6 @@ class CalendarScreen extends React.Component {
             title: 'Выберите день',
         };
     };
-
-    apply_filter() {
-    }
 
     /**
      *
@@ -44,7 +75,7 @@ class CalendarScreen extends React.Component {
     render() {
         const {
             selectedDate: selected_date_str,
-            availableDates: available_dates, allDates
+            availableDates: available_dates, allDates,
         } = this.props.navigation.state.params;
         // get from api
         let date_format = 'YYYY-MM-DD';
@@ -91,6 +122,7 @@ class CalendarScreen extends React.Component {
                 <View style={{width: '100%', marginTop: 20}}>
                     <Calendar
                         minDate={from_date_str}
+                        current={new Date()}
                         maxDate={last_date_format}
                         onDayPress={(day) => this.handleSelectDate(day.dateString)}
                         markedDates={marked_dates}

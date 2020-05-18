@@ -3,6 +3,10 @@ import React from 'react';
 import {GuestNav, TabsNav} from '../navigator';
 import compose from '../utils/compose';
 import {connect} from 'react-redux';
+import 'moment/locale/ru';
+import * as moment from 'moment';
+
+moment.locale('ru');
 
 class AppContainerComponent extends React.Component {
     render() {

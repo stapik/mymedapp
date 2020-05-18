@@ -1,7 +1,7 @@
 import React from 'react';
-import {Button, Divider, List, Text} from '@ui-kitten/components';
-import {FlatList, Image, StyleSheet, TouchableOpacity} from 'react-native';
-import {Card, CardItem, Left} from 'native-base';
+import {Button, Divider, Layout, List, Text} from '@ui-kitten/components';
+import {ActivityIndicator, Dimensions, FlatList, Image, TouchableOpacity, View} from 'react-native';
+import moment from 'moment';
 
 class DoctorList extends React.Component {
 
@@ -9,29 +9,84 @@ class DoctorList extends React.Component {
      * @param doctor
      * @returns {*}
      */
-    renderItem = ({item: doctor}) => (
-        <Card>
-            <TouchableOpacity onPress={() => this.props.selectHandler(doctor)} activeOpacity={0.75}>
-                <CardItem cardBody>
-                    <Image source={{uri: doctor.avatar}} resizeMode={'cover'}
-                           style={{height: 200, width: 200, flex: 1}}/>
-                </CardItem>
-            </TouchableOpacity>
-            <CardItem>
-                <Text category='s1'>
-                    {doctor.name}
+    renderItem = ({item: doctor}) => {
+
+        const {width} = Dimensions.get('window');
+        const avatar_part = 0.30;
+        const avatar_width = width * avatar_part;
+        const avatar_height = width * avatar_part * 0.75;
+        const specialties = doctor.specialties ? (doctor.specialties.map((item) => item.name)).join(', ') : '';
+        const slot_dates = doctor.slot_days ?
+            doctor.slot_days.map((item) => moment(item).format('DD.MM')).join(', ')
+            : '';
+
+        // text
+        const work_period_text = doctor.work_period ? 'Стаж ' + doctor.work_period : '';
+        const work_rank = doctor.work_rank ?? '';
+        const work_degree = doctor.work_degree ?? '';
+        const work_rank_and_degree = (work_rank ? work_rank + '. ' : '') + (work_degree ? work_degree + '.' : '');
+
+        return (<Layout style={{
+            padding: 10,
+            borderRadius: 5,
+            shadowOpacity: 0.07,
+            shadowRadius: 3,
+            marginRight: 15,
+            marginLeft: 15,
+            borderColor: '#e5e5e5',
+            borderWidth: 1,
+        }}>
+            <TouchableOpacity activeOpacity={0.60} onPress={() => this.props.selectHandler(doctor)}>
+                <View style={{flexDirection: 'row'}}>
+                    <Image
+                        source={{uri: doctor.avatar}}
+                        resizeMode={'cover'}
+                        style={{width: avatar_width, height: avatar_height, borderRadius: 5}}
+                        PlaceholderContent={<ActivityIndicator/>}
+                    />
+                    <View style={{
+                        padding: 5,
+                        paddingTop: 0,
+                        paddingLeft: 10,
+                        alignItems: 'flex-start',
+                        flex: 1,
+                        flexWrap: 'wrap',
+                    }}>
+                        <Text category={'s1'}>{doctor.name}</Text>
+                        <Text
+                            style={{paddingTop: 5, paddingRight: 15}}
+                            category={'c2'}
+                            appearance={'hint'}>
+                            {work_period_text}
+                        </Text>
+                        <Text
+                            style={{paddingTop: 5, paddingRight: 15}}
+                            category={'c2'}
+                            appearance={'hint'}>
+                            {work_rank_and_degree}
+                        </Text>
+                    </View>
+                </View>
+                <Text
+                    style={{paddingTop: 5, paddingRight: 15}}
+                    category={'c2'}
+                    appearance={'hint'}>
+                    {specialties}
                 </Text>
-            </CardItem>
-            <Divider/>
-            <CardItem>
-                <Left>
-                    <Button status={'basic'} size={'small'} onPress={() => this.props.selectHandler(doctor)}>
-                        Расписание
-                    </Button>
-                </Left>
-            </CardItem>
-        </Card>
-    );
+                <Divider style={{marginTop: 10, marginBottom: 10, backgroundColor: '#e7e7e7'}}/>
+                <View>
+                    <Text category={'s1'}>Даты приема</Text>
+                    <Text category={'c2'} appearance={'hint'}>
+                        {slot_dates}
+                    </Text>
+                </View>
+            </TouchableOpacity>
+        </Layout>);
+    };
+
+    renderDivider = () => {
+        return <View style={{height: 15, backgroundColor: 'transparent'}}/>;
+    };
 
     /**
      *
@@ -40,25 +95,15 @@ class DoctorList extends React.Component {
     render() {
         const {doctors, renderHeader} = this.props;
         return (<FlatList
-            style={styles.container}
-            contentContainerStyle={styles.contentContainer}
-            ListHeaderComponent={renderHeader}
-            keyExtractor={(item, idx)=> idx.toString()}
+            ListHeaderComponent={renderHeader ?? this.renderDivider}
+            keyExtractor={(item, idx) => idx.toString()}
             data={doctors}
+            style={{backgroundColor: '#f5f5f5'}}
+            ItemSeparatorComponent={this.renderDivider}
+            ListFooterComponent={this.renderDivider}
             ListEmptyComponent={<Text appearance={'hint'} category={'p1'} style={{padding: 15}}>Пусто</Text>}
             renderItem={this.renderItem}/>);
     }
 }
 
 export {DoctorList};
-
-
-const styles = StyleSheet.create({
-    contentContainer: {
-        paddingHorizontal: 8,
-        paddingVertical: 4,
-    },
-    item: {
-        margin: 4,
-    },
-});

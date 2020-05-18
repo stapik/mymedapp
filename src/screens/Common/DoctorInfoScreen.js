@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, ActivityIndicator, ScrollView, TouchableOpacity} from 'react-native';
+import {View, ActivityIndicator, ScrollView, TouchableOpacity, Dimensions} from 'react-native';
 import {Divider, Image} from 'react-native-elements';
 import {Button, Layout, Text} from '@ui-kitten/components';
 import {SlotCarousel} from '../../components/uikit';
@@ -123,11 +123,14 @@ class ContainerScreen extends React.Component {
         const {navigation, doctor_info} = this.props;
         const specialties = (doctor_info.specialties.map((item) => item.name)).join(', ');
 
+        const {width} = Dimensions.get('window');
+
         return (
             <ScrollView style={{flex: 1}}>
                 <Image
                     source={{uri: doctor_info.avatar}}
-                    style={{width: '100%', height: 250}}
+                    resizeMode={'cover'}
+                    style={{width: width, height: width * 0.75}}
                     PlaceholderContent={<ActivityIndicator/>}
                 />
                 <View style={{padding: 15}}>

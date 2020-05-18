@@ -5,8 +5,8 @@ import {fetchVisits} from '../../actions';
 import compose from '../../utils/compose';
 import {withVisitsStoreService} from '../../components/hoc';
 import {connect} from 'react-redux';
-import {VisitList} from '../../components/uikit';
 import moment from 'moment';
+import {VisitList} from '../../components/VisitList';
 
 class ContainerScreen extends React.Component {
 
@@ -40,9 +40,6 @@ class ContainerScreen extends React.Component {
      */
     render() {
         const {visits, navigation} = this.props;
-        // const sorted_visits = visits.sort((a, b) => {
-        //     return Boolean(a.canceled) === Boolean(b.canceled);
-        // });
         const currentVisits = visits.filter((item) => moment(item.time_start).isAfter());
         const pastVisits = visits.filter((item) => moment(item.time_start).isBefore());
         return (

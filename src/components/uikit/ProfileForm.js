@@ -1,13 +1,14 @@
 import React from 'react';
-import {Button, Layout, Input, Text} from '@ui-kitten/components';
+import {StyleSheet} from 'react-native';
+import {Button, Input} from '@ui-kitten/components';
 import {formatPhone} from '../../utils';
-import {DatePicker} from 'native-base';
-import moment from 'moment';
 import {Container, Content} from 'native-base';
 import FormValidator from '../FormValidator';
 import {updateProfile} from '../../actions';
 import compose from '../../utils/compose';
 import {connect} from 'react-redux';
+import moment from 'moment';
+import {InputDateTimePicker} from './InputDateTimePicker';
 
 class ProfileFormContainer extends FormValidator {
     /**
@@ -25,6 +26,7 @@ class ProfileFormContainer extends FormValidator {
         phone_number: '',
         first_name: '',
         last_name: '',
+        show_date_picker: false,
     };
 
     /**
@@ -39,7 +41,7 @@ class ProfileFormContainer extends FormValidator {
     /**
      * @private
      */
-    _onPressButton = () => {
+    _onPressSubmit = () => {
         const {submitHandler, updateProfile} = this.props;
 
         this.validate({
@@ -58,8 +60,9 @@ class ProfileFormContainer extends FormValidator {
      * @returns {*}
      */
     render() {
-        const {country_code, birth_date, phone_number, first_name, last_name} = this.state;
+        const {country_code, phone_number, first_name, last_name, birth_date} = this.state;
         const {submitText} = this.props;
+
         return (
             <Container style={{padding: 15}}>
                 <Content>
@@ -85,31 +88,17 @@ class ProfileFormContainer extends FormValidator {
                         status={this.getFieldStatusText('first_name')}
                         onChangeText={(first_name) => this.setState({first_name})}
                     />
-                    <Text appearance={'hint'} category={'label'} style={{paddingBottom: 5, paddingTop: 1}}>
-                        Дата рождения
-                    </Text>
-                    <Layout level={'2'}
-                            style={{
-                                borderRadius: 5,
-                                borderColor: this.isFieldInError('birth_date') ? '#ff0000' : '#e5e5e5',
-                                borderWidth: 1,
-                                paddingLeft: 5,
-                            }}>
-                        <DatePicker
-                            defaultDate={birth_date ? moment(birth_date, 'YYYY-MM-DD').toDate() : null}
-                            textStyle={{fontSize: 15, color: '#343434'}}
-                            placeHolderTextStyle={{color: '#343434'}}
-                            placeHolderText={birth_date ? moment(birth_date).format('DD.MM.YYYY') : 'Выберите дату'}
-                            locale={'ru'}
-                            formatChosenDate={(date) => moment(date).format('DD.MM.YYYY')}
-                            androidMode={'spinner'}
-                            onDateChange={(date) => this.setState(
-                                {
-                                    birth_date: moment(date).format('YYYY-MM-DD'),
-                                })}
-                        />
-                    </Layout>
-                    <Button style={{marginTop: 25}} onPress={this._onPressButton}>
+
+                    <InputDateTimePicker
+                        error={this.isFieldInError('birth_date')}
+                        onChange={(birth_date) => this.setState({birth_date})}
+                        label={'Дата рождения'}
+                        value_format={'YYYY-MM-DD'}
+                        value={birth_date}
+                        input_format={'DD.MM.YYYY'}
+                    />
+
+                    <Button style={{marginTop: 25}} onPress={this._onPressSubmit}>
                         {submitText}
                     </Button>
                 </Content>

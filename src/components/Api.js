@@ -66,7 +66,7 @@ class Api {
                 }
                 switch (error.response.status) {
                     case 429:
-                        error_message = 'Слишком много попыток. Попробуйте через 10 минут.';
+                        error_message = 'Слишком много попыток. Повторите через 10 минут.';
                         break;
                     case 500:
                         error_message = 'Ведутся технические работы.';

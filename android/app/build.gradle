@@ -128,11 +128,11 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.medmobile"
+        applicationId "ru.mymedapp.Renovatio"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "1.3.0"
     }
     splits {
         abi {

@@ -17,9 +17,9 @@ const resetStore = () => {
     };
 };
 
-const internetStatus = (status) => {
+const updateInternetStatus = (status) => {
     return {
-        type: 'INTERNET_STATUS',
+        type: 'UPDATE_INTERNET_STATUS',
         payload: status,
     };
 };
@@ -31,9 +31,16 @@ const updateProfile = (profile) => {
     };
 };
 
+const updateProfilePhoneNumber = (phone_number) => {
+    return {
+        type: 'UPDATE_PROFILE_PHONE_NUMBER',
+        payload: phone_number,
+    };
+};
+
 const updateTokenInfo = (token_info) => {
     return {
-        type: 'UPDATE_TOKEN',
+        type: 'UPDATE_TOKEN_INFO',
         payload: token_info,
     };
 };
@@ -79,7 +86,6 @@ const clinicsLoaded = (newClinics) => {
 };
 
 const fetchError = (error) => {
-    console.log('fetchError', error);
     return {
         type: 'FETCH_FAILURE',
         payload: error,
@@ -116,7 +122,7 @@ const fetchSpecialties = (specialtiesStoreService) => () => (dispatch) => {
     dispatch(pageLoading());
     specialtiesStoreService
         .getList()
-        .then(({data: {data}}) => {
+        .then(({data}) => {
             dispatch(specialtiesLoaded(data));
         })
         .catch((err) => dispatch(fetchError(err)))
@@ -135,7 +141,7 @@ const fetchVisits = (visitsStoreService) => (finalCb) => (dispatch) => {
     }
     visitsStoreService
         .getList()
-        .then(({data: {data}}) => {
+        .then(({data}) => {
             dispatch(visitsLoaded(data));
         })
         .catch((err) => dispatch(fetchError(err)))
@@ -185,7 +191,7 @@ const fetchClinics = (clinicsStoreService) => () => (dispatch) => {
     dispatch(pageLoading());
     clinicsStoreService
         .getList()
-        .then(({data: {data}}) => {
+        .then(({data}) => {
             dispatch(clinicsLoaded(data));
         })
         .catch((err) => dispatch(fetchError(err)))
@@ -205,7 +211,7 @@ const searchDoctors = (doctorsStoreService) => () => (dispatch, getState) => {
     dispatch(pageLoading());
     doctorsStoreService
         .search(doctorsFilter)
-        .then(({data: {data}}) => {
+        .then(({data}) => {
             dispatch(doctorsLoaded(data));
         })
         .catch((err) => {
@@ -224,7 +230,7 @@ const fetchFavoriteDoctors = (doctorsStoreService) => () => (dispatch) => {
     dispatch(pageLoading());
     doctorsStoreService
         .getFavoriteDoctors()
-        .then(({data: {data}}) => {
+        .then(({data}) => {
             dispatch(favoriteDoctorsLoaded(data));
         })
         .catch((err) => {
@@ -245,7 +251,7 @@ const fetchDoctorInfo = (doctorsStoreService) => (doctor, successCb) => (dispatc
     dispatch(pageLoading());
     doctorsStoreService
         .getInfo(doctor, doctorsFilter)
-        .then(({data: {data}}) => {
+        .then(({data}) => {
             dispatch(doctorInfoLoaded(data));
             successCb();
         })
@@ -264,7 +270,7 @@ const createVisit = (visitsStoreService) => (data, successCb) => (dispatch) => {
     dispatch(pageLoading());
     visitsStoreService
         .create(data)
-        .then(({data: {data}}) => {
+        .then(({data}) => {
             successCb();
         })
         .catch((err) => dispatch(fetchError(err)))
@@ -306,11 +312,12 @@ export {
     resetStore,
     updateTokenInfo,
     resetDoctorsFilter,
-    internetStatus,
+    updateInternetStatus,
     toggleFavoriteDoctor,
     fetchClinics,
     createVisit,
     updateProfile,
+    updateProfilePhoneNumber,
     fetchVisits,
     deleteVisit,
     cancelVisit,

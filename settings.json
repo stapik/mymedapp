@@ -1,9 +1,7 @@
 {
   "app_id": 2,
   "app_secret": "qoxDxgVZJpwee2DebPYpSdJL7QP0weL6qheyuH8k",
-  "server_url": "https://mymedapp.ru/",
-  "api_url": "https://mymedapp.ru/api/app/",
-  "api_version": "v1",
+  "api_url": "https://mymedapp.ru/api/app/v1",
   "defaultStackConfig": {
     "initialRouteName": "Index",
     "defaultNavigationOptions": {

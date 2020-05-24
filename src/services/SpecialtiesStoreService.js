@@ -9,5 +9,4 @@ export default class SpecialtiesStoreService extends BaseService {
     getList() {
         return this.api.request('specialty/index');
     }
-
 }

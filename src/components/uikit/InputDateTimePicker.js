@@ -113,7 +113,8 @@ export class InputDateTimePicker extends React.Component {
                         }}>
                             <Button
                                 style={{paddingTop: 10, width: '100%'}}
-                                status={'success'}
+                                status={'primary'}
+                                appearance={'outline'}
                                 onPress={() => this._onSubmit()}>
                                 Выбрать
                             </Button>

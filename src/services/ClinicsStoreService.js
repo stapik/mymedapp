@@ -9,5 +9,4 @@ export default class ClinicsStoreService extends BaseService {
     getList() {
         return this.api.request('clinic/index');
     }
-
 }

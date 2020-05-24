@@ -3,7 +3,6 @@ import {Button, Layout, Text, Divider} from '@ui-kitten/components';
 import {ActivityIndicator, Alert, Dimensions, FlatList, Image, TouchableOpacity, View} from 'react-native';
 import {formatPhone} from '../utils';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {Content} from 'native-base';
 import {bindActionCreators} from 'redux';
 import {cancelVisit, deleteVisit, fetchDoctorInfo, fetchVisits} from '../actions';
 import compose from '../utils/compose';

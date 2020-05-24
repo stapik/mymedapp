@@ -12,15 +12,16 @@ import {
     VisitsStoreProvider,
 } from './contexts';
 import {PersistGate} from 'redux-persist/integration/react';
-import Api from '../Api';
 import {Root} from 'native-base';
 import AppContainer from './AppContainer';
-import {ApplicationProvider} from '@ui-kitten/components';
+import {ApplicationProvider, Layout, Text} from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
 import {PageLoader} from './uikit';
 import ClinicsStoreService from '../services/ClinicsStoreService';
 import VisitsStoreService from '../services/VisitsStoreService';
 import {resetDoctorsFilter} from '../actions';
+import {Api} from './Api';
+import {InternetStatusBar} from './uikit/InternetStatusBar';
 
 export default class App extends React.Component {
 
@@ -29,18 +30,18 @@ export default class App extends React.Component {
      */
     componentDidMount(): void {
         SplashScreen.hide();
-        store.dispatch(resetDoctorsFilter())
+        store.dispatch(resetDoctorsFilter());
     }
 
     /**
      * @returns {*}
      */
     render() {
-        const api = Api.make();
-        const doctorsStoreService = new DoctorsStoreService();
-        const specialtiesStoreService = new SpecialtiesStoreService();
-        const clinicsStoreService = new ClinicsStoreService();
-        const visitsStoreService = new VisitsStoreService();
+        const api = new Api(store);
+        const doctorsStoreService = new DoctorsStoreService(api);
+        const specialtiesStoreService = new SpecialtiesStoreService(api);
+        const clinicsStoreService = new ClinicsStoreService(api);
+        const visitsStoreService = new VisitsStoreService(api);
 
         return (
             <Root>
@@ -52,6 +53,7 @@ export default class App extends React.Component {
                                     <DoctorsStoreProvider value={doctorsStoreService}>
                                         <ClinicsStoreProvider value={clinicsStoreService}>
                                             <ApplicationProvider {...eva} theme={eva.light}>
+                                                <InternetStatusBar/>
                                                 <AppContainer/>
                                                 <PageLoader/>
                                             </ApplicationProvider>

@@ -7,7 +7,7 @@ const filterInitialState = {
 
 const initialState = {
     token_info: null,
-    internet_status: false,
+    internet_status: true,
     doctors: [],
     favorite_doctors: [],
     specialties: [],
@@ -26,7 +26,7 @@ const initialState = {
  */
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'UPDATE_TOKEN':
+        case 'UPDATE_TOKEN_INFO':
             return {
                 ...state,
                 token_info: action.payload,
@@ -61,15 +61,23 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 page_loader: false,
             };
-        case 'INTERNET_STATUS':
+        case 'UPDATE_INTERNET_STATUS':
             return {
                 ...state,
-                internet_status: false,
+                internet_status: action.payload,
             };
         case 'UPDATE_PROFILE':
             return {
                 ...state,
                 profile: action.payload,
+            };
+        case 'UPDATE_PROFILE_PHONE_NUMBER':
+            return {
+                ...state,
+                profile: {
+                    ...state.profile,
+                    phone_number: action.payload,
+                },
             };
         case 'FAVORITE_DOCTORS_LOADED':
             return {

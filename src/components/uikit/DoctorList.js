@@ -23,6 +23,8 @@ class DoctorList extends React.Component {
         const work_degree = doctor.work_degree ?? '';
         const work_rank_and_degree = (work_rank ? work_rank + '. ' : '') + (work_degree ? work_degree + '.' : '');
 
+        const doctor_slot_days = this.renderSlotDays(doctor.slot_days);
+
         return (<Layout style={{
             padding: 10,
             borderRadius: 5,
@@ -71,13 +73,16 @@ class DoctorList extends React.Component {
                     {work_rank_and_degree}
                 </Text>
                 <Divider style={{marginTop: 10, marginBottom: 10, backgroundColor: '#e7e7e7'}}/>
-                <View>
-                    <Text category={'s2'}>Ближайшие даты приема</Text>
-                    {this.renderSlotDays(doctor.slot_days)}
-                    <Button status={'danger'}
-                            size={'small'}
-                            onPress={() => this.props.selectHandler(doctor)}>Записаться</Button>
-                </View>
+                {doctor_slot_days
+                    ? <View>
+                        <Text category={'s2'}>Ближайшие даты приема</Text>
+                        {doctor_slot_days}
+                        <Button status={'danger'}
+                                size={'small'}
+                                onPress={() => this.props.selectHandler(doctor)}>Записаться</Button>
+                    </View>
+                    :
+                    <Text category={'c2'} appearance={'hint'}>Нет свободного времени</Text>}
             </TouchableOpacity>
         </Layout>);
     };
@@ -92,7 +97,8 @@ class DoctorList extends React.Component {
             .splice(0, 3)
             .map((item) => moment(item).format('dddd DD.MM'))
             .join(', ');
-        return (slot_days_text ? <Text style={{paddingBottom: 5}} category={'c2'} appearance={'hint'}>{slot_days_text}</Text> : null);
+        return (slot_days_text ?
+            <Text style={{paddingBottom: 5}} category={'c2'} appearance={'hint'}>{slot_days_text}</Text> : null);
     }
 
 

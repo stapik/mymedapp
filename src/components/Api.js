@@ -56,6 +56,7 @@ class Api {
         }, function (error) {
             if (error.response) {
                 const data = error.response.data;
+                console.log(data);
                 const error_title = 'error' in data ? data.error : null;
                 let error_message = 'message' in data ? data.message : 'Возникла непредвиденная ошибка.';
                 switch (error_title) {
@@ -69,6 +70,11 @@ class Api {
                         break;
                     case 500:
                         error_message = 'Ведутся технические работы.';
+                }
+
+                if (error_message === 'Unauthenticated.') {
+                    _this.logout(true);
+                    error_message = 'Выход';
                 }
                 _this._showError(error_message);
             }
@@ -97,12 +103,12 @@ class Api {
      *
      * @returns {*}
      */
-    async logout() {
+    async logout(onlyStore) {
         const keys = await AsyncStorage.getAllKeys();
         await AsyncStorage.multiRemove(keys);
         await persistor.purge();
-        if (!this._accessTokenIsOld() && this._getAccessToken()) {
-            await this.request('oauth/logout');
+        if (!this._accessTokenIsOld() && this._getAccessToken() && !onlyStore) {
+            this.request('oauth/logout');
         }
         store.dispatch(resetStore());
     }
@@ -204,7 +210,7 @@ class Api {
      *
      */
     _showError(text, status) {
-        if(!this.internetStatus){
+        if (!this.internetStatus) {
             return;
         }
         let status_text = status ? '(' + status + ')' : '';

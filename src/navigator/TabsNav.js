@@ -9,7 +9,7 @@ import {store} from '../store';
 let handleTabPress = ({navigation}) => {
     navigation.popToTop();
     navigation.navigate(navigation.state.routeName);
-    store.dispatch(resetDoctorsFilter())
+    store.dispatch(resetDoctorsFilter());
 };
 
 const TabsNav = createBottomTabNavigator({

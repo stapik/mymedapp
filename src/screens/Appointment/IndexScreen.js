@@ -25,7 +25,9 @@ class ContainerScreen extends React.Component {
                     style={{marginRight: 10}}
                     activeOpacity={0.7}
                     onPress={() => navigation.navigate('DoctorsFilter')}>
-                    <Icon name={'ios-options'} color={'blue'} size={26}/>
+                    <Text status='primary'>
+                        <Icon name={'ios-options'} size={26}/>
+                    </Text>
                 </TouchableOpacity>
             ),
         };
@@ -80,7 +82,7 @@ class ContainerScreen extends React.Component {
         const {doctors} = this.props;
         const {search} = this.state;
 
-        const filtered_doctors = doctors.filter(item => item.name.indexOf(search) > -1);
+        const filtered_doctors = doctors.length ? doctors.filter(item => item.name.indexOf(search) > -1) : [];
 
         return (<View style={{flex: 1}}>
             <View style={{

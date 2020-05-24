@@ -11,11 +11,13 @@ import compose from '../../utils/compose';
 
 class LoaderComponent extends Component {
     render() {
+        const {internet_status, page_loader} = this.props;
+        const modalVisible = internet_status ? page_loader : false;
         return (
             <Modal
                 animationType="fade"
                 transparent={true}
-                visible={this.props.page_loader}>
+                visible={modalVisible}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <View style={styles.controlContainer}>
@@ -44,21 +46,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         shadowColor: '#000',
-        shadowOffset: {
-        },
+        shadowOffset: {},
         shadowOpacity: 0.25,
         shadowRadius: 5,
         elevation: 3,
     },
 });
 
-const mapStateToProps = ({page_loader}) => {
-    return {page_loader};
+const mapStateToProps = ({page_loader, internet_status}) => {
+    return {page_loader, internet_status};
 };
 
 const mapDispatchToProps = (dispatch, {}) => {
-    return bindActionCreators({
-    }, dispatch);
+    return bindActionCreators({}, dispatch);
 };
 
 const PageLoader = compose(

@@ -1,24 +1,22 @@
 import React from 'react';
 import {View} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-import {persistor} from '../../store';
-import {resetStore} from '../../actions';
 import compose from '../../utils/compose';
-import {connect} from 'react-redux';
-
 import {Button, Divider, Text} from '@ui-kitten/components';
-import Api from '../../Api';
+import {withApi} from '../../components/hoc';
 
 class SignOutModalContainer extends React.Component {
 
-    _signOutAsync = async () => {
-        Api.logout();
-        let keys = await AsyncStorage.getAllKeys();
-        await AsyncStorage.multiRemove(keys);
-        await persistor.purge();
-        this.props.resetStore();
+    /**
+     * @returns {Promise<void>}
+     * @private
+     */
+    _signOutAsync = () => {
+        this.props.api.logout();
     };
 
+    /**
+     * @returns {*}
+     */
     render() {
         return (
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', padding: 15}}>
@@ -39,16 +37,8 @@ class SignOutModalContainer extends React.Component {
 
 export {SignOutModalContainer};
 
-const mapStateToProps = () => {
-    return {};
-};
-
-const mapDispatchToProps = {
-    resetStore: resetStore,
-};
-
 const SignOutModalScreen = compose(
-    connect(mapStateToProps, mapDispatchToProps),
+    withApi(),
 )(SignOutModalContainer);
 
 export {SignOutModalScreen};

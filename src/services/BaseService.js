@@ -1,5 +1,3 @@
-import Api from '../Api';
-
 export default class BaseService {
 
     api;
@@ -7,7 +5,7 @@ export default class BaseService {
     /**
      *
      */
-    constructor() {
-        this.api = Api.make();
+    constructor(api) {
+        this.api = api;
     }
 }

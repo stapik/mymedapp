@@ -1,9 +1,7 @@
 {
   "app_id": 1,
   "app_secret": "WRlPpsWoy773XxxKsJWUbVEs24yC5aeJBV7rMlIr",
-  "server_url": "http://192.168.88.254:3030/",
-  "api_url": "http://192.168.88.254:3030/api/app/",
-  "api_version": "v1",
+  "api_url": "http://192.168.88.254:3030/api/app/v1",
   "defaultStackConfig": {
     "initialRouteName": "Index",
     "defaultNavigationOptions": {

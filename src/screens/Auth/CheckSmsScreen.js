@@ -1,11 +1,15 @@
 import React from 'react';
 import {Text, Divider, Input, Button} from '@ui-kitten/components';
 import Helper from '../../components/Helper';
-import Api from '../../Api';
-import {Container, Content} from 'native-base';
+import {Container} from 'native-base';
 import moment from 'moment';
+import {updateProfilePhoneNumber} from '../../actions';
+import compose from '../../utils/compose';
+import {connect} from 'react-redux';
+import {Dimensions} from 'react-native';
+import {withApi} from '../../components/hoc';
 
-class CheckSmsScreen extends React.Component {
+class CheckSmsScreenContainer extends React.Component {
 
     state = {
         code: '',
@@ -16,6 +20,7 @@ class CheckSmsScreen extends React.Component {
     static navigationOptions = ({navigation}) => {
         return {
             title: navigation.getParam('phone_number', 'Нет номера телефона'),
+            headerTitleStyle: {width: Dimensions.get('window').width * 0.7},
         };
     };
 
@@ -31,16 +36,18 @@ class CheckSmsScreen extends React.Component {
      *
      */
     verifyPhoneNumber = () => {
-        if (this.state.code.toString().length !== 5) {
+        const {navigation, api, updateProfilePhoneNumber} = this.props;
+        const {code} = this.state;
+
+        if (code.toString().length !== 5) {
             return;
         }
+        const phone_number = this.props.navigation.getParam('phone_number', 0);
 
-        let api = Api.make();
-        api.verifyPhoneNumber(this.state.code).then(() => {
+        api.verifyPhoneNumber(phone_number, code).then(() => {
             clearInterval(this.smsInterval);
-            this.props.navigation.navigate('TabsNav');
-        }).catch(() => {
-            Api._showError('Неверный код подтверждения');
+            navigation.navigate('TabsNav');
+            updateProfilePhoneNumber(phone_number);
         });
     };
 
@@ -49,27 +56,39 @@ class CheckSmsScreen extends React.Component {
      */
     getSms = () => {
         const {seconds} = this.state;
+        const {navigation, api} = this.props;
         if (seconds) {
             return;
         }
-        const phone_number = this.props.navigation.getParam('phone_number', '0');
-        const api = Api.make();
-        api.getSms(Helper.clearNumber(phone_number))
+        const phone_number = navigation.getParam('phone_number', '0');
+        api.sendVerificationCode(phone_number)
             .then(() => {
-                this.setState(({default_sms_interval}) => ({sms_interval: default_sms_interval}));
-                this.smsInterval = setInterval(() => {
-                    const {sms_interval} = this.state;
-                    if (sms_interval > 0) {
-                        this.setState({
-                            sms_interval: sms_interval - 1,
-                        });
-                    }
-                    if (sms_interval === 0) {
-                        clearInterval(this.smsInterval);
-                    }
-                }, 1000);
-            }).catch((error) => Api.errorHandler(error))
-        ;
+                this._runSmsTimer();
+            }).catch(() => {
+            this._runSmsTimer();
+        });
+    };
+
+    /**
+     *
+     */
+    _runSmsTimer = () => {
+        const {internet_status} = this.props;
+        if (!internet_status) {
+            return;
+        }
+        this.setState(({default_sms_interval}) => ({sms_interval: default_sms_interval}));
+        this.smsInterval = setInterval(() => {
+            const {sms_interval} = this.state;
+            if (sms_interval > 0) {
+                this.setState({
+                    sms_interval: sms_interval - 1,
+                });
+            }
+            if (sms_interval === 0) {
+                clearInterval(this.smsInterval);
+            }
+        }, 1000);
     };
 
     /**
@@ -118,5 +137,18 @@ class CheckSmsScreen extends React.Component {
         );
     }
 }
+
+const mapStateToProps = ({internet_status}) => {
+    return {internet_status};
+};
+
+const mapDispatchToProps = {
+    updateProfilePhoneNumber,
+};
+
+const CheckSmsScreen = compose(
+    withApi(),
+    connect(mapStateToProps, mapDispatchToProps),
+)(CheckSmsScreenContainer);
 
 export {CheckSmsScreen};

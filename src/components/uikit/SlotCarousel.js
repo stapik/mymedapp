@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
+import {View, Animated} from 'react-native';
 import {Button, Text} from '@ui-kitten/components';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {floor} from 'react-native-reanimated';
 
 export class SlotCarousel extends Component {
 
@@ -12,9 +11,14 @@ export class SlotCarousel extends Component {
         slot_margin_top: 15,
         content_width: 0,
         content_height: 0,
+        wrapper_height: 0,
+        wrapper_height_animated: 0,
         show_all: false,
     };
 
+    componentDidMount() {
+        this.updateWrapperHeight();
+    }
 
     /**
      *
@@ -33,16 +37,33 @@ export class SlotCarousel extends Component {
      * @returns {AnimatedNode<number>}
      */
     getSlotsCountPerRow() {
-        return Math.floor(this.state.wrapper_width / this.state.slot_width);
+        return Math.floor(this.state.content_width / this.state.slot_width);
     }
 
     /**
      *
      * @returns {number}
      */
-    getWrapperHeight() {
-        const {slot_height, slot_margin_top, show_all, content_height} = this.state;
-        return show_all ? content_height : slot_height + slot_margin_top;
+    updateWrapperHeight() {
+        const {slot_height, slot_margin_top, show_all, content_height, wrapper_height: old_wrapper_height} = this.state;
+        const wrapper_height = show_all ? content_height : slot_height + slot_margin_top;
+        this.setState({
+                wrapper_height,
+                wrapper_height_animated: new Animated.Value(old_wrapper_height),
+            },
+            () => {
+                Animated.timing(
+                    this.state.wrapper_height_animated,
+                    {
+                        toValue: wrapper_height,
+                        duration: 500,
+                        useNativeDriver: false,
+                    },
+                ).start(()=>{
+                    show_all && this.props.scroll.scrollToEnd();
+                    this.props.scroll.flashScrollIndicators();
+                });
+            });
     }
 
     /**
@@ -68,8 +89,12 @@ export class SlotCarousel extends Component {
      *
      */
     toggleView() {
-        const newValue = !this.state.show_all;
-        this.setState({show_all: newValue});
+        const {show_all} = this.state;
+        this.setState({
+            show_all: !show_all,
+        }, () => {
+            this.updateWrapperHeight();
+        });
     }
 
     /**
@@ -77,7 +102,6 @@ export class SlotCarousel extends Component {
      */
     render() {
         const {navigation, slots, style, doctor_id, clinic_id} = this.props;
-        const wrapperHeight = this.getWrapperHeight();
 
         if (!slots.length) {
             return <Text appearance={'hint'} style={style} category={'p1'}>Нет свободного времени</Text>;
@@ -88,9 +112,9 @@ export class SlotCarousel extends Component {
         const slotsAfter = slots.slice(countPerRow);
 
         return (
-            <View
+            <Animated.View
                 style={{
-                    height: wrapperHeight,
+                    height: this.state.wrapper_height_animated,
                     overflow: 'hidden',
                 }}>
 
@@ -118,7 +142,7 @@ export class SlotCarousel extends Component {
                     )}
                 </View>
 
-            </View>
+            </Animated.View>
         );
     }
 }

@@ -129,7 +129,9 @@ class ContainerScreen extends React.Component {
         const {width} = Dimensions.get('window');
 
         return (
-            <ScrollView style={{flex: 1}}>
+            <ScrollView
+                ref="scroll"
+                style={{flex: 1}}>
                 <Image
                     source={{uri: doctor_info.avatar}}
                     resizeMode={'cover'}
@@ -179,6 +181,7 @@ class ContainerScreen extends React.Component {
                                                                 appearance={'hint'}>{clinic.address}</Text> : null}
                                         <Divider style={{marginTop: 10, marginBottom: 5}}/>
                                         <SlotCarousel
+                                            scroll={this.refs.scroll}
                                             slots={clinic_slots}
                                             doctor_id={doctor_info.id}
                                             clinic_id={clinic.id}

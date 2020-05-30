@@ -54,22 +54,23 @@ class Api {
         this.instance.interceptors.response.use(function (response) {
             return response.data;
         }, function (error) {
+
             if (error.response) {
+
                 const data = error.response.data;
-                console.log(data);
                 const error_title = 'error' in data ? data.error : null;
                 let error_message = 'message' in data ? data.message : 'Возникла непредвиденная ошибка.';
+
                 switch (error_title) {
                     case 'invalid_credentials':
                         error_message = 'Неверные данные';
                         break;
                 }
-                switch (error.response.status) {
+                const response_status = error.response.status ?? -1;
+                switch (response_status) {
                     case 429:
                         error_message = 'Слишком много попыток. Повторите через 10 минут.';
                         break;
-                    case 500:
-                        error_message = 'Ведутся технические работы.';
                 }
 
                 if (error_message === 'Unauthenticated.') {
@@ -77,6 +78,8 @@ class Api {
                     error_message = 'Выход';
                 }
                 _this._showError(error_message);
+            } else {
+                _this._showError('Ошибка при подключении к серверу.');
             }
             return Promise.reject(error);
         });

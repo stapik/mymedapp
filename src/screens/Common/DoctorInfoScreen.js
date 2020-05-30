@@ -60,9 +60,12 @@ class ContainerScreen extends React.Component {
      *
      */
     componentDidMount(): void {
-        const {toggleFavorite} = this.props;
+        const {toggleFavorite, doctors_filter, doctor_info} = this.props;
+        const selected_date = doctors_filter.date ?? doctor_info.slot_days[0];
+        this.setState({selected_date});
         this.props.navigation.setParams({toggleFavorite});
     }
+
 
     /**
      * s
@@ -167,16 +170,16 @@ class ContainerScreen extends React.Component {
 
                     <Layout style={{padding: 15, paddingBottom: 0, marginBottom: -15}}>
                         {doctor_info.clinics.map((clinic) => {
-                            return (
+                            const clinic_slots = this.filterSlots(doctor_info.slots, clinic.id);
+                            return (clinic_slots.length > 0 &&
                                 <Layout key={clinic.id} style={{marginBottom: 15}}>
-                                    <Layout style={{paddingTop: 15, borderRadius: 5}} level={'3'}>
+                                    <Layout style={{padding: 15, paddingBottom: 10, borderRadius: 5}} level={'3'}>
                                         <Text category={'p1'} style={{textAlign: 'center'}}>{clinic.name}</Text>
                                         {clinic.address ? <Text style={{paddingLeft: 15, paddingRight: 15}}
                                                                 appearance={'hint'}>{clinic.address}</Text> : null}
-                                        <Divider style={{margin: 10}}/>
+                                        <Divider style={{marginTop: 10, marginBottom: 5}}/>
                                         <SlotCarousel
-                                            style={{marginLeft: 15, paddingBottom: 15, marginRight: 15}}
-                                            slots={this.filterSlots(doctor_info.slots, clinic.id)}
+                                            slots={clinic_slots}
                                             doctor_id={doctor_info.id}
                                             clinic_id={clinic.id}
                                             navigation={navigation}/>
@@ -193,8 +196,8 @@ class ContainerScreen extends React.Component {
     }
 }
 
-const mapStateToProps = ({doctor_info, page_loader, doctor_info: {is_favorite}}) => {
-    return {doctor_info, page_loader, is_favorite};
+const mapStateToProps = ({doctors_filter, doctor_info, page_loader, doctor_info: {is_favorite}}) => {
+    return {doctors_filter, doctor_info, page_loader, is_favorite};
 };
 
 const mapDispatchToProps = (dispatch, {doctorsStoreService}) => {

@@ -22,7 +22,7 @@ class ContainerScreen extends React.Component {
                 fetchVisits();
                 visitsListLoaded = true;
             }
-            setTimeout(() => visitsListLoaded = false, 20000);
+            setTimeout(() => visitsListLoaded = false, 10000);
         });
     }
 

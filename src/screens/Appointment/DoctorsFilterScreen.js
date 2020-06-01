@@ -33,10 +33,10 @@ class DoctorsFilterContainer extends React.Component {
 
     handleSearch = () => {
         const {navigation, updateDoctorsFilter, searchDoctors} = this.props;
-        navigation.goBack();
         updateDoctorsFilter(this.state);
-        searchDoctors();
-
+        searchDoctors(()=>{
+            navigation.goBack();
+        });
     };
 
     handleSelectClinic = (clinic) => {

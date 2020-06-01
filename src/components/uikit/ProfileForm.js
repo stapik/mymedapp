@@ -7,7 +7,6 @@ import FormValidator from '../FormValidator';
 import {updateProfile} from '../../actions';
 import compose from '../../utils/compose';
 import {connect} from 'react-redux';
-import moment from 'moment';
 import {InputDateTimePicker} from './InputDateTimePicker';
 
 class ProfileFormContainer extends FormValidator {

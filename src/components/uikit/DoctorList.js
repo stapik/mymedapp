@@ -117,6 +117,7 @@ class DoctorList extends React.Component {
             ListHeaderComponent={renderHeader ?? this.renderDivider}
             keyExtractor={(item, idx) => idx.toString()}
             data={doctors}
+            initialNumToRender={5}
             style={{backgroundColor: '#f5f5f5'}}
             ItemSeparatorComponent={this.renderDivider}
             ListFooterComponent={this.renderDivider}

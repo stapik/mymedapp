@@ -204,7 +204,7 @@ const fetchClinics = (clinicsStoreService) => () => (dispatch) => {
  * @param doctorsStoreService
  * @returns {function(*, *=): Function}
  */
-const searchDoctors = (doctorsStoreService) => () => (dispatch, getState) => {
+const searchDoctors = (doctorsStoreService) => (cb) => (dispatch, getState) => {
     let state = getState();
     let doctorsFilter = state.doctors_filter;
     //
@@ -213,6 +213,7 @@ const searchDoctors = (doctorsStoreService) => () => (dispatch, getState) => {
         .search(doctorsFilter)
         .then(({data}) => {
             dispatch(doctorsLoaded(data));
+            cb();
         })
         .catch((err) => {
             dispatch(fetchError(err));

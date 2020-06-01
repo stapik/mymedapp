@@ -59,9 +59,8 @@ export class SlotCarousel extends Component {
                         duration: 500,
                         useNativeDriver: false,
                     },
-                ).start(()=>{
-                    show_all && this.props.scroll.scrollToEnd();
-                    this.props.scroll.flashScrollIndicators();
+                ).start(() => {
+                    show_all && this.props.scroll.scrollToEnd({animated: true, duration: 500});
                 });
             });
     }
@@ -107,9 +106,12 @@ export class SlotCarousel extends Component {
             return <Text appearance={'hint'} style={style} category={'p1'}>Нет свободного времени</Text>;
         }
 
-        const countPerRow = this.getSlotsCountPerRow() - 1;
-        const slotsBefore = slots.slice(0, countPerRow);
-        const slotsAfter = slots.slice(countPerRow);
+        const slotsPerRowCount = this.getSlotsCountPerRow();
+        const slotsCount = slots.length;
+        const showAllButton = slotsPerRowCount < slotsCount;
+        const showAllButtonIdx = showAllButton ? slotsPerRowCount - 1 : slotsCount;
+        const slotsBefore = slots.slice(0, showAllButtonIdx);
+        const slotsAfter = slots.slice(showAllButtonIdx);
 
         return (
             <Animated.View
@@ -133,7 +135,8 @@ export class SlotCarousel extends Component {
                         }, item.title, idx + 3000),
                     )}
 
-                    {this.renderSlotButton(() => this.toggleView(), <Icon name={'ellipsis-h'} size={21}/>, 0)}
+                    {showAllButton && this.renderSlotButton(() => this.toggleView(), <Icon name={'ellipsis-h'}
+                                                                                           size={21}/>, 0)}
 
                     {slotsAfter.map((item, idx) =>
                         this.renderSlotButton(() => {

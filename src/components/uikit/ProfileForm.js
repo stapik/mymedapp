@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {Button, Input} from '@ui-kitten/components';
+import {Button, Input, Text} from '@ui-kitten/components';
 import {formatPhone} from '../../utils';
 import {Container, Content} from 'native-base';
 import FormValidator from '../FormValidator';
@@ -8,6 +8,7 @@ import {updateProfile} from '../../actions';
 import compose from '../../utils/compose';
 import {connect} from 'react-redux';
 import {InputDateTimePicker} from './InputDateTimePicker';
+import {Confidentiality} from './Confidentiality';
 
 class ProfileFormContainer extends FormValidator {
     /**
@@ -60,11 +61,12 @@ class ProfileFormContainer extends FormValidator {
      */
     render() {
         const {country_code, phone_number, first_name, last_name, birth_date} = this.state;
-        const {submitText} = this.props;
+        const {submitText, headerComponent} = this.props;
 
         return (
             <Container style={{padding: 15}}>
                 <Content>
+                    {headerComponent && headerComponent()}
                     <Input
                         label='Номер телефона'
                         placeholder={country_code}
@@ -97,9 +99,10 @@ class ProfileFormContainer extends FormValidator {
                         input_format={'DD.MM.YYYY'}
                     />
 
-                    <Button style={{marginTop: 25}} onPress={this._onPressSubmit}>
+                    <Button style={{marginTop: 15}} onPress={this._onPressSubmit}>
                         {submitText}
                     </Button>
+                    <Confidentiality/>
                 </Content>
             </Container>
         );

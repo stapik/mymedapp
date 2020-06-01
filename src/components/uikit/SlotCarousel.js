@@ -100,7 +100,7 @@ export class SlotCarousel extends Component {
      * @returns {*}
      */
     render() {
-        const {navigation, slots, style, doctor_id, clinic_id} = this.props;
+        const {navigation, slots, style, doctor, clinic} = this.props;
 
         if (!slots.length) {
             return <Text appearance={'hint'} style={style} category={'p1'}>Нет свободного времени</Text>;
@@ -129,19 +129,27 @@ export class SlotCarousel extends Component {
                         justifyContent: 'space-between',
                     }}>
 
-                    {slotsBefore.map((item, idx) =>
+                    {slotsBefore.map((slot, idx) =>
                         this.renderSlotButton(() => {
-                            navigation.navigate('AppointmentForm', {doctor_id, clinic_id, time_start: item.time_start});
-                        }, item.title, idx + 3000),
+                            navigation.navigate('AppointmentForm', {doctor, clinic, slot});
+                        }, slot.title, idx + 3000),
                     )}
 
                     {showAllButton && this.renderSlotButton(() => this.toggleView(), <Icon name={'ellipsis-h'}
                                                                                            size={21}/>, 0)}
-
-                    {slotsAfter.map((item, idx) =>
+                    {slotsAfter.map((slot, idx) =>
                         this.renderSlotButton(() => {
-                            navigation.navigate('AppointmentForm', {doctor_id, clinic_id, time_start: item.time_start});
-                        }, item.title, idx + 9000),
+                            navigation.navigate('AppointmentForm', {
+                                visit_data: {
+                                    doctor_id: doctor.id,
+                                    clinic_id: clinic.id,
+                                    time_start: slot.time_start,
+                                },
+                                doctor,
+                                clinic,
+                                slot
+                            });
+                        }, slot.title, idx + 9000),
                     )}
                 </View>
 

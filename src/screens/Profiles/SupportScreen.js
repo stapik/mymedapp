@@ -1,8 +1,29 @@
 import React from 'react';
-import {TouchableHighlight, View} from 'react-native';
+import {Linking, TouchableHighlight, View} from 'react-native';
 import {Divider, Text, ListItem} from 'react-native-elements';
+import Helper from '../../components/Helper';
 
 class SupportScreen extends React.Component {
+
+    /**
+     *
+     */
+    openMailer = () => {
+        const supportMail = 'support@mymedapp.ru';
+        const data = {
+            subject: 'Ошибки в приложении',
+            body: 'Мои действия:',
+        };
+        const querystring = Helper.encodeQueryData(data);
+        Linking.openURL(`mailto:${supportMail}?${querystring}`).catch((err) => {
+            alert(`Ошибка открытия почтовой программы. Почта для обратной связи: ${supportMail}`);
+        });
+    };
+
+    /**
+     *
+     * @returns {*}
+     */
     render() {
         return (
             <View style={{flex: 1, padding: 20}}>
@@ -14,7 +35,7 @@ class SupportScreen extends React.Component {
                     В сообщении обязательно укажите действия приводящие к ошибке и её описание.
                 </Text>
                 <Divider style={{height: 20, backgroundColor: '#fff'}}/>
-                <TouchableHighlight onPress={() => alert('В разработке')}>
+                <TouchableHighlight onPress={this.openMailer}>
                     <ListItem
                         style={{backgroundColor: '#fff'}}
                         title={'Написать письмо'}

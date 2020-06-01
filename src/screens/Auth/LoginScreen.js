@@ -4,6 +4,7 @@ import {formatPhone} from '../../utils';
 import {Container} from 'native-base';
 import FormValidator from '../../components/FormValidator';
 import {TouchableOpacity} from 'react-native';
+import {Confidentiality} from '../../components/uikit';
 
 class LoginScreen extends FormValidator {
 
@@ -76,12 +77,13 @@ class LoginScreen extends FormValidator {
                 <Input
                     label={'Номер телефона'}
                     placeholder='+7'
-                    caption={'Номер телефона нужен только для защиты вашего аккаунта. Никаких рекламных СМС.'}
+                    caption={<Confidentiality/>}
                     autoFocus={true}
                     status={phone_error ? 'danger' : 'default'}
                     value={this.state.phone_number}
                     onChangeText={(value) => this._phoneNumberHandler(value)}
                     keyboardType={'numeric'}/>
+
             </Container>
         );
     }

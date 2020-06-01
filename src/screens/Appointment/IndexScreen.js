@@ -5,7 +5,7 @@ import {fetchDoctorInfo, searchDoctors} from '../../actions';
 import {withDoctorStoreService} from '../../components/hoc';
 import {bindActionCreators} from 'redux';
 import {DoctorList} from '../../components/uikit';
-import {View, Platform, TouchableOpacity, Dimensions} from 'react-native';
+import {View, Platform, TouchableOpacity} from 'react-native';
 import {SearchBar} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Text} from '@ui-kitten/components';
@@ -15,6 +15,7 @@ class ContainerScreen extends React.Component {
 
     state = {
         search: '',
+        list_opacity: 0,
     };
 
     static navigationOptions = ({navigation}) => {
@@ -22,7 +23,7 @@ class ContainerScreen extends React.Component {
             title: 'Поиск врача',
             headerRight: (
                 <TouchableOpacity
-                    style={{marginRight: 10}}
+                    style={{marginRight: 10, paddingLeft: 25}}
                     activeOpacity={0.7}
                     onPress={() => navigation.navigate('DoctorsFilter')}>
                     <Text status='primary'>

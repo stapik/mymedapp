@@ -28,11 +28,18 @@ export class InputDateTimePicker extends React.Component {
     _onChange(date) {
         const {onChange} = this.props;
 
-        if (Platform.OS === 'ios') {
-            this.setState({date: date});
-        } else {
-            this.setState({show_date_picker: false, date: date});
-            onChange(this.getResultDate());
+        switch (Platform.OS) {
+            case 'android':
+                if (date) {
+                    this.setState({show_date_picker: false, date: date});
+                    onChange(this.getResultDate());
+                } else{
+                    this.setState({show_date_picker: false});
+                }
+                break;
+            case 'ios':
+                this.setState({date: date});
+                break;
         }
     }
 
@@ -61,9 +68,10 @@ export class InputDateTimePicker extends React.Component {
     render(): React.ReactNode {
         const {label, error, value, input_format, value_format} = this.props;
         const {date, show_date_picker} = this.state;
-        let date_value = new Date();
 
+        let date_value = new Date();
         let date_text = '';
+
         if (value) {
             date_text = moment(value, value_format).format(input_format);
             date_value = moment(value, value_format).toDate();

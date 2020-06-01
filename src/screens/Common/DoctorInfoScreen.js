@@ -60,9 +60,12 @@ class ContainerScreen extends React.Component {
      *
      */
     componentDidMount(): void {
-        const {toggleFavorite} = this.props;
+        const {toggleFavorite, doctors_filter, doctor_info} = this.props;
+        const selected_date = doctors_filter.date ?? doctor_info.slot_days[0];
+        this.setState({selected_date});
         this.props.navigation.setParams({toggleFavorite});
     }
+
 
     /**
      * s
@@ -120,22 +123,34 @@ class ContainerScreen extends React.Component {
      * @returns {*}
      */
     render() {
-        const {navigation, doctor_info} = this.props;
-        const specialties = (doctor_info.specialties.map((item) => item.name)).join(', ');
+        const {navigation, doctor_info: doctor} = this.props;
+        const specialties = (doctor.specialties.map((item) => item.name)).join(', ');
+
+        // text
+        const work_period_text = doctor.work_period ? 'Стаж ' + doctor.work_period : '';
+        const work_rank = doctor.work_rank ?? '';
+        const work_degree = doctor.work_degree ?? '';
+        const work_rank_and_degree = (work_rank ? work_rank + '. ' : '') + (work_degree ? work_degree + '.' : '');
 
         const {width} = Dimensions.get('window');
 
         return (
-            <ScrollView style={{flex: 1}}>
+            <ScrollView
+                ref="scroll"
+                style={{flex: 1}}>
                 <Image
-                    source={{uri: doctor_info.avatar}}
+                    source={{uri: doctor.avatar}}
                     resizeMode={'cover'}
                     style={{width: width, height: width * 0.75}}
                     PlaceholderContent={<ActivityIndicator/>}
                 />
                 <View style={{padding: 15}}>
-                    <Text category={'h6'}>{doctor_info.name}</Text>
+                    <Text category={'h6'}>{doctor.name}</Text>
                     <Divider style={{height: 5, backgroundColor: '#fff'}}/>
+                    {(work_period_text !== '' || work_rank_and_degree !== '')
+                    && (<Text appearance={'hint'}>
+                        {work_period_text} {work_rank_and_degree}
+                    </Text>)}
                     <Text appearance={'hint'}>
                         {specialties}
                     </Text>
@@ -159,26 +174,27 @@ class ContainerScreen extends React.Component {
                         <Button appearance={'outline'}
                                 status={'info'}
                                 size={'small'}
-                                disabled={doctor_info.slots.length === 0}
-                                onPress={() => this.showCalendar(doctor_info.slot_days)}>
+                                disabled={doctor.slots.length === 0}
+                                onPress={() => this.showCalendar(doctor.slot_days)}>
                             Изменить дату
                         </Button>
                     </View>
 
                     <Layout style={{padding: 15, paddingBottom: 0, marginBottom: -15}}>
-                        {doctor_info.clinics.map((clinic) => {
-                            return (
+                        {doctor.clinics.map((clinic) => {
+                            const clinic_slots = this.filterSlots(doctor.slots, clinic.id);
+                            return (clinic_slots.length > 0 &&
                                 <Layout key={clinic.id} style={{marginBottom: 15}}>
-                                    <Layout style={{paddingTop: 15, borderRadius: 5}} level={'3'}>
+                                    <Layout style={{padding: 15, paddingBottom: 10, borderRadius: 5}} level={'3'}>
                                         <Text category={'p1'} style={{textAlign: 'center'}}>{clinic.name}</Text>
                                         {clinic.address ? <Text style={{paddingLeft: 15, paddingRight: 15}}
                                                                 appearance={'hint'}>{clinic.address}</Text> : null}
-                                        <Divider style={{margin: 10}}/>
+                                        <Divider style={{marginTop: 10, marginBottom: 5}}/>
                                         <SlotCarousel
-                                            style={{marginLeft: 15, paddingBottom: 15, marginRight: 15}}
-                                            slots={this.filterSlots(doctor_info.slots, clinic.id)}
-                                            doctor_id={doctor_info.id}
-                                            clinic_id={clinic.id}
+                                            scroll={this.refs.scroll}
+                                            slots={clinic_slots}
+                                            doctor={doctor}
+                                            clinic={clinic}
                                             navigation={navigation}/>
                                     </Layout>
                                 </Layout>
@@ -193,8 +209,8 @@ class ContainerScreen extends React.Component {
     }
 }
 
-const mapStateToProps = ({doctor_info, page_loader, doctor_info: {is_favorite}}) => {
-    return {doctor_info, page_loader, is_favorite};
+const mapStateToProps = ({doctors_filter, doctor_info, page_loader, doctor_info: {is_favorite}}) => {
+    return {doctors_filter, doctor_info, page_loader, is_favorite};
 };
 
 const mapDispatchToProps = (dispatch, {doctorsStoreService}) => {

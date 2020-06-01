@@ -20,7 +20,7 @@ class ContainerScreen extends React.Component {
                 fetchFavoriteDoctors();
                 favoritesListLoaded = true;
             }
-            setTimeout(() => favoritesListLoaded = false, 20000);
+            setTimeout(() => favoritesListLoaded = false, 10000);
         });
     }
 

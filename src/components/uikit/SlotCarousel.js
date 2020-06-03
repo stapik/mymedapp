@@ -140,11 +140,6 @@ export class SlotCarousel extends Component {
                     {slotsAfter.map((slot, idx) =>
                         this.renderSlotButton(() => {
                             navigation.navigate('AppointmentForm', {
-                                visit_data: {
-                                    doctor_id: doctor.id,
-                                    clinic_id: clinic.id,
-                                    time_start: slot.time_start,
-                                },
                                 doctor,
                                 clinic,
                                 slot

@@ -5,11 +5,12 @@ import {fetchDoctorInfo, searchDoctors} from '../../actions';
 import {withDoctorStoreService} from '../../components/hoc';
 import {bindActionCreators} from 'redux';
 import {DoctorList} from '../../components/uikit';
-import {View, Platform, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import {SearchBar} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Text} from '@ui-kitten/components';
 import moment from 'moment';
+import {Constants} from '../../utils';
 
 class ContainerScreen extends React.Component {
 
@@ -97,7 +98,7 @@ class ContainerScreen extends React.Component {
                     lightTheme={true}
                     showCancel={true}
                     cancelButtonTitle={'Отменить'}
-                    platform={Platform.OS}
+                    platform={Constants.os}
                     style={{
                         fontSize: 22,
                         padding: 10,

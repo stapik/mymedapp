@@ -1,7 +1,7 @@
 import React from 'react';
 import {Linking, TouchableHighlight, View} from 'react-native';
 import {Divider, Text, ListItem} from 'react-native-elements';
-import Helper from '../../components/Helper';
+import Str from '../../utils/Str';
 
 class SupportScreen extends React.Component {
 
@@ -14,7 +14,7 @@ class SupportScreen extends React.Component {
             subject: 'Ошибки в приложении',
             body: 'Мои действия:',
         };
-        const querystring = Helper.encodeQueryData(data);
+        const querystring = Str.encodeQueryData(data);
         Linking.openURL(`mailto:${supportMail}?${querystring}`).catch((err) => {
             alert(`Ошибка открытия почтовой программы. Почта для обратной связи: ${supportMail}`);
         });

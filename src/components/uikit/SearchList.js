@@ -5,9 +5,8 @@ import {
     ScrollView,
     TouchableHighlight,
 } from 'react-native';
-import {searchInStr} from '../../utils';
-import {Platform} from '../../constants';
 import {Layout, Text} from '@ui-kitten/components';
+import {Constants, Str} from '../../utils';
 
 class SearchList extends React.Component {
 
@@ -34,7 +33,7 @@ class SearchList extends React.Component {
             chevron, selected, default_item,
         } = this.props;
         const {search} = this.state;
-        const filtered_items = items.filter((item) => !(search && !searchInStr(search, item[value_name])));
+        const filtered_items = items.filter((item) => !(search && !Str.search(item[value_name], search)));
 
         if (default_item) {
             filtered_items.unshift(default_item);
@@ -76,7 +75,7 @@ class SearchList extends React.Component {
                         lightTheme={true}
                         showCancel={true}
                         cancelButtonTitle={'Отменить'}
-                        platform={Platform}
+                        platform={Constants.os}
                         style={{
                             fontSize: 22,
                             padding: 10,

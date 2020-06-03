@@ -1,6 +1,11 @@
 import compose from './compose';
-export * from './strings'
+import Phone from './Phone';
+import Str from './Str';
+import Constants from './Constants';
 
 export {
-  compose
+    compose,
+    Phone,
+    Str,
+    Constants,
 };

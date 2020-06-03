@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {Button, Layout, Text, Divider} from '@ui-kitten/components';
 import {ActivityIndicator, Alert, Dimensions, FlatList, Image, TouchableOpacity, View} from 'react-native';
-import {formatPhone} from '../utils';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {bindActionCreators} from 'redux';
 import {cancelVisit, deleteVisit, fetchDoctorInfo, fetchVisits} from '../actions';
 import compose from '../utils/compose';
 import {withDoctorStoreService, withVisitsStoreService} from './hoc';
 import {connect} from 'react-redux';
+import {Phone} from '../utils';
 
 class VisitListContainer extends Component {
 
@@ -137,7 +137,7 @@ class VisitListContainer extends Component {
                 <View>
                     <Text category={'s1'}>{patient.first_name} {patient.last_name}</Text>
                     <Text category={'c2'} appearance={'hint'}>
-                        {formatPhone(patient.phone_number)}
+                        {Phone.format(patient.phone_number)}
                     </Text>
                 </View>
                 <View style={{paddingTop: 10}}>

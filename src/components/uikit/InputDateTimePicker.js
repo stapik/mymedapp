@@ -1,8 +1,9 @@
 import React from 'react';
 import {Button, Layout, Modal, Text} from '@ui-kitten/components';
-import {StyleSheet, TouchableOpacity, View, Platform} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import moment from 'moment';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
+import {Constants} from '../../utils';
 
 export class InputDateTimePicker extends React.Component {
 
@@ -18,6 +19,10 @@ export class InputDateTimePicker extends React.Component {
     getResultDate() {
         const {value_format, value} = this.props;
         const return_date = this.state.date ? this.state.date : value;
+        if (!return_date) {
+            return '';
+        }
+
         return moment(return_date).format(value_format);
     }
 
@@ -28,12 +33,12 @@ export class InputDateTimePicker extends React.Component {
     _onChange(date) {
         const {onChange} = this.props;
 
-        switch (Platform.OS) {
+        switch (Constants.os) {
             case 'android':
                 if (date) {
                     this.setState({show_date_picker: false, date: date});
                     onChange(this.getResultDate());
-                } else{
+                } else {
                     this.setState({show_date_picker: false});
                 }
                 break;
@@ -117,7 +122,7 @@ export class InputDateTimePicker extends React.Component {
                             flex: 1,
                             flexDirection: 'row',
                             padding: 5,
-                            display: Platform.OS !== 'ios' ? 'none' : 'flex',
+                            display: Constants.os !== 'ios' ? 'none' : 'flex',
                         }}>
                             <Button
                                 style={{paddingTop: 10, width: '100%'}}

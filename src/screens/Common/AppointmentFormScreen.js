@@ -9,6 +9,7 @@ import {Divider, Layout, Text} from '@ui-kitten/components';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {View} from 'react-native';
 import moment from 'moment';
+import {Phone} from '../../utils';
 
 class ContainerScreen extends React.Component {
 
@@ -24,13 +25,25 @@ class ContainerScreen extends React.Component {
      */
     submitHandler = (form_state) => {
         const {navigation, createVisit} = this.props;
-        const {visit_data, doctor, clinic} = navigation.state.params;
-        const data = Object.assign(visit_data, form_state);
-        createVisit(data, (r) => {
+        const {doctor, clinic, slot} = navigation.state.params;
+        const data = Object.assign({
+            doctor_id: doctor.id,
+            clinic_id: clinic.id,
+            time_start: slot.time_start,
+        }, form_state);
+
+        // format visit phone
+        createVisit({
+            ...data,
+            phone_number: Phone.format(data.phone_number, true),
+        }, (r) => {
             navigation.navigate('VisitCreated');
         });
     };
 
+    /**
+     * @returns {*}
+     */
     headerComponent = () => {
         const {navigation} = this.props;
         const {doctor, clinic, slot} = navigation.state.params;
@@ -60,11 +73,11 @@ class ContainerScreen extends React.Component {
                     alignItems: 'center',
                 }}>
                     <Icon style={{color: '#6f6f6f'}} name={'calendar-alt'} size={12}/>
-                    <Text style={{paddingLeft: 5, paddingRight: 15}} category={'c2'} appearance={'hint'}>
+                    <Text style={{paddingLeft: 5, paddingRight: 15}} category={'s2'} appearance={'hint'}>
                         {date}
                     </Text>
                     <Icon style={{color: '#6f6f6f'}} name={'clock'} size={12}/>
-                    <Text style={{paddingLeft: 5, paddingRight: 5}} category={'c2'} appearance={'hint'}>
+                    <Text style={{paddingLeft: 5, paddingRight: 5}} category={'s2'} appearance={'hint'}>
                         {slot.title}
                     </Text>
                     <Divider style={{marginTop: 10}}/>

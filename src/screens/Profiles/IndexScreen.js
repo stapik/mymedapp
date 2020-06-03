@@ -6,6 +6,7 @@ import {updateProfile} from '../../actions';
 import compose from '../../utils/compose';
 import {connect} from 'react-redux';
 import moment from 'moment';
+import {Phone} from '../../utils';
 
 class ContainerScreen extends React.Component {
 
@@ -26,7 +27,7 @@ class ContainerScreen extends React.Component {
                             {profile.last_name} {profile.first_name}
                         </Text>
                         <Text>
-                            {profile.phone_number}
+                            {Phone.format(profile.phone_number, true)}
                         </Text>
                         <Text>
                             {moment(profile.birth_date).format('DD.MM.YYYY')}

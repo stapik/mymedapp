@@ -1,7 +1,5 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
 import {Button, Input, Text} from '@ui-kitten/components';
-import {formatPhone} from '../../utils';
 import {Container, Content} from 'native-base';
 import FormValidator from '../FormValidator';
 import {updateProfile} from '../../actions';
@@ -9,6 +7,8 @@ import compose from '../../utils/compose';
 import {connect} from 'react-redux';
 import {InputDateTimePicker} from './InputDateTimePicker';
 import {Confidentiality} from './Confidentiality';
+import {InputPhoneNumber} from './InputPhoneNumber';
+import {Phone} from '../../utils';
 
 class ProfileFormContainer extends FormValidator {
     /**
@@ -21,7 +21,6 @@ class ProfileFormContainer extends FormValidator {
     }
 
     state = {
-        country_code: '+7',
         birth_date: '',
         phone_number: '',
         first_name: '',
@@ -34,7 +33,7 @@ class ProfileFormContainer extends FormValidator {
      * @private
      */
     _phoneHandler(input_text) {
-        const phone_number = formatPhone(input_text, this.state.country_code);
+        const phone_number = Phone.format(input_text);
         this.setState({phone_number});
     }
 
@@ -67,13 +66,10 @@ class ProfileFormContainer extends FormValidator {
             <Container style={{padding: 15}}>
                 <Content>
                     {headerComponent && headerComponent()}
-                    <Input
-                        label='Номер телефона'
-                        placeholder={country_code}
-                        value={phone_number}
-                        keyboardType={'numeric'}
+                    <InputPhoneNumber
                         status={this.getFieldStatusText('phone_number')}
-                        onChangeText={(nextValue) => this._phoneHandler(nextValue)}
+                        value={phone_number}
+                        handlerPhoneNumber={(nextValue) => this._phoneHandler(nextValue)}
                     />
                     <Input
                         label='Фамилия'

@@ -1,16 +1,16 @@
 import React from 'react';
-import {Text, Divider, Input} from '@ui-kitten/components';
-import {formatPhone} from '../../utils';
+import {Text, Divider} from '@ui-kitten/components';
 import {Container} from 'native-base';
 import FormValidator from '../../components/FormValidator';
 import {TouchableOpacity} from 'react-native';
 import {Confidentiality} from '../../components/uikit';
+import {InputPhoneNumber} from '../../components/uikit/InputPhoneNumber';
+import {Phone} from '../../utils';
 
 class LoginScreen extends FormValidator {
 
     state = {
         phone_number: '',
-        country_code: '+7 ',
         phone_error: false,
     };
 
@@ -48,7 +48,7 @@ class LoginScreen extends FormValidator {
         }
         this.setState({phone_error: false});
 
-        let phone_number = formatPhone(this.state.phone_number, this.state.country_code);
+        const phone_number = this.state.phone_number;
         this.props.navigation.navigate('CheckSms', {phone_number});
     };
 
@@ -56,7 +56,7 @@ class LoginScreen extends FormValidator {
      * @param input_text
      */
     _phoneNumberHandler(input_text) {
-        const phone_number = formatPhone(input_text, this.state.country_code);
+        const phone_number = Phone.format(input_text);
         this.setState({phone_number}, () => {
             this.checkPhoneNumber();
         });
@@ -74,16 +74,12 @@ class LoginScreen extends FormValidator {
                 <Divider style={{height: 20, backgroundColor: 'transparent'}}/>
                 <Text>Войдите, чтобы записываться к врачам</Text>
                 <Divider style={{height: 20, backgroundColor: 'transparent'}}/>
-                <Input
-                    label={'Номер телефона'}
-                    placeholder='+7'
+                <InputPhoneNumber
                     caption={<Confidentiality/>}
-                    autoFocus={true}
                     status={phone_error ? 'danger' : 'default'}
                     value={this.state.phone_number}
-                    onChangeText={(value) => this._phoneNumberHandler(value)}
-                    keyboardType={'numeric'}/>
-
+                    handlerPhoneNumber={(value) => this._phoneNumberHandler(value)}
+                />
             </Container>
         );
     }

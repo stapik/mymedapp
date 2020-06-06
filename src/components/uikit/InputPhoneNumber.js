@@ -16,15 +16,24 @@ export class InputPhoneNumber extends React.Component {
 
     /**
      *
+     * @param props
+     * @returns {*}
+     */
+    renderCountryCallingCode = (props) => (
+        <Text>{Phone.countryCallingCode(true)}</Text>
+    );
+
+    /**
+     *
      * @returns {*}
      */
     render(): React.ReactNode {
         return (<View>
-                <Text style={{position: 'absolute', top: 29.5, left: 17, zIndex: 5}}>{Phone.countryCallingCode(true)}</Text>
                 <Input
                     label={'Номер телефона'}
-                    textStyle={{paddingLeft: 22}}
+                    textStyle={{paddingLeft: 0}}
                     autoFocus={true}
+                    accessoryLeft={this.renderCountryCallingCode}
                     {...this.props}
                     onChangeText={(value) => this.onChangeNumber(value)}
                     keyboardType={'numeric'}/>

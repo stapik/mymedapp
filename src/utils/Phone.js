@@ -28,7 +28,7 @@ const Phone = {
     /**
      * @returns {string}
      */
-    format: function (phoneNumber, addCountryCode = false, addPlus = true) {
+    format: function (phoneNumber, addCountryCode = false, addPlus = false) {
         phoneNumber = (addCountryCode ? this.countryCallingCode(addPlus) + ' ' + phoneNumber : phoneNumber).toString();
         phoneNumber = !addCountryCode && addPlus ? '+' + phoneNumber : phoneNumber;
         return formatIncompletePhoneNumber(phoneNumber, this.countryCode());

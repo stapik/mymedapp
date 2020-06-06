@@ -7,8 +7,7 @@ import compose from '../../utils/compose';
 import {connect} from 'react-redux';
 import {Dimensions} from 'react-native';
 import {withApi} from '../../components/hoc';
-import Str from '../../utils/Str';
-import {Phone} from '../../utils';
+import {Phone, Str} from '../../utils';
 
 class CheckSmsScreenContainer extends React.Component {
 
@@ -20,7 +19,7 @@ class CheckSmsScreenContainer extends React.Component {
 
     static navigationOptions = ({navigation}) => {
         const phoneNumber = navigation.getParam('phone_number', 'Нет номера телефона');
-        const title = Phone.format(phoneNumber, true);
+        const title = Phone.format(phoneNumber, true, true);
         return {
             title,
             headerTitleStyle: {width: Dimensions.get('window').width * 0.7},

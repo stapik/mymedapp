@@ -137,7 +137,7 @@ class VisitListContainer extends Component {
                 <View>
                     <Text category={'s1'}>{patient.first_name} {patient.last_name}</Text>
                     <Text category={'c2'} appearance={'hint'}>
-                        {Phone.format(patient.phone_number)}
+                        {Phone.format(patient.phone_number, false, true)}
                     </Text>
                 </View>
                 <View style={{paddingTop: 10}}>

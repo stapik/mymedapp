@@ -27,7 +27,7 @@ class ContainerScreen extends React.Component {
                             {profile.last_name} {profile.first_name}
                         </Text>
                         <Text>
-                            {Phone.format(profile.phone_number, true)}
+                            {Phone.format(profile.phone_number, true, true)}
                         </Text>
                         <Text>
                             {moment(profile.birth_date).format('DD.MM.YYYY')}

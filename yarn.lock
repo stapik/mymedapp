@@ -6096,6 +6096,11 @@ react-native-calendars@^1.265.0:
     prop-types "^15.5.10"
     xdate "^0.8.0"
 
+react-native-confirmation-code-field@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-confirmation-code-field/-/react-native-confirmation-code-field-6.2.0.tgz#0a62f82b81d04b5a7450e904d8f2b179648e766e"
+  integrity sha512-Jw8SqrogLEudiFhyOAo7fuu/6fpPwG7sCh2RCRjmxqZx9PQu5PD7pHd9U+J6hqDe3a4PwSVUncmDaIVstbJlxw==
+
 react-native-drawer@2.5.1:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/react-native-drawer/-/react-native-drawer-2.5.1.tgz#08b9314184f48c724f1b467f8859797369798654"

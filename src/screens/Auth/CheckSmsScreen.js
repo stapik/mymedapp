@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import {Dimensions} from 'react-native';
 import {withApi} from '../../components/hoc';
 import {Phone, Str} from '../../utils';
+import InputCodeField from '../../components/uikit/InputCodeField';
 
 class CheckSmsScreenContainer extends React.Component {
 
@@ -16,6 +17,8 @@ class CheckSmsScreenContainer extends React.Component {
         sms_interval: 0,
         default_sms_interval: 120,
     };
+
+    cellCount = 4;
 
     static navigationOptions = ({navigation}) => {
         const phoneNumber = navigation.getParam('phone_number', 'Нет номера телефона');
@@ -41,7 +44,7 @@ class CheckSmsScreenContainer extends React.Component {
         const {navigation, api, updateProfilePhoneNumber} = this.props;
         const {code} = this.state;
 
-        if (code.toString().length !== 5) {
+        if (code.toString().length !== this.cellCount) {
             return;
         }
         const phone_number = this.props.navigation.getParam('phone_number', 0);
@@ -110,23 +113,16 @@ class CheckSmsScreenContainer extends React.Component {
      * @returns {*}
      */
     render() {
-        const {sms_interval} = this.state;
+        const {sms_interval, code} = this.state;
         const moment_text = moment.unix(sms_interval).format('mm:ss');
         const sms_interval_text = sms_interval ? `[${moment_text}]` : ``;
+
         return (
             <Container style={{padding: 15}}>
-                <Text category={'h4'}>СМС отправлено</Text>
+                <Text category={'h4'}>Подтверждение</Text>
                 <Divider style={{height: 15, backgroundColor: 'transparent'}}/>
-                <Text>В течении двух минут на ваш номер придёт код подтверждения</Text>
-                <Divider style={{height: 30, backgroundColor: 'transparent'}}/>
-                <Input
-                    autoFocus={true}
-                    keyboardType={'numeric'}
-                    maxLength={5}
-                    placeholder=''
-                    label={'Код из смс'}
-                    onChangeText={(code) => this._typeCodeHandler(code)}
-                />
+                <Text>Пожалуйста, введите код подтверждения из смс</Text>
+                <InputCodeField cellCount={this.cellCount} onChangeText={(code) => this._typeCodeHandler(code)}/>
                 <Button disabled={Boolean(sms_interval)}
                         onPress={this.getSms}
                         style={{width: '100%', borderRadius: 5}} size={'small'} status={'primary'}

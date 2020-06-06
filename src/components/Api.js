@@ -4,9 +4,9 @@ import {persistor, store} from '../store';
 import {resetStore, updateInternetStatus, updateTokenInfo} from '../actions';
 import NetInfo from '@react-native-community/netinfo';
 import {Toast} from 'native-base';
-import {Platform} from '../constants';
 import AsyncStorage from '@react-native-community/async-storage';
-import Helper from './Helper';
+import Constants from '../utils/Constants';
+import {Phone} from '../utils';
 
 /**
  *
@@ -122,29 +122,29 @@ class Api {
      * @returns {*}
      */
     sendVerificationCode(phoneNumber) {
-        const clearPhoneNumber = Helper.clearNumber(phoneNumber);
+        const phone_number = Phone.clear(phoneNumber, true);
         return this.request('oauth/sendVerificationCode', {
             app_id: app_id.toString(),
             app_secret: app_secret.toString(),
-            phone_number: clearPhoneNumber,
-            os: Platform.toString(),
+            phone_number: phone_number,
+            os: Constants.os,
         });
     }
 
     /**
      *
-     * @param phoneNumber
+     * @param phoneNumberText
      * @param verificationCode
      */
-    verifyPhoneNumber(phoneNumber, verificationCode) {
-        const clearPhoneNumber = Helper.clearNumber(phoneNumber);
+    verifyPhoneNumber(phoneNumberText, verificationCode) {
+        const phone_number = Phone.clear(phoneNumberText, true);
         return this.request('oauth/token', {
             grant_type: 'phone_verification_code',
             client_id: app_id,
             client_secret: app_secret,
-            phone_number: clearPhoneNumber,
+            phone_number: phone_number,
             verification_code: verificationCode,
-            os: Platform.toString(),
+            os: Constants.os,
             scope: '',
         }).then((data) => {
             this._updateTokenInfo(data);

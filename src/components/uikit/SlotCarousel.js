@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {View, Animated} from 'react-native';
 import {Button, Text} from '@ui-kitten/components';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import {range} from '@ui-kitten/components/ui/calendar/service/helpers';
+import * as _ from 'lodash';
 
 export class SlotCarousel extends Component {
 
@@ -70,18 +72,28 @@ export class SlotCarousel extends Component {
      * @param onPress
      * @param title
      * @param idx
+     * @param fake
      * @returns {*}
      */
-    renderSlotButton(onPress, title, idx) {
+    renderSlotButton(onPress, title, idx, fake) {
         const {slot_margin_top, slot_width, slot_height} = this.state;
-        return (<Button
-            key={idx}
-            style={{marginTop: slot_margin_top, width: slot_width, height: slot_height}}
-            size={'tiny'}
-            status={'info'}
-            onPress={onPress}>
-            <Text category={'s1'} style={{color: '#fff'}}>{title}</Text>
-        </Button>);
+        const styles = {marginTop: slot_margin_top, width: slot_width, height: slot_height};
+
+        if (fake) {
+            return (<View
+                key={idx}
+                style={styles}>
+            </View>);
+        } else {
+            return (<Button
+                key={idx}
+                style={styles}
+                size={'tiny'}
+                status={'info'}
+                onPress={onPress}>
+                <Text category={'s1'} style={{color: '#fff'}}>{title}</Text>
+            </Button>);
+        }
     }
 
     /**
@@ -113,6 +125,15 @@ export class SlotCarousel extends Component {
         const slotsBefore = slots.slice(0, showAllButtonIdx);
         const slotsAfter = slots.slice(showAllButtonIdx);
 
+        const countElements = (slotsBefore.length * 1 + slotsAfter.length * 1 + (showAllButton ? 1 : 0));
+        const lastRowCount = countElements - Math.floor(countElements / slotsPerRowCount) * slotsPerRowCount;
+
+        let needsArray = [];
+        if(lastRowCount){
+            const needFakes = isNaN(slotsPerRowCount - lastRowCount) ? 0 : slotsPerRowCount - lastRowCount;
+            needsArray = needFakes ? range(needFakes) : [];
+        }
+
         return (
             <Animated.View
                 style={{
@@ -132,7 +153,7 @@ export class SlotCarousel extends Component {
                     {slotsBefore.map((slot, idx) =>
                         this.renderSlotButton(() => {
                             navigation.navigate('AppointmentForm', {doctor, clinic, slot});
-                        }, slot.title, idx + 3000),
+                        }, slot.title, idx + 100),
                     )}
 
                     {showAllButton && this.renderSlotButton(() => this.toggleView(), <Icon name={'ellipsis-h'}
@@ -140,16 +161,15 @@ export class SlotCarousel extends Component {
                     {slotsAfter.map((slot, idx) =>
                         this.renderSlotButton(() => {
                             navigation.navigate('AppointmentForm', {
-                                visit_data: {
-                                    doctor_id: doctor.id,
-                                    clinic_id: clinic.id,
-                                    time_start: slot.time_start,
-                                },
                                 doctor,
                                 clinic,
-                                slot
+                                slot,
                             });
-                        }, slot.title, idx + 9000),
+                        }, slot.title, idx + 200),
+                    )}
+
+                    {needsArray.map((value, idx) =>
+                        this.renderSlotButton(null, null, idx + 300, true),
                     )}
                 </View>
 

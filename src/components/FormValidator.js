@@ -3,6 +3,7 @@ import ValidationComponent from 'react-native-form-validator';
 import defaultRules from 'react-native-form-validator/defaultRules';
 import defaultMessages from 'react-native-form-validator/defaultMessages';
 import {parsePhoneNumberFromString} from 'libphonenumber-js';
+import {Phone} from '../utils';
 
 export default class FormValidator extends ValidationComponent {
 
@@ -28,9 +29,8 @@ export default class FormValidator extends ValidationComponent {
 
         const rules = {
             ...defaultRules,
-            check_phone_number(country, value) {
-                const phoneNumber = parsePhoneNumberFromString(value, country);
-                return phoneNumber ? phoneNumber.isValid() : false;
+            check_phone_number(flag, value) {
+                return Phone.valid(value);
             },
         };
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import {Text, Divider, Input, Button} from '@ui-kitten/components';
-import Helper from '../../components/Helper';
 import {Container} from 'native-base';
 import moment from 'moment';
 import {updateProfilePhoneNumber} from '../../actions';
@@ -8,6 +7,8 @@ import compose from '../../utils/compose';
 import {connect} from 'react-redux';
 import {Dimensions} from 'react-native';
 import {withApi} from '../../components/hoc';
+import Str from '../../utils/Str';
+import {Phone} from '../../utils';
 
 class CheckSmsScreenContainer extends React.Component {
 
@@ -18,8 +19,10 @@ class CheckSmsScreenContainer extends React.Component {
     };
 
     static navigationOptions = ({navigation}) => {
+        const phoneNumber = navigation.getParam('phone_number', 'Нет номера телефона');
+        const title = Phone.format(phoneNumber, true);
         return {
-            title: navigation.getParam('phone_number', 'Нет номера телефона'),
+            title,
             headerTitleStyle: {width: Dimensions.get('window').width * 0.7},
         };
     };
@@ -97,12 +100,16 @@ class CheckSmsScreenContainer extends React.Component {
      * @private
      */
     _typeCodeHandler(code) {
-        code = Helper.clearNumber(code);
+        code = Str.onlyDigits(code);
         this.setState({code}, () => {
             this.verifyPhoneNumber();
         });
     }
 
+    /**
+     *
+     * @returns {*}
+     */
     render() {
         const {sms_interval} = this.state;
         const moment_text = moment.unix(sms_interval).format('mm:ss');

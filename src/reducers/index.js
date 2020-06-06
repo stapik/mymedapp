@@ -7,6 +7,7 @@ const filterInitialState = {
 
 const initialState = {
     token_info: null,
+    app_rate_date: null,
     internet_status: true,
     doctors: [],
     favorite_doctors: [],
@@ -30,6 +31,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 token_info: action.payload,
+            };
+        case 'UPDATE_APP_RATE_DATE':
+            return {
+                ...state,
+                app_rate_date: action.payload,
             };
         case 'DOCTORS_LOADED':
             return {

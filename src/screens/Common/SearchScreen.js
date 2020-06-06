@@ -1,5 +1,4 @@
 import React from 'react';
-import {Platform} from '../../constants';
 import {ListItem} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {
@@ -12,6 +11,7 @@ import compose from '../../utils/compose';
 import {fetchSpecialties, fetchSpecialtyDoctors} from '../../actions';
 import {withDoctorStoreService, withSpecialtiesStoreService} from '../../components/hoc';
 import {bindActionCreators} from 'redux';
+import {Constants} from '../../utils';
 
 class ContainerScreen extends React.Component {
 
@@ -63,7 +63,7 @@ class ContainerScreen extends React.Component {
                         lightTheme={true}
                         showCancel={true}
                         cancelButtonTitle={'Отменить'}
-                        platform={Platform}
+                        platform={Constants.os}
                         style={{
                             fontSize: 22,
                             padding: 10,

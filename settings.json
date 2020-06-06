@@ -2,6 +2,8 @@
   "app_id": 1,
   "app_secret": "WRlPpsWoy773XxxKsJWUbVEs24yC5aeJBV7rMlIr",
   "api_url": "http://192.168.88.254:3030/api/app/v1",
+  "apple_app_id": "1494872855",
+  "package_name": "ru.mymedapp.Renovatio",
   "defaultStackConfig": {
     "initialRouteName": "Index",
     "defaultNavigationOptions": {

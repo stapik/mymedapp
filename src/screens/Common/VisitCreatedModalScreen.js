@@ -1,8 +1,55 @@
 import React from 'react';
 import {Button, Divider, Text} from '@ui-kitten/components';
 import {Content, Container, Footer} from 'native-base';
+import {apple_app_id, package_name} from '../../../settings.json';
+import moment from 'moment';
+import {AndroidMarket} from 'react-native-rate';
+import {bindActionCreators} from 'redux';
+import {fetchDoctorInfo, searchDoctors, updateAppRateDate} from '../../actions';
+import compose from '../../utils/compose';
+import {withDoctorStoreService} from '../../components/hoc';
+import {connect} from 'react-redux';
 
-class VisitCreatedModalScreen extends React.Component {
+class VisitCreated extends React.Component {
+
+    /**
+     *
+     */
+    handlePressButton() {
+        const {navigation} = this.props;
+        navigation.popToTop();
+        this.rateApp();
+    }
+
+    /**
+     *
+     */
+    rateApp() {
+        const {app_rate_date, updateAppRateDate} = this.props;
+        const rateDateFormat = 'YYYY-MM-DD';
+        const currentDate = moment();
+        const lastRateDate = app_rate_date ? moment(app_rate_date, rateDateFormat) : currentDate;
+
+        if (lastRateDate.diff(currentDate, 'days') > 90) {
+            const options = {
+                AppleAppID: apple_app_id,
+                GooglePackageName: package_name,
+                preferredAndroidMarket: AndroidMarket.Google,
+                preferInApp: true,
+                openAppStoreIfInAppFails: true,
+            };
+            Rate.rate(options, success => {
+                if (success) {
+                    updateAppRateDate(currentDate.format(rateDateFormat));
+                }
+            });
+        }
+    }
+
+    /**
+     *
+     * @returns {*}
+     */
     render() {
         return (
             <Container style={{padding: 15}}>
@@ -14,7 +61,7 @@ class VisitCreatedModalScreen extends React.Component {
                     </Text>
                 </Content>
                 <Footer>
-                    <Button style={{width: '100%'}} size={'large'} onPress={() => this.props.navigation.popToTop()}>
+                    <Button style={{width: '100%'}} size={'large'} onPress={() => this.handlePressButton()}>
                         Готово
                     </Button>
                 </Footer>
@@ -22,5 +69,17 @@ class VisitCreatedModalScreen extends React.Component {
         );
     }
 }
+
+const mapStateToProps = ({app_rate_date}) => {
+    return {app_rate_date};
+};
+
+const mapDispatchToProps = {
+    updateAppRateDate
+};
+
+const VisitCreatedModalScreen = compose(
+    connect(mapStateToProps, mapDispatchToProps),
+)(VisitCreated);
 
 export {VisitCreatedModalScreen};

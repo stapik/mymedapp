@@ -11,6 +11,13 @@ const updateDoctorsFilter = (filter) => {
     };
 };
 
+const updateAppRateDate= (date) => {
+    return {
+        type: 'UPDATE_APP_RATE_DATE',
+        payload: date,
+    };
+};
+
 const resetStore = () => {
     return {
         type: 'RESET_STORE',
@@ -322,4 +329,5 @@ export {
     fetchVisits,
     deleteVisit,
     cancelVisit,
+    updateAppRateDate
 };

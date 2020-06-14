@@ -1,7 +1,8 @@
 import React from 'react';
-import {Button, Divider, Layout, List, Text} from '@ui-kitten/components';
+import {Button, Divider, Layout, Text} from '@ui-kitten/components';
 import {ActivityIndicator, Dimensions, FlatList, Image, TouchableOpacity, View} from 'react-native';
 import moment from 'moment';
+import Str from '../../utils/Str';
 
 class DoctorList extends React.Component {
 
@@ -22,8 +23,6 @@ class DoctorList extends React.Component {
         const work_rank = doctor.work_rank ?? '';
         const work_degree = doctor.work_degree ?? '';
         const work_rank_and_degree = (work_rank ? work_rank + '. ' : '') + (work_degree ? work_degree + '.' : '');
-
-        const doctor_slot_days = this.renderSlotDays(doctor.slot_days);
 
         return (<Layout style={{
             padding: 10,
@@ -73,16 +72,7 @@ class DoctorList extends React.Component {
                     {work_rank_and_degree}
                 </Text>
                 <Divider style={{marginTop: 10, marginBottom: 10, backgroundColor: '#e7e7e7'}}/>
-                {doctor_slot_days
-                    ? <View>
-                        <Text category={'s2'}>Ближайшие даты приема</Text>
-                        {doctor_slot_days}
-                        <Button status={'danger'}
-                                size={'small'}
-                                onPress={() => this.props.selectHandler(doctor)}>Записаться</Button>
-                    </View>
-                    :
-                    <Text category={'c2'} appearance={'hint'}>Нет свободного времени</Text>}
+                {this.renderSlotDays(doctor.slot_days, doctor)}
             </TouchableOpacity>
         </Layout>);
     };
@@ -90,12 +80,41 @@ class DoctorList extends React.Component {
     /**
      *
      * @param slot_days
+     * @param doctor
      * @returns {*}
      */
-    renderSlotDays(slot_days) {
+    renderSlotDays(slot_days, doctor) {
+        const {selectedDate} = this.props;
         const slot_days_text = slot_days.map((item) => moment(item).format('dddd DD.MM')).join(', ');
-        return (slot_days_text ?
-            <Text style={{paddingBottom: 5}} category={'c2'} appearance={'hint'}>{slot_days_text}</Text> : null);
+        let datesText = '';
+
+        if (selectedDate) {
+            const selectedDateText = moment(selectedDate).format('dddd DD.MM');
+            datesText = (<View>
+                <Text category={'s2'}>Выбранная дата приёма</Text>
+                <Text category={'s2'} appearance={'hint'}>
+                    {selectedDateText} &mdash;
+                    &nbsp;{doctor.day_slots_count}
+                    &nbsp;{Str.numberStr(doctor.day_slots_count, ['номерок', 'номерка', 'номерков'])}
+                </Text>
+            </View>);
+        } else {
+            datesText = (<View>
+                <Text category={'s2'}>Ближайшие даты приёма</Text>
+                <Text category={'s2'} appearance={'hint'}>{slot_days_text}</Text>
+            </View>);
+        }
+
+        if (slot_days_text) {
+            return (<View>
+                <View style={{paddingBottom: 5}}>{datesText}</View>
+                <Button status={'danger'}
+                        size={'small'}
+                        onPress={() => this.props.selectHandler(doctor)}>Записаться</Button>
+            </View>);
+        }
+
+        return (<Text category={'c2'} appearance={'hint'}>Нет свободного времени</Text>);
     }
 
 

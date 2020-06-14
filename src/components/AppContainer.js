@@ -19,10 +19,26 @@ import ClinicsStoreService from '../services/ClinicsStoreService';
 import VisitsStoreService from '../services/VisitsStoreService';
 import {InternetStatusBar} from './uikit/InternetStatusBar';
 import {PageLoader} from './uikit';
+import SplashScreen from 'react-native-splash-screen';
+import {store} from '../store';
+import {resetDoctorsFilter} from '../actions';
 
 moment.locale('ru');
 
 class AppContainerComponent extends React.Component {
+
+    /**
+     *
+     */
+    componentDidMount(): void {
+        SplashScreen.hide();
+        store.dispatch(resetDoctorsFilter());
+    }
+
+    /**
+     *
+     * @returns {*}
+     */
     render() {
         const api = new Api();
         const doctorsStoreService = new DoctorsStoreService(api);

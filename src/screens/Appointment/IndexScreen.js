@@ -81,7 +81,7 @@ class ContainerScreen extends React.Component {
      * @returns {*}
      */
     render() {
-        const {doctors} = this.props;
+        const {doctors, doctors_filter} = this.props;
         const {search} = this.state;
 
         const filtered_doctors = doctors.length ? doctors.filter(item => item.name.indexOf(search) > -1) : [];
@@ -107,6 +107,8 @@ class ContainerScreen extends React.Component {
                 />
             </View>
             <DoctorList
+                selectedDate={doctors_filter.date}
+
                 renderHeader={this.renderHeader}
                 doctors={filtered_doctors}
                 selectHandler={this.selectHandler}/>

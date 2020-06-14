@@ -60,27 +60,28 @@ class ContainerScreen extends React.Component {
                 borderWidth: 1,
             }}>
                 <View>
-                    <Text>{clinic.name}</Text>
-                    <Text appearance={'hint'}>{clinic.address}</Text>
                     <Text>{doctor.name}</Text>
-                </View>
-
-                <View style={{
-                    flex: 1,
-                    flexWrap: 'wrap',
-                    flexDirection: 'row',
-                    paddingTop: 3,
-                    alignItems: 'center',
-                }}>
-                    <Icon style={{color: '#6f6f6f'}} name={'calendar-alt'} size={12}/>
-                    <Text style={{paddingLeft: 5, paddingRight: 15}} category={'s2'} appearance={'hint'}>
-                        {date}
-                    </Text>
-                    <Icon style={{color: '#6f6f6f'}} name={'clock'} size={12}/>
-                    <Text style={{paddingLeft: 5, paddingRight: 5}} category={'s2'} appearance={'hint'}>
-                        {slot.title}
-                    </Text>
-                    <Divider style={{marginTop: 10}}/>
+                    <View style={{
+                        flex: 1,
+                        flexWrap: 'wrap',
+                        flexDirection: 'row',
+                        paddingTop: 3,
+                        alignItems: 'center',
+                    }}>
+                        <Icon style={{color: '#6f6f6f'}} name={'calendar-alt'} size={12}/>
+                        <Text style={{paddingLeft: 5, paddingRight: 15}} category={'c2'} appearance={'hint'}>
+                            {date}
+                        </Text>
+                        <Icon style={{color: '#6f6f6f'}} name={'clock'} size={12}/>
+                        <Text style={{paddingLeft: 5, paddingRight: 5}} category={'c2'} appearance={'hint'}>
+                            {slot.title}
+                        </Text>
+                        <Divider style={{marginTop: 10}}/>
+                    </View>
+                    <View style={{paddingTop: 5}}>
+                        <Text>{clinic.name}</Text>
+                        <Text appearance={'hint'}>{clinic.address}</Text>
+                    </View>
                 </View>
             </Layout>
         );

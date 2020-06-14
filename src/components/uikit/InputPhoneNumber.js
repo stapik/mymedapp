@@ -32,7 +32,6 @@ export class InputPhoneNumber extends React.Component {
                 <Input
                     label={'Номер телефона'}
                     textStyle={{paddingLeft: 0}}
-                    autoFocus={true}
                     accessoryLeft={this.renderCountryCallingCode}
                     {...this.props}
                     onChangeText={(value) => this.onChangeNumber(value)}

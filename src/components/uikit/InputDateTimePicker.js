@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Layout, Modal, Text} from '@ui-kitten/components';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Keyboard, StyleSheet, TouchableOpacity, View} from 'react-native';
 import moment from 'moment';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import {Constants} from '../../utils';
@@ -66,6 +66,11 @@ export class InputDateTimePicker extends React.Component {
         this.close();
     }
 
+    onPress = () => {
+        Keyboard.dismiss();
+        this.setState({show_date_picker: true})
+    };
+
     /**
      *
      * @returns {*}
@@ -88,7 +93,7 @@ export class InputDateTimePicker extends React.Component {
 
         return (
             <View>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.setState({show_date_picker: true})}>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.onPress()}>
                     <Text appearance={'hint'} category={'label'} style={{paddingBottom: 5, paddingTop: 1}}>
                         {label}
                     </Text>
@@ -99,7 +104,7 @@ export class InputDateTimePicker extends React.Component {
                                 borderWidth: 1,
                                 paddingLeft: 5,
                             }}>
-                        <Text style={{padding: 10}}>{date_text} </Text>
+                        <Text style={{padding: 10}}>{date_text}</Text>
                     </Layout>
                 </TouchableOpacity>
 

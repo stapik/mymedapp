@@ -67,17 +67,18 @@ class CheckSmsScreenContainer extends React.Component {
         }
         const phone_number = navigation.getParam('phone_number', '0');
         api.sendVerificationCode(phone_number)
-            .then(() => {
-                this._runSmsTimer();
+            .then((response) => {
+                console.log(response);
+                this.runSmsTimer();
             }).catch(() => {
-            this._runSmsTimer();
+            clearInterval(this.smsInterval);
         });
     };
 
     /**
      *
      */
-    _runSmsTimer = () => {
+    runSmsTimer = () => {
         const {internet_status} = this.props;
         if (!internet_status) {
             return;
@@ -101,7 +102,7 @@ class CheckSmsScreenContainer extends React.Component {
      * @param code
      * @private
      */
-    _typeCodeHandler(code) {
+    typeCodeHandler(code) {
         code = Str.onlyDigits(code);
         this.setState({code}, () => {
             this.verifyPhoneNumber();
@@ -122,7 +123,7 @@ class CheckSmsScreenContainer extends React.Component {
                 <Text category={'h4'}>Подтверждение</Text>
                 <Divider style={{height: 15, backgroundColor: 'transparent'}}/>
                 <Text>Пожалуйста, введите код подтверждения из смс</Text>
-                <InputCodeField cellCount={this.cellCount} onChangeText={(code) => this._typeCodeHandler(code)}/>
+                <InputCodeField cellCount={this.cellCount} onChangeText={(code) => this.typeCodeHandler(code)}/>
                 <Button disabled={Boolean(sms_interval)}
                         onPress={this.getSms}
                         style={{width: '100%', borderRadius: 5}} size={'small'} status={'primary'}

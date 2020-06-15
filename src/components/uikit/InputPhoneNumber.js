@@ -2,6 +2,7 @@ import React from 'react';
 import {Input, Text} from '@ui-kitten/components';
 import {View} from 'react-native';
 import {Phone} from '../../utils';
+import Str from '../../utils/Str';
 
 export class InputPhoneNumber extends React.Component {
 
@@ -11,7 +12,11 @@ export class InputPhoneNumber extends React.Component {
      */
     onChangeNumber(value) {
         const {handlerPhoneNumber} = this.props;
-        handlerPhoneNumber(value);
+        let numbers = Str.onlyDigits(value);
+        if(numbers.toString().length > 10){
+            numbers = numbers.substr(0, 10);
+        }
+        handlerPhoneNumber(numbers);
     }
 
     /**

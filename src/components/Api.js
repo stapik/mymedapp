@@ -118,11 +118,11 @@ class Api {
 
     /**
      *
-     * @param phoneNumber
+     * @param phoneNumberText
      * @returns {*}
      */
-    sendVerificationCode(phoneNumber) {
-        const phone_number = Phone.clear(phoneNumber, true);
+    sendVerificationCode(phoneNumberText) {
+        const phone_number = Phone.clear(phoneNumberText, true);
         return this.request('oauth/sendVerificationCode', {
             app_id: app_id.toString(),
             app_secret: app_secret.toString(),

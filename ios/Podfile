@@ -77,11 +77,6 @@ target 'mymedapp' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  target 'mymedappTests' do
-    inherit! :complete
-    # Pods for testing
-  end
-
   use_native_modules!
 
   # Enables Flipper.
@@ -91,14 +86,5 @@ target 'mymedapp' do
   add_flipper_pods!
   post_install do |installer|
     flipper_post_install(installer)
-  end
-end
-
-target 'mymedapp-tvOS' do
-  # Pods for mymedapp-tvOS
-
-  target 'mymedapp-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
   end
 end

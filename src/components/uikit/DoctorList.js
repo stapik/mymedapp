@@ -91,7 +91,8 @@ class DoctorList extends React.Component {
         if (selectedDate) {
             const selectedDateText = moment(selectedDate).format('dddd DD.MM');
             datesText = (<View>
-                <Text category={'s2'}>
+                <Text category={'s2'}>Выбранная дата приёма</Text>
+                <Text category={'s2'} appearance={'hint'}>
                     {selectedDateText} &mdash;
                     &nbsp;{doctor.day_slots_count}
                     &nbsp;{Str.numberStr(doctor.day_slots_count, ['номерок', 'номерка', 'номерков'])}
@@ -99,7 +100,8 @@ class DoctorList extends React.Component {
             </View>);
         } else {
             datesText = (<View>
-                <Text category={'s2'}>{slot_days_text}</Text>
+                <Text category={'s2'}>Ближайшие даты приёма</Text>
+                <Text category={'s2'} appearance={'hint'}>{slot_days_text}</Text>
             </View>);
         }
 

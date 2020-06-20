@@ -6,7 +6,7 @@ import {updateProfile} from '../../actions';
 import compose from '../../utils/compose';
 import {connect} from 'react-redux';
 import {InputDateTimePicker} from './InputDateTimePicker';
-import {Confidentiality} from './Confidentiality';
+import {Agreement} from './Agreement';
 import {InputPhoneNumber} from './InputPhoneNumber';
 import {Phone} from '../../utils';
 
@@ -96,7 +96,6 @@ class ProfileFormContainer extends FormValidator {
                     <Button style={{marginTop: 15}} onPress={this._onPressSubmit}>
                         {submitText}
                     </Button>
-                    <Confidentiality/>
                 </Content>
             </Container>
         );

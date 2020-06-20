@@ -3,7 +3,7 @@ import {Text, Divider} from '@ui-kitten/components';
 import {Container} from 'native-base';
 import FormValidator from '../../components/FormValidator';
 import {TouchableOpacity} from 'react-native';
-import {Confidentiality} from '../../components/uikit';
+import {Agreement} from '../../components/uikit';
 import {InputPhoneNumber} from '../../components/uikit/InputPhoneNumber';
 import {Phone} from '../../utils';
 
@@ -75,7 +75,7 @@ class LoginScreen extends FormValidator {
                 <Text>Войдите, чтобы записываться к врачам</Text>
                 <Divider style={{height: 20, backgroundColor: 'transparent'}}/>
                 <InputPhoneNumber
-                    caption={<Confidentiality/>}
+                    caption={<Agreement/>}
                     status={phone_error ? 'danger' : 'default'}
                     value={this.state.phone_number}
                     handlerPhoneNumber={(value) => this._phoneNumberHandler(value)}

@@ -121,7 +121,7 @@ class VisitListContainer extends Component {
                             alignItems: 'center',
                         }}>
                             <Icon style={{color: '#6f6f6f'}} name={'calendar-alt'} size={12}/>
-                            <Text style={{paddingLeft: 5, paddingRight: 15}} category={'c2'} appearance={'hint'}>
+                            <Text style={{paddingLeft: 5, paddingRight: 15}} category={'c1'} appearance={'hint'}>
                                 {date}
                             </Text>
                             <Icon style={{color: '#6f6f6f'}} name={'clock'} size={12}/>

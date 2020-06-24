@@ -4,10 +4,8 @@ import {Content, Container, Footer} from 'native-base';
 import {apple_app_id, package_name} from '../../../settings.json';
 import moment from 'moment';
 import {AndroidMarket} from 'react-native-rate';
-import {bindActionCreators} from 'redux';
-import {fetchDoctorInfo, searchDoctors, updateAppRateDate} from '../../actions';
+import {updateAppRateDate} from '../../actions';
 import compose from '../../utils/compose';
-import {withDoctorStoreService} from '../../components/hoc';
 import {connect} from 'react-redux';
 
 class VisitCreated extends React.Component {
@@ -17,7 +15,7 @@ class VisitCreated extends React.Component {
      */
     handlePressButton() {
         const {navigation} = this.props;
-        navigation.popToTop();
+        navigation.navigate('Visits');
         this.rateApp();
     }
 

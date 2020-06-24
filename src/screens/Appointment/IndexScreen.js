@@ -37,19 +37,20 @@ class ContainerScreen extends React.Component {
 
     /**
      *
-     * @param search
-     */
-    updateSearch = search => {
-        this.setState({search});
-    };
-
-    /**
-     *
      */
     componentDidMount(): void {
         const {searchDoctors} = this.props;
         searchDoctors();
     }
+
+
+    /**
+     *
+     * @param search
+     */
+    updateSearch = search => {
+        this.setState({search});
+    };
 
     /**
      * @param doctor

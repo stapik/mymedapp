@@ -57,19 +57,20 @@ class DoctorList extends React.Component {
                             appearance={'hint'}>
                             {work_period_text}
                         </Text> : null}
+
                         <Text
                             style={{paddingTop: 5, paddingRight: 15}}
                             category={'c2'}
                             appearance={'hint'}>
-                            {specialties}
+                            {work_rank_and_degree}
                         </Text>
                     </View>
                 </View>
                 <Text
-                    style={{paddingTop: 5, paddingRight: 15}}
+                    style={{paddingTop: 5}}
                     category={'c2'}
                     appearance={'hint'}>
-                    {work_rank_and_degree}
+                    {specialties}
                 </Text>
                 <Divider style={{marginTop: 10, marginBottom: 10, backgroundColor: '#e7e7e7'}}/>
                 {this.renderSlotDays(doctor.slot_days, doctor)}

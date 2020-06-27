@@ -2,7 +2,8 @@ import {createAppContainer} from 'react-navigation';
 import React from 'react';
 import {GuestNav, TabsNav} from '../navigator';
 import compose from '../utils/compose';
-import {connect, Provider} from 'react-redux';
+import {connect} from 'react-redux';
+import SplashScreen from 'react-native-splash-screen'
 import 'moment/locale/ru';
 import * as moment from 'moment';
 import {
@@ -19,7 +20,6 @@ import ClinicsStoreService from '../services/ClinicsStoreService';
 import VisitsStoreService from '../services/VisitsStoreService';
 import {InternetStatusBar} from './uikit/InternetStatusBar';
 import {PageLoader} from './uikit';
-import SplashScreen from 'react-native-splash-screen';
 import {store} from '../store';
 import {resetDoctorsFilter} from '../actions';
 

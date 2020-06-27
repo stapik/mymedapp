@@ -10,6 +10,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import {View} from 'react-native';
 import moment from 'moment';
 import {Phone} from '../../utils';
+import Push from '../../utils/Push';
 
 class ContainerScreen extends React.Component {
 
@@ -37,6 +38,9 @@ class ContainerScreen extends React.Component {
             ...data,
             phone_number: Phone.format(data.phone_number, true),
         }, (r) => {
+            const slotTime = moment(slot.time_start);
+            const pushMsgTime = 'Прием у врача' + slotTime.format(' D MMMM [в] HH:mm').toLowerCase();
+            Push.schedule(r.id, pushMsgTime, slotTime.subtract(2, 'hours').toDate());
             navigation.navigate('VisitCreated');
         });
     };

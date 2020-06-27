@@ -54,6 +54,12 @@
 		<string>Ionicons.ttf</string>
 		<string>FontAwesome.ttf</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>processing</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>CustomLaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

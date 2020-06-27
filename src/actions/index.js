@@ -279,7 +279,7 @@ const createVisit = (visitsStoreService) => (data, successCb) => (dispatch) => {
     visitsStoreService
         .create(data)
         .then(({data}) => {
-            successCb();
+            successCb(data);
         })
         .catch((err) => dispatch(fetchError(err)))
         .finally(() => {

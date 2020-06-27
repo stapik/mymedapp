@@ -43,7 +43,6 @@ class ContainerScreen extends React.Component {
         searchDoctors();
     }
 
-
     /**
      *
      * @param search

@@ -7,7 +7,6 @@ import {withVisitsStoreService} from '../../components/hoc';
 import {connect} from 'react-redux';
 import moment from 'moment';
 import {VisitList} from '../../components/VisitList';
-import {Text} from '@ui-kitten/components';
 
 class ContainerScreen extends React.Component {
 

@@ -5,10 +5,11 @@ import moment from 'moment';
 import {updateProfilePhoneNumber} from '../../actions';
 import compose from '../../utils/compose';
 import {connect} from 'react-redux';
-import {Dimensions} from 'react-native';
+import {Alert, Dimensions} from 'react-native';
 import {withApi} from '../../components/hoc';
 import {Phone, Str} from '../../utils';
 import InputCodeField from '../../components/uikit/InputCodeField';
+import Push from '../../utils/Push';
 
 class CheckSmsScreenContainer extends React.Component {
 
@@ -53,6 +54,27 @@ class CheckSmsScreenContainer extends React.Component {
             clearInterval(this.smsInterval);
             navigation.navigate('TabsNav');
             updateProfilePhoneNumber(phone_number);
+            Push.checkPermissions((actions) => {
+                if(actions.alert){
+                    return;
+                }
+                Alert.alert(
+                    '',
+                    'Уведомлять о предстоящих визитах и акциях?',
+                    [
+                        {
+                            text: 'Нет',
+                            style: 'cancel',
+                        },
+                        {
+                            text: 'Да', onPress: () => {
+                                Push.requestPermissions();
+                            },
+                        },
+                    ],
+                    {cancelable: false},
+                );
+            });
         });
     };
 

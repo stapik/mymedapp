@@ -15,8 +15,17 @@ class VisitCreated extends React.Component {
      */
     handlePressButton() {
         const {navigation} = this.props;
-        navigation.navigate('Visits');
-        this.rateApp();
+        navigation.popToTop();
+
+        Promise.all([
+            navigation.navigate('Visits')
+        ]).catch(() => {
+            navigation.navigate('Index');
+        });
+
+        setTimeout(() => {
+            this.rateApp();
+        }, 3000);
     }
 
     /**
@@ -73,7 +82,7 @@ const mapStateToProps = ({app_rate_date}) => {
 };
 
 const mapDispatchToProps = {
-    updateAppRateDate
+    updateAppRateDate,
 };
 
 const VisitCreatedModalScreen = compose(

@@ -8,6 +8,7 @@ import compose from '../utils/compose';
 import {withDoctorStoreService, withVisitsStoreService} from './hoc';
 import {connect} from 'react-redux';
 import {Phone} from '../utils';
+import Push from '../utils/Push';
 
 class VisitListContainer extends Component {
 
@@ -42,6 +43,7 @@ class VisitListContainer extends Component {
                     text: 'Да', onPress: () => {
                         cancelVisit(id, () => {
                             fetchVisits();
+                            Push.cancel(id);
                         });
                     },
                 },

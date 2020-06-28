@@ -51,10 +51,6 @@ LocaleConfig.defaultLocale = 'ru';
 
 class CalendarScreen extends React.Component {
 
-    state = {
-        clicked_day: null,
-    };
-
     static navigationOptions = ({navigation}) => {
         return {
             title: 'Выберите день',
@@ -66,14 +62,10 @@ class CalendarScreen extends React.Component {
      * @param day
      */
     handleSelectDate = (day) => {
-        this.setState({clicked_day: day});
         const {navigation} = this.props;
         const {handleSelectDate} = this.props.navigation.state.params;
         handleSelectDate(day);
         navigation.goBack();
-        setTimeout(() => {
-            this.setState({clicked_day: null});
-        }, 1000);
     };
 
     /**
@@ -85,7 +77,6 @@ class CalendarScreen extends React.Component {
             selectedDate: selected_date_str,
             availableDates: available_dates, allDates,
         } = this.props.navigation.state.params;
-        const {clicked_day} = this.state;
         // get from api
         let date_format = 'YYYY-MM-DD';
         let from_date_str = moment().format(date_format);
@@ -102,10 +93,6 @@ class CalendarScreen extends React.Component {
             [from_date_str]: {selected: true, selectedColor: current_day_color},
             [selected_date_str]: {selected: true, selectedColor: selected_color},
         };
-
-        if (clicked_day) {
-            marked_dates[clicked_day] = {selected: true, selectedColor: selected_color};
-        }
 
         // add marked days
         let temp_date = first_date;

@@ -108,7 +108,6 @@ class ContainerScreen extends React.Component {
             </View>
             <DoctorList
                 selectedDate={doctors_filter.date}
-
                 renderHeader={this.renderHeader}
                 doctors={filtered_doctors}
                 selectHandler={this.selectHandler}/>

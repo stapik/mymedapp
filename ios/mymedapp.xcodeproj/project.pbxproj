@@ -11,6 +11,7 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		853ED13924A8B232002A8928 /* RNBackgroundFetch+AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 853ED13824A8B232002A8928 /* RNBackgroundFetch+AppDelegate.m */; };
 		8565550D24A6B15E0019901F /* CustomLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8565550C24A6B15E0019901F /* CustomLaunchScreen.storyboard */; };
 		AD0BC6B47846747AD42E3D17 /* libPods-mymedapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 514EC792D3DBDAF6EFBF0228 /* libPods-mymedapp.a */; };
 /* End PBXBuildFile section */
@@ -35,6 +36,7 @@
 		5E3EDF8D35FBFE2E5B5A0DC0 /* Pods-mymedapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mymedapp.debug.xcconfig"; path = "Target Support Files/Pods-mymedapp/Pods-mymedapp.debug.xcconfig"; sourceTree = "<group>"; };
 		6ED94BD2A6C5E9AFB1B385A2 /* Pods-mymedapp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mymedapp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-mymedapp-tvOSTests/Pods-mymedapp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		853ED13724A77208002A8928 /* MyMedApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MyMedApp.entitlements; path = mymedapp/MyMedApp.entitlements; sourceTree = "<group>"; };
+		853ED13824A8B232002A8928 /* RNBackgroundFetch+AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "RNBackgroundFetch+AppDelegate.m"; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch/RNBackgroundFetch+AppDelegate.m"; sourceTree = "<group>"; };
 		8565550C24A6B15E0019901F /* CustomLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CustomLaunchScreen.storyboard; sourceTree = "<group>"; };
 		86D89B6468A8094487FAF423 /* libPods-mymedapp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mymedapp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C686C8EC6E50C6FA1B41B49 /* Pods-mymedapp-mymedappTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mymedapp-mymedappTests.debug.xcconfig"; path = "Target Support Files/Pods-mymedapp-mymedappTests/Pods-mymedapp-mymedappTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 		13B07FAE1A68108700A75B9A /* mymedapp */ = {
 			isa = PBXGroup;
 			children = (
+				853ED13824A8B232002A8928 /* RNBackgroundFetch+AppDelegate.m */,
 				853ED13724A77208002A8928 /* MyMedApp.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -327,6 +330,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				853ED13924A8B232002A8928 /* RNBackgroundFetch+AppDelegate.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);

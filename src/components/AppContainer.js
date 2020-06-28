@@ -3,7 +3,7 @@ import React from 'react';
 import {GuestNav, TabsNav} from '../navigator';
 import compose from '../utils/compose';
 import {connect} from 'react-redux';
-import SplashScreen from 'react-native-splash-screen'
+import SplashScreen from 'react-native-splash-screen';
 import 'moment/locale/ru';
 import * as moment from 'moment';
 import {
@@ -22,6 +22,7 @@ import {InternetStatusBar} from './uikit/InternetStatusBar';
 import {PageLoader} from './uikit';
 import {store} from '../store';
 import {resetDoctorsFilter} from '../actions';
+import BackgroundFetch from 'react-native-background-fetch';
 
 moment.locale('ru');
 
@@ -33,6 +34,22 @@ class AppContainerComponent extends React.Component {
     componentDidMount(): void {
         SplashScreen.hide();
         store.dispatch(resetDoctorsFilter());
+        const api = new Api();
+
+        // Step 1:  Configure BackgroundFetch as usual.
+        BackgroundFetch.configure({
+            minimumFetchInterval: 15,
+            stopOnTerminate: false,
+            startOnBoot: true,
+        }, async (taskId) => {
+            // Use a switch statement to route task-handling.
+            switch (taskId) {
+                default:
+                    api.online();
+            }
+            // Finish, providing received taskId.
+            BackgroundFetch.finish(taskId);
+        });
     }
 
     /**
@@ -46,6 +63,7 @@ class AppContainerComponent extends React.Component {
         const clinicsStoreService = new ClinicsStoreService(api);
         const visitsStoreService = new VisitsStoreService(api);
         const AppContainer = createAppContainer(this.props.token_info ? TabsNav : GuestNav);
+
         return (
             <ApiProvider value={api}>
                 <SpecialtiesStoreProvider value={specialtiesStoreService}>

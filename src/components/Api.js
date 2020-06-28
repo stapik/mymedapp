@@ -15,7 +15,6 @@ class Api {
 
     netInfo;
     instance;
-    store;
     internetStatus;
 
     /**
@@ -149,6 +148,13 @@ class Api {
         }).then((data) => {
             this._updateTokenInfo(data);
         });
+    }
+
+    /**
+     *
+     */
+    online() {
+        return this.request('oauth/online');
     }
 
     /**

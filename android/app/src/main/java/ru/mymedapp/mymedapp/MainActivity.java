@@ -1,4 +1,4 @@
-package ru.mymedapp.demo;
+package ru.mymedapp.mymedapp;
 
 import android.os.Bundle;
 

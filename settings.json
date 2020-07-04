@@ -1,9 +1,9 @@
 {
-  "app_id": 1,
-  "app_secret": "WRlPpsWoy773XxxKsJWUbVEs24yC5aeJBV7rMlIr",
-  "api_url": "http://192.168.88.254:3030/api/app/v1",
+  "app_id": 2,
+  "app_secret": "qoxDxgVZJpwee2DebPYpSdJL7QP0weL6qheyuH8k",
+  "api_url": "https://mymedapp.ru/api/app/v1",
   "apple_app_id": "1494872855",
-  "package_name": "ru.mymedapp.demo",
+  "package_name": "ru.mymedapp.mymedapp",
   "defaultStackConfig": {
     "initialRouteName": "Index",
     "defaultNavigationOptions": {

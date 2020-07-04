@@ -73,7 +73,7 @@ class DoctorList extends React.Component {
                     {specialties}
                 </Text>
                 <Divider style={{marginTop: 10, marginBottom: 10, backgroundColor: '#e7e7e7'}}/>
-                {this.renderSlotDays(doctor.siblings_slot_days ?? [], doctor)}
+                {this.renderSlotDays(doctor.siblings_slot_days, doctor)}
             </TouchableOpacity>
         </Layout>);
     };
@@ -85,6 +85,7 @@ class DoctorList extends React.Component {
      * @returns {*}
      */
     renderSlotDays(slot_days, doctor) {
+        slot_days = slot_days.length ? slot_days : [];
         const {selectedDate} = this.props;
         const slot_days_text = slot_days.map((item) => moment(item).format('dddd DD.MM')).join(', ');
         let datesText = '';

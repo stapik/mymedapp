@@ -85,7 +85,7 @@ class DoctorList extends React.Component {
      * @returns {*}
      */
     renderSlotDays(slot_days, doctor) {
-        slot_days = slot_days.length ? slot_days : [];
+        slot_days = slot_days !== undefined ? slot_days : [];
         const {selectedDate} = this.props;
         const slot_days_text = slot_days.map((item) => moment(item).format('dddd DD.MM')).join(', ');
         let datesText = '';

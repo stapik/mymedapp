@@ -73,7 +73,7 @@ class DoctorList extends React.Component {
                     {specialties}
                 </Text>
                 <Divider style={{marginTop: 10, marginBottom: 10, backgroundColor: '#e7e7e7'}}/>
-                {this.renderSlotDays(doctor.siblings_slot_days, doctor)}
+                {this.renderSlotDays(doctor.siblings_slot_days ?? [], doctor)}
             </TouchableOpacity>
         </Layout>);
     };

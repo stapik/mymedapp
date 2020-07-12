@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, TouchableHighlight, Image} from 'react-native';
 import {ListItem} from 'react-native-elements';
-import {Text} from '@ui-kitten/components';
+import {Layout, Text} from '@ui-kitten/components';
 import {updateProfile} from '../../actions';
 import compose from '../../utils/compose';
 import {connect} from 'react-redux';
@@ -17,7 +17,7 @@ class ContainerScreen extends React.Component {
         const {profile} = this.props;
 
         return (
-            <View style={{flex: 1}}>
+            <Layout style={{flex: 1}}>
                 <View style={{flex: 0.2, flexDirection: 'row', padding: 20, alignItems: 'center', paddingTop: 40}}>
                     <Image
                         source={require('../../images/profile.png')}
@@ -59,7 +59,7 @@ class ContainerScreen extends React.Component {
                         />
                     </TouchableHighlight>
                 </View>
-            </View>
+            </Layout>
         );
     }
 }

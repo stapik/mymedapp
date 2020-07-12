@@ -19,7 +19,7 @@ class ContainerScreen extends React.Component {
         const title = navigation.getParam('specialty_name');
         return {
             title: title,
-            headerRight: (
+            headerRight: () => (
                 <TouchableOpacity activeOpacity={0.6} onPress={() => navigation.navigate('DoctorsFilter')}>
                     <Icon name='sliders-h' style={{paddingRight: 15}} size={20}/>
                 </TouchableOpacity>

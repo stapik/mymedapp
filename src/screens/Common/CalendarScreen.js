@@ -5,6 +5,7 @@ import {Calendar, LocaleConfig} from 'react-native-calendars';
 import {TextSmall} from '../../components/base';
 import moment from 'moment/src/moment';
 import * as _ from 'lodash';
+import {Layout} from '@ui-kitten/components';
 
 LocaleConfig.locales['ru'] = {
     monthNames: [
@@ -118,8 +119,8 @@ class CalendarScreen extends React.Component {
         }
 
         return (
-            <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start'}}>
-                <View style={{width: '100%', marginTop: 20}}>
+            <Layout style={{flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start'}}>
+                <Layout style={{width: '100%', marginTop: 20}}>
                     <Calendar
                         minDate={from_date_str}
                         current={new Date()}
@@ -128,11 +129,11 @@ class CalendarScreen extends React.Component {
                         markedDates={marked_dates}
                     />
                     <Divider style={{height: 30, backgroundColor: '#fff'}}/>
-                </View>
-                <View style={{padding: 5}}>
+                </Layout>
+                <Layout style={{padding: 5}}>
                     <TextSmall>Записаться к врачу можно только на ближайшие 2 недели</TextSmall>
-                </View>
-            </View>
+                </Layout>
+            </Layout>
         );
     }
 }

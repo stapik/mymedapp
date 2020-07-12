@@ -23,7 +23,7 @@ class ContainerScreen extends React.Component {
         const is_favorite = params.is_favorite;
         return {
             title: shorthandName,
-            headerRight: (is_favorite === undefined ? <Text/> :
+            headerRight: () => (is_favorite === undefined ? <Text/> :
                     <TouchableOpacity activeOpacity={0.6} onPress={params.toggleFavorite}>
                         <Icon name='star' style={{paddingRight: 15, color: 'red'}} size={20}
                               solid={is_favorite}/>
@@ -151,7 +151,7 @@ class ContainerScreen extends React.Component {
         return (
             <ScrollView
                 ref="scroll"
-                style={{flex: 1}}>
+                style={{flex: 1, backgroundColor: '#fff'}}>
                 <Image
                     source={{uri: doctor.avatar}}
                     resizeMode={'cover'}

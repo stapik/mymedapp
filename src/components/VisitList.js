@@ -158,7 +158,7 @@ class VisitListContainer extends Component {
      */
     statusButtons(old, canceled, visit_id, doctor) {
 
-        const statusText = canceled ? 'Отменён' : 'Зарегистрирован';
+        const statusText = canceled ? 'Отменён' : 'Подтверждено клиникой';
         const statusType = canceled ? 'danger' : 'success';
         let pressCb, pressBtnText;
 
@@ -173,16 +173,16 @@ class VisitListContainer extends Component {
         return <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
             <Button size={'small'}
                     onPress={pressCb}
-                    style={{width: '39%'}}
+                    style={{width: '37%'}}
                     appearance='outline'
                     status={'danger'}>{pressBtnText}</Button>
             {old ? <Button size={'small'}
-                           style={{width: '59%'}}
+                           style={{width: '61%'}}
                            onPress={() => this._selectDoctor(doctor)}
                            appearance='outline'
                            status={'info'}>Повторная запись</Button>
                 :
-                <Layout style={{padding: 7, borderRadius: 5, width: '59%'}} level={'3'}>
+                <Layout style={{padding: 7, borderRadius: 5, width: '61%'}} level={'3'}>
                     <Text status={statusType} style={{textAlign: 'center'}}>{statusText}</Text>
                 </Layout>
             }
@@ -198,6 +198,10 @@ class VisitListContainer extends Component {
         fetchVisits(() => this.setState({refreshing: false}));
     };
 
+    /**
+     *
+     * @returns {*}
+     */
     renderDivider = () => {
         return <View style={{height: 15, backgroundColor: 'transparent'}}/>;
     };

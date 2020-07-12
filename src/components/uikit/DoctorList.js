@@ -35,14 +35,14 @@ class DoctorList extends React.Component {
             borderWidth: 1,
         }}>
             <TouchableOpacity activeOpacity={0.60} onPress={() => this.props.selectHandler(doctor)}>
-                <View style={{flexDirection: 'row'}}>
+                <Layout style={{flexDirection: 'row'}}>
                     <Image
                         source={{uri: doctor.avatar}}
                         resizeMode={'cover'}
                         style={{width: avatar_width, height: avatar_height, borderRadius: 5}}
                         PlaceholderContent={<ActivityIndicator/>}
                     />
-                    <View style={{
+                    <Layout style={{
                         padding: 5,
                         paddingTop: 0,
                         paddingLeft: 10,
@@ -64,8 +64,8 @@ class DoctorList extends React.Component {
                             appearance={'hint'}>
                             {work_rank_and_degree}
                         </Text>
-                    </View>
-                </View>
+                    </Layout>
+                </Layout>
                 <Text
                     style={{paddingTop: 5}}
                     category={'c2'}

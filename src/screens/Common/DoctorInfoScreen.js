@@ -10,6 +10,7 @@ import compose from '../../utils/compose';
 import {connect} from 'react-redux';
 import {withDoctorStoreService} from '../../components/hoc';
 import moment from 'moment';
+import Str from '../../utils/Str';
 
 class ContainerScreen extends React.Component {
 
@@ -17,12 +18,12 @@ class ContainerScreen extends React.Component {
         selected_date: null,
     };
 
-    static navigationOptions = ({navigation, navigation: {state: {params}}}) => {
-        const last_name = params.doctor.name.split(' ')[0];
+    static navigationOptions = ({navigation: {state: {params}}}) => {
+        const shorthandName = Str.getShorthandName(params.doctor.name);
         const is_favorite = params.is_favorite;
         return {
-            title: last_name,
-            headerRight: (is_favorite === undefined ? <Text/> :
+            title: shorthandName,
+            headerRight: () => (is_favorite === undefined ? <Text/> :
                     <TouchableOpacity activeOpacity={0.6} onPress={params.toggleFavorite}>
                         <Icon name='star' style={{paddingRight: 15, color: 'red'}} size={20}
                               solid={is_favorite}/>
@@ -120,6 +121,18 @@ class ContainerScreen extends React.Component {
 
     /**
      *
+     * @param counted
+     * @returns {*}
+     */
+    renderSlotsCountMsg(counted) {
+        return counted > 0 ? null :
+            <Text style={{padding: 15, textAlign: 'center', paddingTop: 25}} category={'c2'} appearance={'hint'}>
+                Нет свободного времени
+            </Text>;
+    }
+
+    /**
+     *
      * @returns {*}
      */
     render() {
@@ -133,11 +146,12 @@ class ContainerScreen extends React.Component {
         const work_rank_and_degree = (work_rank ? work_rank + '. ' : '') + (work_degree ? work_degree + '.' : '');
 
         const {width} = Dimensions.get('window');
+        const slotsCount = doctor.slots.length;
 
         return (
             <ScrollView
                 ref="scroll"
-                style={{flex: 1}}>
+                style={{flex: 1, backgroundColor: '#fff'}}>
                 <Image
                     source={{uri: doctor.avatar}}
                     resizeMode={'cover'}
@@ -179,6 +193,8 @@ class ContainerScreen extends React.Component {
                             Изменить дату
                         </Button>
                     </View>
+
+                    {this.renderSlotsCountMsg(slotsCount)}
 
                     <Layout style={{padding: 15, paddingBottom: 0, marginBottom: -15}}>
                         {doctor.clinics.map((clinic) => {

@@ -2,6 +2,22 @@ const Str = {
 
     /**
      *
+     * @param fullName
+     * @returns {string}
+     */
+    getShorthandName: function (fullName) {
+        let names = fullName.split(' ');
+        let shorthandName = '';
+
+        names.forEach(function (item, idx) {
+            shorthandName += idx > 0 ? item.substring(0, 1).toUpperCase() + '.' : item + ' ';
+        });
+
+        return shorthandName;
+    },
+
+    /**
+     *
      * @param needle
      * @param haystack
      * @returns {boolean}

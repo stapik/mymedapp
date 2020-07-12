@@ -2,6 +2,7 @@ import React from 'react';
 import {Linking, TouchableHighlight, View} from 'react-native';
 import {Divider, Text, ListItem} from 'react-native-elements';
 import Str from '../../utils/Str';
+import {Layout} from '@ui-kitten/components';
 
 class SupportScreen extends React.Component {
 
@@ -26,7 +27,7 @@ class SupportScreen extends React.Component {
      */
     render() {
         return (
-            <View style={{flex: 1, padding: 20}}>
+            <Layout style={{flex: 1, padding: 20}}>
                 <Text>Если вы нашли опечатку или ошибку в приложении, пожалуйста, сообщите нам об этом через электронную
                     почту.
                 </Text>
@@ -43,7 +44,7 @@ class SupportScreen extends React.Component {
                         bottomDivider
                     />
                 </TouchableHighlight>
-            </View>
+            </Layout>
         );
     }
 }

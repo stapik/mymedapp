@@ -1,19 +1,36 @@
 import * as PushNotification from 'react-native-push-notification';
 import {Constants} from './index';
+import moment from 'moment';
 
 const Push = {
+    /**
+     *
+     * @param visit_id
+     * @param time_start
+     */
+    createVisitPush: function (visit_id, time_start) {
+        const beforeVisitHours = 2;
+        const slotTime = moment(time_start);
+
+        if (moment(time_start).subtract(beforeVisitHours, 'hours').isBefore()) {
+            return;
+        }
+
+        const pushMsgTime = 'Прием у врача' + slotTime.format(' D MMMM [в] HH:mm').toLowerCase();
+        Push.schedule(visit_id, pushMsgTime, slotTime.subtract(beforeVisitHours, 'hours').toDate());
+    },
 
     /**
      *
      */
-    requestPermissions: function(){
+    requestPermissions: function () {
         PushNotification.requestPermissions();
     },
 
     /**
      *
      */
-    checkPermissions: function(cb){
+    checkPermissions: function (cb) {
         PushNotification.checkPermissions(cb);
     },
 

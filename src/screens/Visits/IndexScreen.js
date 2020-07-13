@@ -7,6 +7,7 @@ import {withVisitsStoreService} from '../../components/hoc';
 import {connect} from 'react-redux';
 import moment from 'moment';
 import {VisitList} from '../../components/VisitList';
+import Push from '../../utils/Push';
 
 class ContainerScreen extends React.Component {
 
@@ -19,7 +20,15 @@ class ContainerScreen extends React.Component {
         let visitsListLoaded = false;
         this.visitsFocusListener = navigation.addListener('didFocus', () => {
             if (!visitsListLoaded) {
-                fetchVisits();
+                fetchVisits(null, (visits) => {
+                    //Push.cancelAll();
+                    if (visits) {
+                        visits.forEach((visit) => {
+                            Push.createVisitPush(visit.id, visit.time_start);
+                        });
+                    }
+                });
+
                 visitsListLoaded = true;
             }
             setTimeout(() => visitsListLoaded = false, 10000);

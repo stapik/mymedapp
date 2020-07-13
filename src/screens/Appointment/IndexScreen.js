@@ -5,12 +5,13 @@ import {fetchDoctorInfo, searchDoctors} from '../../actions';
 import {withDoctorStoreService} from '../../components/hoc';
 import {bindActionCreators} from 'redux';
 import {DoctorList} from '../../components/uikit';
-import {TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import {SearchBar} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import {Layout, Text} from '@ui-kitten/components';
+import {Text} from '@ui-kitten/components';
 import moment from 'moment';
 import {Constants} from '../../utils';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 class ContainerScreen extends React.Component {
 
@@ -22,7 +23,7 @@ class ContainerScreen extends React.Component {
     static navigationOptions = ({navigation}) => {
         return {
             title: 'Поиск врача',
-            headerRight: () => (
+            headerRight: (
                 <TouchableOpacity
                     style={{marginRight: 15, paddingLeft: 30}}
                     activeOpacity={0.7}
@@ -86,8 +87,8 @@ class ContainerScreen extends React.Component {
 
         const filtered_doctors = doctors.length ? doctors.filter(item => item.name.indexOf(search) > -1) : [];
 
-        return (<Layout style={{flex: 1}}>
-            <Layout style={{
+        return (<View style={{flex: 1}}>
+            <View style={{
                 borderWidth: 1,
                 borderColor: '#dadada',
             }}>
@@ -105,13 +106,13 @@ class ContainerScreen extends React.Component {
                         paddingLeft: 20,
                     }}
                 />
-            </Layout>
+            </View>
             <DoctorList
                 selectedDate={doctors_filter.date}
                 renderHeader={this.renderHeader}
                 doctors={filtered_doctors}
                 selectHandler={this.selectHandler}/>
-        </Layout>);
+        </View>);
     }
 }
 

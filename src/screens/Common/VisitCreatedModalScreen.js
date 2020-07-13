@@ -7,8 +7,7 @@ import {AndroidMarket} from 'react-native-rate';
 import {updateAppRateDate} from '../../actions';
 import compose from '../../utils/compose';
 import {connect} from 'react-redux';
-import {Alert} from 'react-native';
-import Push from '../../utils/Push';
+import {AlertStatic as Alert} from 'react-native';
 
 class VisitCreated extends React.Component {
 
@@ -36,10 +35,10 @@ class VisitCreated extends React.Component {
     rateApp() {
         const {app_rate_date, updateAppRateDate} = this.props;
         const rateDateFormat = 'YYYY-MM-DD';
-        const lastDate = moment().subtract(31, 'days');
+        const lastDate = moment().subtract(91, 'days');
         const lastRateDate = app_rate_date ? moment(app_rate_date, rateDateFormat) : lastDate;
 
-        if (lastRateDate.diff(lastDate, 'days') > 30) {
+        if (lastRateDate.diff(lastDate, 'days') > 90) {
             Alert.alert(
                 'Оценка сервиса',
                 'На сколько удобно записаться к врачу?',
@@ -68,6 +67,8 @@ class VisitCreated extends React.Component {
                 {cancelable: false},
             );
         }
+
+
     }
 
     /**

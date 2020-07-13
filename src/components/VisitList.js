@@ -158,7 +158,7 @@ class VisitListContainer extends Component {
      */
     statusButtons(old, canceled, visit_id, doctor) {
 
-        const statusText = canceled ? 'Отменён' : 'Подтверждено клиникой';
+        const statusText = canceled ? 'Отменён' : 'Подтвержден клиникой';
         const statusType = canceled ? 'danger' : 'success';
         let pressCb, pressBtnText;
 
@@ -198,10 +198,6 @@ class VisitListContainer extends Component {
         fetchVisits(() => this.setState({refreshing: false}));
     };
 
-    /**
-     *
-     * @returns {*}
-     */
     renderDivider = () => {
         return <View style={{height: 15, backgroundColor: 'transparent'}}/>;
     };

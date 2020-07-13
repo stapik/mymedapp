@@ -7,6 +7,7 @@ import {AndroidMarket} from 'react-native-rate';
 import {updateAppRateDate} from '../../actions';
 import compose from '../../utils/compose';
 import {connect} from 'react-redux';
+import {AlertStatic as Alert} from 'react-native';
 
 class VisitCreated extends React.Component {
 
@@ -18,7 +19,7 @@ class VisitCreated extends React.Component {
         navigation.popToTop();
 
         Promise.all([
-            navigation.navigate('Visits')
+            navigation.navigate('Visits'),
         ]).catch(() => {
             navigation.navigate('Index');
         });
@@ -34,23 +35,40 @@ class VisitCreated extends React.Component {
     rateApp() {
         const {app_rate_date, updateAppRateDate} = this.props;
         const rateDateFormat = 'YYYY-MM-DD';
-        const currentDate = moment();
-        const lastRateDate = app_rate_date ? moment(app_rate_date, rateDateFormat) : currentDate;
+        const lastDate = moment().subtract(91, 'days');
+        const lastRateDate = app_rate_date ? moment(app_rate_date, rateDateFormat) : lastDate;
 
-        if (lastRateDate.diff(currentDate, 'days') > 90) {
-            const options = {
-                AppleAppID: apple_app_id,
-                GooglePackageName: package_name,
-                preferredAndroidMarket: AndroidMarket.Google,
-                preferInApp: true,
-                openAppStoreIfInAppFails: true,
-            };
-            Rate.rate(options, success => {
-                if (success) {
-                    updateAppRateDate(currentDate.format(rateDateFormat));
-                }
-            });
+        if (lastRateDate.diff(lastDate, 'days') > 90) {
+            Alert.alert(
+                'Оценка сервиса',
+                'На сколько удобно записаться к врачу?',
+                [
+                    {
+                        text: 'Позже',
+                        style: 'cancel',
+                    },
+                    {
+                        text: 'Оценить', onPress: () => {
+                            const options = {
+                                AppleAppID: apple_app_id,
+                                GooglePackageName: package_name,
+                                preferredAndroidMarket: AndroidMarket.Google,
+                                preferInApp: true,
+                                openAppStoreIfInAppFails: true,
+                            };
+                            Rate.rate(options, success => {
+                                if (success) {
+                                    updateAppRateDate(lastDate.format(rateDateFormat));
+                                }
+                            });
+                        },
+                    },
+                ],
+                {cancelable: false},
+            );
         }
+
+
     }
 
     /**

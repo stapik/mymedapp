@@ -7,10 +7,11 @@ import {bindActionCreators} from 'redux';
 import {DoctorList} from '../../components/uikit';
 import {View, TouchableOpacity} from 'react-native';
 import {SearchBar} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/Ionicons';
 import {Text} from '@ui-kitten/components';
 import moment from 'moment';
 import {Constants} from '../../utils';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 class ContainerScreen extends React.Component {
 
@@ -24,11 +25,11 @@ class ContainerScreen extends React.Component {
             title: 'Поиск врача',
             headerRight: (
                 <TouchableOpacity
-                    style={{marginRight: 10, paddingLeft: 25}}
+                    style={{marginRight: 15, paddingLeft: 30}}
                     activeOpacity={0.7}
                     onPress={() => navigation.navigate('DoctorsFilter')}>
                     <Text status='primary'>
-                        <Icon name={'ios-options'} size={26}/>
+                        <Icon name={'sliders'} size={26}/>
                     </Text>
                 </TouchableOpacity>
             ),

@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const resetDoctorsFilter = () => {
     return {
         type: 'RESET_DOCTORS_FILTER',
@@ -11,7 +13,7 @@ const updateDoctorsFilter = (filter) => {
     };
 };
 
-const updateAppRateDate= (date) => {
+const updateAppRateDate = (date) => {
     return {
         type: 'UPDATE_APP_RATE_DATE',
         payload: date,
@@ -141,8 +143,9 @@ const fetchSpecialties = (specialtiesStoreService) => () => (dispatch) => {
  * @param visitsStoreService
  * @returns {function(): Function}
  */
-const fetchVisits = (visitsStoreService) => (finalCb) => (dispatch) => {
-    const isDefault = typeof finalCb !== 'function';
+const fetchVisits = (visitsStoreService) => (finalCb, successCallback) => (dispatch) => {
+    const isDefault = !_.isFunction(finalCb);
+
     if (isDefault) {
         dispatch(pageLoading());
     }
@@ -150,6 +153,9 @@ const fetchVisits = (visitsStoreService) => (finalCb) => (dispatch) => {
         .getList()
         .then(({data}) => {
             dispatch(visitsLoaded(data));
+            if (_.isFunction(successCallback)) {
+                successCallback(data);
+            }
         })
         .catch((err) => dispatch(fetchError(err)))
         .finally(() => {
@@ -329,5 +335,5 @@ export {
     fetchVisits,
     deleteVisit,
     cancelVisit,
-    updateAppRateDate
+    updateAppRateDate,
 };

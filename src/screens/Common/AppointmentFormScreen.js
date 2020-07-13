@@ -38,9 +38,8 @@ class ContainerScreen extends React.Component {
             ...data,
             phone_number: Phone.format(data.phone_number, true),
         }, (r) => {
-            const slotTime = moment(slot.time_start);
-            const pushMsgTime = 'Прием у врача' + slotTime.format(' D MMMM [в] HH:mm').toLowerCase();
-            Push.schedule(r.id, pushMsgTime, slotTime.subtract(2, 'hours').toDate());
+            console.log(r);
+            Push.createVisitPush(r.id, r.time_start);
             navigation.navigate('VisitCreated');
         });
     };
